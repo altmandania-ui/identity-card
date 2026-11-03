@@ -143,6 +143,28 @@
   .tpl .no { position: absolute; right: -10px; bottom: -22px; font-size: 44px; line-height: 1; color: var(--red); font-weight: 700; rotate: -10deg; opacity: 0; scale: 2; transition: scale .25s var(--ease) .35s, opacity .1s .35s; }
   .a24 .tpl .no { opacity: 1; scale: 1; }
 
+  /* ---------- chapter two: everything, in order. thirteen things joined by one line that draws itself as you scroll ---------- */
+  .map { position: relative; max-width: 1100px; margin: 0 auto; padding: 22vh 24px 10vh; }
+  .map-head { font-size: clamp(22px, 3vw, 36px); line-height: 1.2; letter-spacing: -.01em; max-width: 560px; }
+  .map-head small { display: block; font-size: 13px; line-height: 18px; color: var(--grey); margin-top: 10px; letter-spacing: 0; }
+  .board { position: relative; height: 2300px; margin-top: 60px; }
+  .board svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .board path { fill: none; stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
+  .thing { position: absolute; width: var(--w); left: var(--x); top: var(--y); margin: 0; translate: -50% -50%; opacity: 0; scale: .92; transition: opacity .45s, scale .6s var(--ease); }
+  .thing.on { opacity: 1; scale: 1; }
+  .thing img { width: 100%; }
+  .thing .n { position: absolute; font-size: 13px; line-height: 16px; left: calc(100% + 8px); top: 0; }
+  .thing.nl .n { left: auto; right: calc(100% + 8px); }
+  .thing figcaption { position: absolute; left: 0; top: calc(100% + 6px); font-size: 11px; line-height: 15px; color: var(--grey); white-space: nowrap; }
+  .thing.cl figcaption { left: auto; right: 0; text-align: right; }
+  .thing.boxed img { border: 1px solid var(--line); }
+  .map-foot { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; gap: 24px; flex-wrap: wrap; }
+  .map-foot .when { font-size: clamp(20px, 2.6vw, 30px); line-height: 1.15; letter-spacing: -.01em; }
+  .map-foot .when small { display: block; font-size: 13px; line-height: 18px; color: var(--grey); margin-top: 6px; letter-spacing: 0; }
+  .map-foot .at { font-size: 13px; line-height: 18px; text-align: right; }
+  .map-foot .at b { display: block; font-size: 44px; line-height: 1; font-weight: 700; letter-spacing: -.03em; margin-top: 6px; }
+  .map-foot .at [lang="he"] { display: block; font-size: 22px; line-height: 28px; }
+
   /* ---------- after the story ---------- */
   .after { padding: 20vh 24px 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 80px; }
   .after > * { min-width: 0; }
@@ -189,6 +211,10 @@
     .frame { display: none; }
     .step { padding: 0 16px 9vh; }
     .step p { font-size: 20px; }
+    .map { padding: 14vh 16px 6vh; }
+    .board { height: 1900px; }
+    .thing { --w: calc(var(--mw, var(--w))); }
+    .thing figcaption { white-space: normal; width: 140px; }
     .after { padding: 12vh 16px 0; row-gap: 48px; }
     .pos, .side, .colophon { grid-column: 1 / -1; }
     .side { position: static; max-width: 260px; }
@@ -308,6 +334,30 @@
   </div>
 </section>
 
+<section class="map" id="map" aria-labelledby="map-h">
+  <h2 class="map-head" id="map-h">Everything, in order.<small>Thirteen things. One line through all of them. The line is the order; the things are what it had to pass through. It draws itself as you scroll.</small></h2>
+  <div class="board" id="board">
+    <svg aria-hidden="true"><path id="thread" d=""/></svg>
+    <figure class="thing" style="--x: 14%; --y: 4%; --w: 150px; --mw: 100px"><img src="images/cut-me.png" alt="Dania, cut out of her passport photo" width="500" height="500"><span class="n">1</span><figcaption>Attempt 6. Accepted.</figcaption></figure>
+    <figure class="thing" style="--x: 52%; --y: 8%; --w: 190px; --mw: 120px"><img src="images/cut-cake.png" alt="A Saint-Honoré" width="800" height="1067"><span class="n">2</span><figcaption>Saint-Honoré. Six hours.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 85%; --y: 14%; --w: 110px; --mw: 70px"><img src="images/cut-cherry.png" alt="A cherry pastry" width="600" height="800"><span class="n">3</span><figcaption>Cherry. Eaten by someone.</figcaption></figure>
+    <figure class="thing" style="--x: 32%; --y: 22%; --w: 170px; --mw: 110px"><img src="images/cut-tova.png" alt="Tova, belly up" width="319" height="239"><span class="n">4</span><figcaption>Tova. Rupture.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 72%; --y: 30%; --w: 150px; --mw: 100px"><img src="images/cut-sofi.png" alt="Sofi, lounging" width="600" height="797"><span class="n">5</span><figcaption>Sofi. Order, allegedly.</figcaption></figure>
+    <figure class="thing" style="--x: 12%; --y: 36%; --w: 130px; --mw: 90px"><img src="images/cut-moffi.png" alt="Moffi" width="600" height="797"><span class="n">6</span><figcaption>Moffi. Under the baseline.</figcaption></figure>
+    <figure class="thing boxed" style="--x: 46%; --y: 40%; --w: 102px; --mw: 80px"><img src="images/cat-toffy.jpg" alt="Toffy, a very small photo" width="102" height="181"><span class="n">7</span><figcaption>Toffy. 102 px. Not cut out, too small to cut.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 86%; --y: 48%; --w: 170px; --mw: 110px"><img src="images/cut-suit.png" alt="A cat in a suit, AI-made" width="800" height="1067"><span class="n">8</span><figcaption>A cat in a suit. I make these.</figcaption></figure>
+    <figure class="thing" style="--x: 24%; --y: 54%; --w: 120px; --mw: 80px"><img src="images/cut-kinder.png" alt="Dania with a giant Kinder egg" width="800" height="1423"><span class="n">9</span><figcaption>The egg. For the kids. It was not.</figcaption></figure>
+    <figure class="thing" style="--x: 56%; --y: 60%; --w: 110px; --mw: 80px"><img src="images/cut-sandwich.png" alt="Dania eating a sandwich" width="700" height="1245"><span class="n">10</span><figcaption>Germany. Mayonnaise on the chin.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 80%; --y: 70%; --w: 130px; --mw: 90px"><img src="images/cut-karaoke.png" alt="Dania in a red costume at karaoke" width="800" height="1067"><span class="n">11</span><figcaption>Karaoke. No context will be provided.</figcaption></figure>
+    <figure class="thing" style="--x: 40%; --y: 78%; --w: 230px; --mw: 150px"><img src="images/cut-laundry.png" alt="Dania in a yellow costume lying on a washing machine" width="900" height="900"><span class="n">12</span><figcaption>Laundromat. Most likely to fall asleep here.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 14%; --y: 90%; --w: 90px; --mw: 70px"><img src="images/cut-boots.png" alt="Dania standing in the street at night" width="900" height="1195"><span class="n">13</span><figcaption>Holon, at night. Home.</figcaption></figure>
+  </div>
+  <div class="map-foot">
+    <p class="when">07:10 (SUN) to 22:30 (FRI)<small>Every week. Tuesday and Wednesday the cats are closed.</small></p>
+    <p class="at"><span lang="he" dir="rtl">תעודת זהות</span>at<b>Holon</b></p>
+  </div>
+</section>
+
 <section class="after" id="position" aria-labelledby="pos-h">
   <article class="pos" id="posText">
     <h2 id="pos-h">Position <span class="small" id="wc"></span></h2>
@@ -329,7 +379,7 @@
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
   </aside>
   <div class="colophon">
-    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, in twenty-five steps</p></div>
+    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, in twenty-five steps and thirteen things</p></div>
     <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
     <div><p lang="he" dir="rtl" style="text-align:left">שבת שלום</p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
   </div>
@@ -375,6 +425,41 @@
   // on short screens the card is scaled to fit, so every step stays on one screen
   const fit = () => { const c = $('#card'); c.style.setProperty('--fit', 1); const h = c.offsetHeight, max = innerHeight * .86; c.style.setProperty('--fit', h > max ? (max / h).toFixed(3) : 1); };
   fit(); addEventListener('resize', fit); addEventListener('load', fit);
+
+  // ---- chapter two: one line through thirteen things, drawn by the scroll ----
+  const board = $('#board'), thread = $('#thread'), things = [...document.querySelectorAll('.thing')];
+  let total = 0, marks = [];
+  function layThread() {
+    const b = board.getBoundingClientRect();
+    const pts = things.map(t => { const r = t.getBoundingClientRect(); return [r.left - b.left + r.width / 2, r.top - b.top + r.height / 2]; });
+    // a gently bent line from thing to thing, like a thread laid on a table
+    let d = `M${pts[0][0]},${pts[0][1]}`;
+    for (let i = 1; i < pts.length; i++) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i];
+      const mx = (x0 + x1) / 2 + (i % 2 ? 40 : -40), my = (y0 + y1) / 2 + (i % 2 ? -30 : 30);
+      d += ` Q${mx},${my} ${x1},${y1}`;
+    }
+    thread.setAttribute('d', d);
+    total = thread.getTotalLength();
+    thread.style.strokeDasharray = total; thread.style.strokeDashoffset = total;
+    // where along the line each thing sits
+    marks = pts.map((pt, i) => { if (i === 0) return 0; let acc = 0; for (let k = 1; k <= i; k++) { const sub = thread.cloneNode(); const segs = d.split(' Q'); sub.setAttribute('d', segs.slice(0, k + 1).join(' Q')); thread.parentNode.appendChild(sub); acc = sub.getTotalLength(); sub.remove(); } return acc; });
+    drawThread();
+  }
+  function drawThread() {
+    const b = board.getBoundingClientRect();
+    // the pen is at the middle of the screen: the line is drawn as far as you have scrolled into the board
+    const p = Math.max(0, Math.min(1, (innerHeight * .55 - b.top) / b.height));
+    const len = total * p;
+    thread.style.strokeDashoffset = total - len;
+    things.forEach((t, i) => t.classList.toggle('on', len >= marks[i] - 4));
+  }
+  addEventListener('scroll', () => requestAnimationFrame(drawThread), { passive: true });
+  addEventListener('resize', layThread);
+  addEventListener('load', () => { layThread(); setTimeout(layThread, 600); });
+  things.forEach(t => { const im = t.querySelector('img'); if (!im.complete) im.addEventListener('load', layThread, { once: true }); });
+  layThread();
+  window.__drawThread = drawThread;
 
   // ---- word count ----
   $('#wc').textContent = `${$('#posText').textContent.trim().split(/\s+/).length} words`;
