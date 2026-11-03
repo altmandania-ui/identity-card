@@ -147,13 +147,16 @@
   .map { position: relative; max-width: 1100px; margin: 0 auto; padding: 22vh 24px 10vh; }
   .map-head { font-size: clamp(22px, 3vw, 36px); line-height: 1.2; letter-spacing: -.01em; max-width: 560px; }
   .map-head small { display: block; font-size: 13px; line-height: 18px; color: var(--grey); margin-top: 10px; letter-spacing: 0; }
-  .board { position: relative; height: 2300px; margin-top: 60px; }
+  .board-scroll { position: relative; height: 520vh; margin-top: 60px; }
+  .board { position: sticky; top: 8vh; height: 84vh; }
   .board svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .board path { fill: none; stroke: var(--ink); stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
-  .thing { position: absolute; width: var(--w); left: var(--x); top: var(--y); margin: 0; translate: -50% -50%; opacity: 0; scale: .92; transition: opacity .45s, scale .6s var(--ease); }
+  .thing { position: absolute; width: var(--w); left: var(--x); top: var(--y); margin: 0; translate: -50% -50%; opacity: 0; scale: .9; transition: opacity 1.1s ease, scale 1.2s var(--ease); }
   .thing.on { opacity: 1; scale: 1; }
   .thing img { width: 100%; }
-  .thing .n { position: absolute; font-size: 13px; line-height: 16px; left: calc(100% + 8px); top: 0; }
+  .thing .n { position: absolute; font-size: 13px; line-height: 16px; left: calc(100% + 8px); top: 0; opacity: 0; transition: opacity .6s .5s; }
+  .thing.on .n, .thing.on figcaption { opacity: 1; }
+  .thing figcaption { opacity: 0; transition: opacity .6s .8s; }
   .thing.nl .n { left: auto; right: calc(100% + 8px); }
   .thing figcaption { position: absolute; left: 0; top: calc(100% + 6px); font-size: 11px; line-height: 15px; color: var(--grey); white-space: nowrap; }
   .thing.cl figcaption { left: auto; right: 0; text-align: right; }
@@ -212,9 +215,10 @@
     .step { padding: 0 16px 9vh; }
     .step p { font-size: 20px; }
     .map { padding: 14vh 16px 6vh; }
-    .board { height: 1900px; }
-    .thing { --w: calc(var(--mw, var(--w))); }
-    .thing figcaption { white-space: normal; width: 140px; }
+    .board-scroll { height: 560vh; } .board { top: 6vh; height: 88vh; }
+    .thing { width: var(--mw, var(--w)); left: var(--mx, var(--x)); top: var(--my, var(--y)); }
+    .thing figcaption { white-space: normal; width: 84px; font-size: 10px; line-height: 13px; }
+    .thing .n { font-size: 11px; }
     .after { padding: 12vh 16px 0; row-gap: 48px; }
     .pos, .side, .colophon { grid-column: 1 / -1; }
     .side { position: static; max-width: 260px; }
@@ -336,22 +340,22 @@
 
 <section class="map" id="map" aria-labelledby="map-h">
   <h2 class="map-head" id="map-h">Everything, in order.<small>Thirteen things. One line through all of them. The line is the order; the things are what it had to pass through. It draws itself as you scroll.</small></h2>
-  <div class="board" id="board">
+  <div class="board-scroll"><div class="board" id="board">
     <svg aria-hidden="true"><path id="thread" d=""/></svg>
-    <figure class="thing" style="--x: 14%; --y: 4%; --w: 150px; --mw: 100px"><img src="images/cut-me.png" alt="Dania, cut out of her passport photo" width="500" height="500"><span class="n">1</span><figcaption>Attempt 6. Accepted.</figcaption></figure>
-    <figure class="thing" style="--x: 52%; --y: 8%; --w: 190px; --mw: 120px"><img src="images/cut-cake.png" alt="A Saint-Honoré" width="800" height="1067"><span class="n">2</span><figcaption>Saint-Honoré. Six hours.</figcaption></figure>
-    <figure class="thing cl nl" style="--x: 85%; --y: 14%; --w: 110px; --mw: 70px"><img src="images/cut-cherry.png" alt="A cherry pastry" width="600" height="800"><span class="n">3</span><figcaption>Cherry. Eaten by someone.</figcaption></figure>
-    <figure class="thing" style="--x: 32%; --y: 22%; --w: 170px; --mw: 110px"><img src="images/cut-tova.png" alt="Tova, belly up" width="319" height="239"><span class="n">4</span><figcaption>Tova. Rupture.</figcaption></figure>
-    <figure class="thing cl nl" style="--x: 72%; --y: 30%; --w: 150px; --mw: 100px"><img src="images/cut-sofi.png" alt="Sofi, lounging" width="600" height="797"><span class="n">5</span><figcaption>Sofi. Order, allegedly.</figcaption></figure>
-    <figure class="thing" style="--x: 12%; --y: 36%; --w: 130px; --mw: 90px"><img src="images/cut-moffi.png" alt="Moffi" width="600" height="797"><span class="n">6</span><figcaption>Moffi. Under the baseline.</figcaption></figure>
-    <figure class="thing boxed" style="--x: 46%; --y: 40%; --w: 102px; --mw: 80px"><img src="images/cat-toffy.jpg" alt="Toffy, a very small photo" width="102" height="181"><span class="n">7</span><figcaption>Toffy. 102 px. Not cut out, too small to cut.</figcaption></figure>
-    <figure class="thing cl nl" style="--x: 86%; --y: 48%; --w: 170px; --mw: 110px"><img src="images/cut-suit.png" alt="A cat in a suit, AI-made" width="800" height="1067"><span class="n">8</span><figcaption>A cat in a suit. I make these.</figcaption></figure>
-    <figure class="thing" style="--x: 24%; --y: 54%; --w: 120px; --mw: 80px"><img src="images/cut-kinder.png" alt="Dania with a giant Kinder egg" width="800" height="1423"><span class="n">9</span><figcaption>The egg. For the kids. It was not.</figcaption></figure>
-    <figure class="thing" style="--x: 56%; --y: 60%; --w: 110px; --mw: 80px"><img src="images/cut-sandwich.png" alt="Dania eating a sandwich" width="700" height="1245"><span class="n">10</span><figcaption>Germany. Mayonnaise on the chin.</figcaption></figure>
-    <figure class="thing cl nl" style="--x: 80%; --y: 70%; --w: 130px; --mw: 90px"><img src="images/cut-karaoke.png" alt="Dania in a red costume at karaoke" width="800" height="1067"><span class="n">11</span><figcaption>Karaoke. No context will be provided.</figcaption></figure>
-    <figure class="thing" style="--x: 40%; --y: 78%; --w: 230px; --mw: 150px"><img src="images/cut-laundry.png" alt="Dania in a yellow costume lying on a washing machine" width="900" height="900"><span class="n">12</span><figcaption>Laundromat. Most likely to fall asleep here.</figcaption></figure>
-    <figure class="thing cl nl" style="--x: 14%; --y: 90%; --w: 90px; --mw: 70px"><img src="images/cut-boots.png" alt="Dania standing in the street at night" width="900" height="1195"><span class="n">13</span><figcaption>Holon, at night. Home.</figcaption></figure>
-  </div>
+    <figure class="thing" style="--x: 10%; --y: 12%; --w: 11vh; --mx: 9%; --my: 8%; --mw: 64px"><img src="images/cut-me.png" alt="Dania, cut out of her passport photo" width="500" height="500"><span class="n">1</span><figcaption>Attempt 6. Accepted.</figcaption></figure>
+    <figure class="thing" style="--x: 30%; --y: 13%; --w: 14vh; --mx: 36%; --my: 8%; --mw: 72px"><img src="images/cut-cake.png" alt="A Saint-Honoré" width="800" height="1067"><span class="n">2</span><figcaption>Saint-Honoré. Six hours.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 52%; --y: 14%; --w: 7vh; --mx: 64%; --my: 9%; --mw: 40px"><img src="images/cut-cherry.png" alt="A cherry pastry" width="600" height="800"><span class="n">3</span><figcaption>Cherry. Eaten by someone.</figcaption></figure>
+    <figure class="thing" style="--x: 74%; --y: 12%; --w: 13vh; --mx: 86%; --my: 9%; --mw: 70px"><img src="images/cut-tova.png" alt="Tova, belly up" width="319" height="239"><span class="n">4</span><figcaption>Tova. Rupture.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 90%; --y: 30%; --w: 10vh; --mx: 84%; --my: 24%; --mw: 52px"><img src="images/cut-sofi.png" alt="Sofi, lounging" width="600" height="797"><span class="n">5</span><figcaption>Sofi. Order, allegedly.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 66%; --y: 38%; --w: 9vh; --mx: 56%; --my: 28%; --mw: 52px"><img src="images/cut-moffi.png" alt="Moffi" width="600" height="797"><span class="n">6</span><figcaption>Moffi. Under the baseline.</figcaption></figure>
+    <figure class="thing boxed" style="--x: 42%; --y: 40%; --w: 7vh; --mx: 30%; --my: 30%; --mw: 46px"><img src="images/cat-toffy.jpg" alt="Toffy, a very small photo" width="102" height="181"><span class="n">7</span><figcaption>Toffy. 102 px. Too small to cut.</figcaption></figure>
+    <figure class="thing" style="--x: 16%; --y: 44%; --w: 12vh; --mx: 8%; --my: 40%; --mw: 60px"><img src="images/cut-suit.png" alt="A cat in a suit, AI-made" width="800" height="1067"><span class="n">8</span><figcaption>A cat in a suit. I make these.</figcaption></figure>
+    <figure class="thing" style="--x: 8%; --y: 76%; --w: 9vh; --mx: 12%; --my: 62%; --mw: 44px"><img src="images/cut-kinder.png" alt="Dania with a giant Kinder egg" width="800" height="1423"><span class="n">9</span><figcaption>The egg. For the kids. It was not.</figcaption></figure>
+    <figure class="thing" style="--x: 30%; --y: 70%; --w: 8vh; --mx: 36%; --my: 58%; --mw: 44px"><img src="images/cut-sandwich.png" alt="Dania eating a sandwich" width="700" height="1245"><span class="n">10</span><figcaption>Germany. Mayonnaise on the chin.</figcaption></figure>
+    <figure class="thing" style="--x: 50%; --y: 78%; --w: 10vh; --mx: 60%; --my: 62%; --mw: 52px"><img src="images/cut-karaoke.png" alt="Dania in a red costume at karaoke" width="800" height="1067"><span class="n">11</span><figcaption>Karaoke. No context will be provided.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 74%; --y: 68%; --w: 18vh; --mx: 82%; --my: 52%; --mw: 90px"><img src="images/cut-laundry.png" alt="Dania in a yellow costume lying on a washing machine" width="900" height="900"><span class="n">12</span><figcaption>Laundromat. Most likely to fall asleep here.</figcaption></figure>
+    <figure class="thing cl nl" style="--x: 92%; --y: 84%; --w: 7vh; --mx: 86%; --my: 82%; --mw: 40px"><img src="images/cut-boots.png" alt="Dania standing in the street at night" width="900" height="1195"><span class="n">13</span><figcaption>Holon, at night. Home.</figcaption></figure>
+  </div></div>
   <div class="map-foot">
     <p class="when">07:10 (SUN) to 22:30 (FRI)<small>Every week. Tuesday and Wednesday the cats are closed.</small></p>
     <p class="at"><span lang="he" dir="rtl">תעודת זהות</span>at<b>Holon</b></p>
@@ -446,20 +450,29 @@
     marks = pts.map((pt, i) => { if (i === 0) return 0; let acc = 0; for (let k = 1; k <= i; k++) { const sub = thread.cloneNode(); const segs = d.split(' Q'); sub.setAttribute('d', segs.slice(0, k + 1).join(' Q')); thread.parentNode.appendChild(sub); acc = sub.getTotalLength(); sub.remove(); } return acc; });
     drawThread();
   }
-  function drawThread() {
-    const b = board.getBoundingClientRect();
-    // the pen is at the middle of the screen: the line is drawn as far as you have scrolled into the board
-    const p = Math.max(0, Math.min(1, (innerHeight * .55 - b.top) / b.height));
-    const len = total * p;
-    thread.style.strokeDashoffset = total - len;
-    things.forEach((t, i) => t.classList.toggle('on', len >= marks[i] - 4));
+  const wrap = board.parentElement;
+  let drawn = 0, animating = 0;
+  function target() {
+    const b = wrap.getBoundingClientRect();
+    // the pen moves while the board is pinned: the line is drawn over the whole height of the wrapper
+    return Math.max(0, Math.min(1, (-b.top) / (b.height - innerHeight)));
   }
-  addEventListener('scroll', () => requestAnimationFrame(drawThread), { passive: true });
+  function drawThread() {
+    const goal = target();
+    drawn += (goal - drawn) * .08;                      // the pen lags behind the finger
+    if (Math.abs(goal - drawn) < .0005) drawn = goal;
+    const len = total * drawn;
+    thread.style.strokeDashoffset = total - len;
+    things.forEach((t, i) => { if (len >= marks[i] - 4) t.classList.add('on'); else if (drawn === 0) t.classList.remove('on'); });
+    if (drawn !== goal) requestAnimationFrame(drawThread); else animating = 0;
+  }
+  const kick = () => { if (!animating) { animating = 1; requestAnimationFrame(drawThread); } };
+  addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', layThread);
   addEventListener('load', () => { layThread(); setTimeout(layThread, 600); });
   things.forEach(t => { const im = t.querySelector('img'); if (!im.complete) im.addEventListener('load', layThread, { once: true }); });
   layThread();
-  window.__drawThread = drawThread;
+  window.__drawThread = () => { drawn = target(); drawThread(); };
 
   // ---- word count ----
   $('#wc').textContent = `${$('#posText').textContent.trim().split(/\s+/).length} words`;
