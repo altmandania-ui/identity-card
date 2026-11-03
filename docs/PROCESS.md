@@ -12,7 +12,7 @@ This is the second build of the same homework. The first build lives at https://
 
 **The grid is the plan. The cats are what actually happens. The page is the space between them.**
 
-This version tells it as a scroll story in sixteen steps on one white screen. The identity card stays in the middle; what changes is what lands on it. One thing happens per scroll, and nothing else moves.
+This version tells it as a scroll story in twenty-five steps on one white screen. The identity card stays in the middle; what changes is what lands on it. One thing happens per scroll, and nothing else moves.
 
 | Step | What happens | Layer |
 |---|---|---|
@@ -20,15 +20,17 @@ This version tells it as a scroll story in sixteen steps on one white screen. Th
 | 1 to 5 | The five rejected attempts, one per scroll: smiling, eyes closed, 7am, not facing the camera, holding a Kinder egg. Each one gets a red REJECTED stamp that slams onto the photo, and a red tally mark. | Rupture (my face, as the state refused it) |
 | 6 | Attempt 6, accepted. A black stamp. The frame of the card appears. | Order (the face the state knows) |
 | 7 | The order: twelve red columns draw themselves top to bottom, the name and the nine fields fade in one by one, the margin says "Grid integrity 100%". | Order |
-| 8 to 11 | The cats arrive one by one. Tova drops from above and lands on the card. Sofi walks in from the right. Moffi climbs up from below. Toffy, 102 pixels wide, flickers in like a bad JPEG. With each cat the fields tilt and slide a little further off the columns, and the margin counts down: 90, 78, 70, 61%. | Rupture |
-| 12 | "Order can be restored. The cats cannot." The fields snap back to the grid. The cats stay exactly where they were. | The encounter |
-| 13 | Friday. Two candles light, with the live countdown to candle lighting in Tel Aviv. | Rupture that keeps time |
-| 14 to 15 | Exhibit A: the AI's default hero fades in over the dimmed card. A red line cuts through it, and a red "no." | Templatology |
-| 16 | The template goes. The card comes back with the cats on it. "The grid is the plan. The cats are what actually happens." | Both |
+| 8 to 11 | The day lands on the card as four rows of a timetable: 07:10 school run, 08:00 four bowls in order of seniority, 09:00 to 17:00 the 9 to 5 and then the MA, 22:30 the dough into the fridge. "Grid integrity 100%. On paper." | Order |
+| 12 to 15 | The cats arrive one by one. Tova drops from above and lands on the card. Sofi walks in from the right. Moffi climbs up from below. Toffy, 102 pixels wide, flickers in like a bad JPEG. With each cat the fields tilt and slide a little further off the columns, and the margin counts down: 90, 78, 70, 61%. | Rupture |
+| 16 | "Order can be restored. The cats cannot." The fields snap back to the grid. The cats stay exactly where they were. | The encounter |
+| 17 to 19 | The Saint-Honoré. Hour one: the dough slides onto the card. Hour six: the finished cake drops onto it. Six minutes: it is gone, and seventy poppy seeds are left on everything, the card included. | Rupture, by weight |
+| 20 to 22 | Friday. Two candles light, with the live countdown to candle lighting in Tel Aviv. Then שבת שלום fills the screen, the card and the grid dim to rest, the cats do not. Then Saturday night: the flames go out, the card comes back, the countdown starts again. | Rupture that keeps time |
+| 23 to 24 | Exhibit A: the AI's default hero fades in over the dimmed card. A red line cuts through it, and a red "no." | Templatology |
+| 25 | The template goes. The card comes back with the cats on it. "The grid is the plan. The cats are what actually happens." | Both |
 
 After the story: the position text, Sofi at her drafting table, and the colophon. Scroll back up and it plays again.
 
-**How the layers meet:** on one stage, in sequence, with a number. Every cat costs the grid a measured amount of integrity, and the margin says how much. The restoration in step 12 is the thesis: the order can always be put back, and it never erases what landed on it.
+**How the layers meet:** on one stage, in sequence, with a number. Every cat costs the grid a measured amount of integrity, and the margin says how much. The restoration in step 16 is the thesis: the order can always be put back, and it never erases what landed on it.
 
 ---
 
@@ -67,6 +69,7 @@ After the story: the position text, Sofi at her drafting table, and the colophon
 | 4 | I kept the live data. | The Hebrew date, this week's candle-lighting and havdalah times for Tel Aviv, and this repository's own git history are fetched when the page loads, from hebcal.com and api.github.com, with no keys. The countdown is one Hebrew line, and the candles, on the stage and in entry 3, light themselves on Friday. | this commit |
 | 5 | **"I don't think there is something interesting. Clean can be interesting as well. Put things in weird places but keep it clean."** | The centered column went. The page is now twelve columns across the whole screen with rows of 80px, and things sit where they sit: the cut-out portrait is cut again by the left edge of the screen, the name runs off the right edge in 168px Times, the cake hangs over the top corner, the cats are far apart, each entry starts from a different column and the position text's heading sits on the opposite side of the page from its text. Four things are pinned to the screen and travel with you: the 7am selfie in the top right corner, the candles with the live countdown in the bottom left, Tova in the bottom right, and a vertical Hebrew line along the right edge. Still white, still Times and Helvetica, still a grid you can switch on, and the index still gives every thing's coordinates. | this commit |
 | 6 | **"Are you normal? This is the most boring thing I saw in my life."** The AI asked which kind of interesting I meant and offered four: interaction, a scroll story, a passport you flip, giant scale. I chose **the scroll story**. | This page. Sixteen steps on one sticky stage, one event each: five rejected passport photos with stamps, the grid drawing itself, four cats landing and pulling the card off the grid with the integrity counting down, order restored with the cats still there, the candles, the template crossed out, and the card back with everything on it. Still white, still one typeface, still one red. The interest is in time, not in decoration. | this commit |
+| 7 | **"I liked it, I liked the motion. I want to add more story to the motion."** Offered four threads, I chose the timetable, the Saint-Honoré and the full Shabbat evening, in sequence. | Sixteen steps became twenty-five. After the grid is built, the day lands on the card as four rows of a timetable (school run, four bowls, the 9 to 5 and the MA, the dough into the fridge), so the order earns its 100% before the cats break it. After order is restored, the Saint-Honoré: the dough slides in, the finished cake drops onto the card, then it is gone in one scroll and seventy poppy seeds are left scattered over everything. Friday grew into three steps: the candles light with the live countdown, שבת שלום fills the screen and the card dims to rest while the cats stay awake, then Saturday night: the flames go out, the card comes back, and the countdown starts again. The card scales itself to fit short screens so every step stays on one screen. | this commit |
 
 ✍️ **Add here:** which of the two versions you will submit, and why. If the answer is "both", say what each one is for.
 

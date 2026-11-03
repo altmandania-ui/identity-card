@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dania Altman, identity card</title>
-<meta name="description" content="Identity card: order and rupture. A scroll story in sixteen steps. Design MA, Homework 1, by Dania Altman.">
+<meta name="description" content="Identity card: order and rupture. A scroll story in twenty-five steps. Design MA, Homework 1, by Dania Altman.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23E3000F'/%3E%3C/svg%3E">
 <style>
   :root {
@@ -40,8 +40,8 @@
   .step:nth-child(even) p { text-align: right; }
 
   /* the card, in the middle of the stage */
-  .card { position: absolute; left: 50%; top: 50%; width: min(760px, 92vw); translate: -50% -50%; transition: opacity .5s; }
-  .a14 .card { opacity: .18; } .a16 .card { opacity: 1; }
+  .card { position: absolute; left: 50%; top: 50%; width: min(760px, 92vw); translate: -50% -50%; scale: var(--fit, 1); transition: opacity .5s; }
+  .a21 .card { opacity: .3; } .a22 .card { opacity: 1; } .a23 .card { opacity: .18; } .a25 .card { opacity: 1; }
   .frame { position: absolute; inset: -24px; border: 1px solid var(--line); opacity: 0; transition: opacity .6s; }
   .a6 .frame { opacity: 1; }
   .card .inner { display: grid; grid-template-columns: 180px 1fr; column-gap: 40px; align-items: start; }
@@ -69,41 +69,67 @@
   .integrity { margin-top: 28px; font-size: 11px; line-height: 16px; color: var(--grey); opacity: 0; transition: opacity .5s .4s; }
   .a7 .integrity { opacity: 1; }
   .integrity b { font-weight: 400; color: var(--ink); }
-  .a8 .card { --chaos: .3; } .a9 .card { --chaos: .55; } .a10 .card { --chaos: .8; } .a11 .card { --chaos: 1; } .a12 .card { --chaos: 0; } .a16 .card { --chaos: 1; }
+  .a12 .card { --chaos: .3; } .a13 .card { --chaos: .55; } .a14 .card { --chaos: .8; } .a15 .card { --chaos: 1; } .a16 .card { --chaos: 0; } .a25 .card { --chaos: 1; }
+
+  /* the day: four rows of the timetable land on the card */
+  .day { list-style: none; padding: 0; margin: 20px 0 0; border-top: 1px solid var(--ink); font-size: 11px; line-height: 16px; }
+  .day { opacity: 0; transition: opacity .3s; } .a8 .day { opacity: 1; }
+  .day li { display: grid; grid-template-columns: 96px 1fr; column-gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--line); opacity: 0; translate: -16px 0; transition: opacity .35s, translate .45s var(--ease); }
+  .day li span:first-child { color: var(--grey); font-variant-numeric: tabular-nums; }
+  .a8 .day li:nth-child(1), .a9 .day li:nth-child(2), .a10 .day li:nth-child(3), .a11 .day li:nth-child(4) { opacity: 1; translate: 0 0; }
+
+  /* the saint-honoré: six hours, then six minutes */
+  .dough, .cake { position: absolute; left: calc(50% - 40px); top: calc(50% - 70px); opacity: 0; pointer-events: none; transition: transform .7s var(--ease), opacity .3s; }
+  .dough { width: min(240px, 40vw); transform: translateX(-60vw) rotate(-20deg); }
+  .cake { width: min(300px, 50vw); transform: translateY(60vh) rotate(25deg); }
+  .dough img { border: 4px solid #fff; box-shadow: 0 1px 0 rgba(0,0,0,.15); }
+  .a17 .dough { opacity: 1; transform: translateX(0) rotate(-3deg); }
+  .a18 .dough { opacity: 0; transform: translateX(0) rotate(-3deg) scale(.9); }
+  .a18 .cake { opacity: 1; transform: translateY(0) rotate(-4deg); }
+  .a19 .cake { opacity: 0; transform: translateY(0) rotate(-4deg) scale(.3); transition: transform .35s cubic-bezier(.6, 0, .9, .4), opacity .25s .1s; }
+  .dough figcaption, .cake figcaption { font-size: 11px; line-height: 16px; color: var(--grey); margin-top: 6px; }
+  .seeds { position: absolute; inset: 0; pointer-events: none; }
+  .seeds i { position: absolute; width: 5px; height: 3px; border-radius: 50%; background: #1d2230; opacity: 0; scale: 3; transition: opacity .15s, scale .35s var(--ease); transition-delay: var(--d); }
+  .a19 .seeds i { opacity: 1; scale: 1; }
+
+  /* shabbat: the card rests */
+  .shalom { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-size: clamp(56px, 10vw, 140px); line-height: 1; font-weight: 700; letter-spacing: -.02em; opacity: 0; scale: .96; transition: opacity .6s, scale .6s; pointer-events: none; white-space: nowrap; }
+  .a21 .shalom { opacity: 1; scale: 1; } .a22 .shalom { opacity: 0; }
 
   /* the grid draws itself */
   .gridlines { position: absolute; inset: 0 24px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; pointer-events: none; }
   .gridlines i { border-left: 1px solid var(--red); border-right: 1px solid var(--red); opacity: .35; transform: scaleY(0); transform-origin: top; transition: transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i) * 45ms); }
   .a7 .gridlines i { transform: scaleY(1); }
-  .a14 .gridlines { opacity: .3; } .a16 .gridlines { opacity: 1; }
+  .a21 .gridlines { opacity: .3; } .a22 .gridlines { opacity: 1; } .a23 .gridlines { opacity: .3; } .a25 .gridlines { opacity: 1; }
 
   /* the cats arrive */
   .cat { position: absolute; opacity: 0; transition: transform .75s var(--ease), opacity .3s; pointer-events: none; }
   .cat img { width: 100%; }
   .cat figcaption { font-size: 11px; line-height: 16px; color: var(--grey); margin-top: 6px; white-space: nowrap; }
   .tova { width: min(260px, 32vw); left: calc(50% + 110px); top: calc(50% - 300px); transform: translateY(-120vh) rotate(-30deg); }
-  .a8 .tova { opacity: 1; transform: translateY(0) rotate(3deg); }
+  .a12 .tova { opacity: 1; transform: translateY(0) rotate(3deg); }
   .sofi { width: min(170px, 22vw); right: calc(50% - 470px); top: calc(50% + 40px); transform: translateX(70vw); }
-  .a9 .sofi { opacity: 1; transform: translateX(0) rotate(-2deg); }
+  .a13 .sofi { opacity: 1; transform: translateX(0) rotate(-2deg); }
   .moffi { width: min(150px, 20vw); left: calc(50% - 480px); bottom: calc(50% - 300px); transform: translateY(70vh); }
-  .a10 .moffi { opacity: 1; transform: translateY(0) rotate(2deg); }
+  .a14 .moffi { opacity: 1; transform: translateY(0) rotate(2deg); }
   .toffy { width: 102px; left: calc(50% - 300px); top: calc(50% - 312px); rotate: 4deg; transition: none; }
-  .a11 .toffy { opacity: 1; animation: flicker .8s steps(3, end) 1; }
+  .a15 .toffy { opacity: 1; animation: flicker .8s steps(3, end) 1; }
   @keyframes flicker { 0% { opacity: 0; } 30% { opacity: 1; } 50% { opacity: 0; } 70% { opacity: 1; } 100% { opacity: 1; } }
 
   /* friday */
   .candles { position: absolute; left: calc(50% - 480px); top: calc(50% - 320px); width: 110px; opacity: 0; translate: 0 20px; transition: opacity .5s, translate .5s; }
-  .a13 .candles { opacity: 1; translate: 0; }
+  .a20 .candles { opacity: 1; translate: 0; }
   .candles svg { width: 110px; height: 138px; }
   .flame { opacity: 0; transform-origin: 50% 100%; transition: opacity .3s .4s; }
-  .a13 .flame { opacity: 1; animation: flicker2 .5s ease-in-out infinite alternate; }
-  .a13 .flame:nth-of-type(2) { animation-duration: .65s; }
+  .a20 .flame { opacity: 1; animation: flicker2 .5s ease-in-out infinite alternate; }
+  .a20 .flame:nth-of-type(2) { animation-duration: .65s; }
+  .a22 .flame { opacity: 0; animation: none; transition-delay: 0s; }
   @keyframes flicker2 { from { transform: scale(1, 1) rotate(-3deg); } to { transform: scale(.9, 1.08) rotate(3deg); } }
   .candles figcaption { font-size: 11px; line-height: 16px; color: var(--grey); margin-top: 6px; }
 
   /* exhibit A */
   .tpl { position: absolute; left: 50%; top: 50%; width: min(420px, 86vw); translate: -50% -50%; opacity: 0; scale: .96; transition: opacity .5s, scale .5s; padding: 28px 24px; border-radius: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; text-align: center; font-family: Inter, var(--sans); }
-  .a14 .tpl { opacity: 1; scale: 1; } .a16 .tpl { opacity: 0; }
+  .a23 .tpl { opacity: 1; scale: 1; } .a25 .tpl { opacity: 0; }
   .tpl b { display: block; font-size: 24px; margin: 10px 0 6px; font-weight: 700; }
   .tpl p { font-size: 13px; line-height: 18px; opacity: .9; }
   .tpl span { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,.25); }
@@ -113,9 +139,9 @@
   .tpl .cards { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .tpl .cards div { background: rgba(255,255,255,.15); border-radius: 12px; padding: 10px 6px; font-size: 10px; line-height: 13px; }
   .tpl .x { position: absolute; left: -8%; right: -8%; top: 50%; height: 3px; background: var(--red); rotate: -14deg; transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .9, .2, 1); }
-  .a15 .tpl .x { transform: scaleX(1); }
+  .a24 .tpl .x { transform: scaleX(1); }
   .tpl .no { position: absolute; right: -10px; bottom: -22px; font-size: 44px; line-height: 1; color: var(--red); font-weight: 700; rotate: -10deg; opacity: 0; scale: 2; transition: scale .25s var(--ease) .35s, opacity .1s .35s; }
-  .a15 .tpl .no { opacity: 1; scale: 1; }
+  .a24 .tpl .no { opacity: 1; scale: 1; }
 
   /* ---------- after the story ---------- */
   .after { padding: 20vh 24px 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 80px; }
@@ -139,17 +165,25 @@
     .stage *, .step p { transition: none !important; animation: none !important; }
   }
   @media (max-width: 760px) {
-    .card { width: 92vw; top: 46%; }
-    .card .inner { grid-template-columns: 1fr; row-gap: 20px; }
-    .photo, .photo img { width: 140px; height: auto; } .photo img { height: 140px; }
-    .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; row-gap: 14px; margin-top: 16px; }
-    .fields dd { font-size: 14px; line-height: 18px; }
-    .name { font-size: 40px; }
+    .card { width: 92vw; top: 50%; }
+    .card .inner { grid-template-columns: 1fr; row-gap: 12px; }
+    .photo, .photo img { width: 110px; height: auto; } .photo img { height: 110px; }
+    .stamp { font-size: 16px; line-height: 18px; padding: 4px 7px; top: 24px; }
+    .tally { margin-top: 6px; } .tally i { width: 18px; height: 10px; }
+    .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 14px; row-gap: 10px; margin-top: 12px; }
+    .fields > div { padding-top: 4px; }
+    .fields dd { font-size: 13px; line-height: 17px; }
+    .fields dd small { font-size: 10px; line-height: 13px; }
+    .name { font-size: 36px; line-height: .95; }
+    .integrity { margin-top: 14px; }
     .frame { inset: -14px; }
     .tova { width: 140px; left: auto; right: 3vw; top: 5vh; }
     .sofi { width: 100px; right: 2vw; top: auto; bottom: 3vh; }
     .moffi { width: 80px; left: -8px; bottom: 1vh; }
     .toffy { left: auto; right: 5vw; top: 38vh; }
+    .dough, .cake { left: 50%; translate: -50% 0; top: 30vh; }
+    .dough { width: 180px; } .cake { width: 220px; }
+    .day { font-size: 10px; line-height: 14px; margin-top: 12px; } .day li { grid-template-columns: 70px 1fr; padding: 3px 0; }
     .candles { left: 44vw; top: 4vh; width: 54px; } .candles svg { width: 54px; height: 68px; }
     .card { top: 52%; }
     .frame { display: none; }
@@ -203,6 +237,12 @@
             <div style="--i:7; --k:1.1; --k2:.3"><dt>Shabbat</dt><dd id="shabbatDd">…<small>Candle lighting in Tel Aviv, live from hebcal.com</small></dd></div>
             <div style="--i:8; --k:-1.3; --k2:.9"><dt>Last edited</dt><dd id="commitDd">…<small>This page's git history, live from GitHub</small></dd></div>
           </dl>
+          <ul class="day" aria-label="A day on the grid">
+            <li><span>07:10</span><span>School run. The first column of the day.</span></li>
+            <li><span>08:00</span><span>Four bowls, in order of seniority. Sofi first.</span></li>
+            <li><span>09:00 to 17:00</span><span>The 9 to 5. Then the MA, in the evening row.</span></li>
+            <li><span>22:30</span><span>The dough goes into the fridge. Tomorrow is a column too.</span></li>
+          </ul>
           <p class="integrity" id="integrity">12 columns, 24 gutter, 8 baseline. Helvetica 11, 15, 36, 72. One red. <b>Grid integrity 100%.</b></p>
         </div>
       </div>
@@ -212,6 +252,11 @@
     <figure class="cat sofi"><img src="images/cut-sofi.png" alt="Sofi the black cat, lounging" width="600" height="797"><figcaption>Sofi. Read the rules, ignored them.</figcaption></figure>
     <figure class="cat moffi"><img src="images/cat-moffi.jpg" alt="Moffi, a fluffy black cat" width="600" height="797"><figcaption>Moffi, under the baseline.</figcaption></figure>
     <figure class="cat toffy"><img src="images/cat-toffy.jpg" alt="Toffy, a very small photo of a black and white cat" width="102" height="181"><figcaption>Toffy, 102 px. Enough.</figcaption></figure>
+
+    <figure class="dough"><img src="images/bake-dough.jpg" alt="Poppy seed dough with butter cubes" width="800" height="600"><figcaption>Hour one. Dough, by weight.</figcaption></figure>
+    <figure class="cake"><img src="images/cut-cake.png" alt="A Saint-Honoré cake" width="800" height="1067"><figcaption>Hour six. Saint-Honoré.</figcaption></figure>
+    <div class="seeds" id="seeds" aria-hidden="true"></div>
+    <div class="shalom" lang="he" dir="rtl" aria-hidden="true">שבת שלום</div>
 
     <figure class="candles" id="candles">
       <svg viewBox="0 0 96 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -242,15 +287,24 @@
     <div class="step" data-act="5"><p>Attempt 5. <b>Rejected.</b> Holding a Kinder egg. It was for the kids.</p></div>
     <div class="step" data-act="6"><p>Attempt 6. Accepted.<small>This is the face the state knows.</small></p></div>
     <div class="step" data-act="7"><p>The order.<small>Twelve columns, a 24px gutter, an 8px baseline, one typeface, one red. Every number chosen, and written in the margin.</small></p></div>
-    <div class="step" data-act="8"><p>Tova.<small>She lay down on the card. Grid integrity 90%.</small></p></div>
-    <div class="step" data-act="9"><p>Sofi.<small>She read the rules and ignored them. 78%.</small></p></div>
-    <div class="step" data-act="10"><p>Moffi.<small>Under the baseline. 70%.</small></p></div>
-    <div class="step" data-act="11"><p>Toffy. 102 pixels wide.<small>Grid integrity 61%. A normal day.</small></p></div>
-    <div class="step" data-act="12"><p>Order can be restored.<small>The cats cannot.</small></p></div>
-    <div class="step" data-act="13"><p>Friday.<small>Candle lighting in Tel Aviv in <span id="swCount">…</span>, <span id="swLine">live from hebcal.com</span>. The only clock on this page that is right.</small></p></div>
-    <div class="step" data-act="14"><p>Exhibit A.<small>Ask an AI for “a personal designer website” and this is what you get.</small></p></div>
-    <div class="step" data-act="15"><p>It looks like order. <b>Nobody decided anything.</b></p></div>
-    <div class="step" data-act="16"><p>The grid is the plan. The cats are what actually happens.<small>This page is the space between them.</small></p></div>
+    <div class="step" data-act="8"><p>07:10. School run.<small>Two kids, one car, one column. The day is a grid too.</small></p></div>
+    <div class="step" data-act="9"><p>08:00. Four bowls.<small>In order of seniority. Sofi first. Nobody has ever argued.</small></p></div>
+    <div class="step" data-act="10"><p>09:00 to 17:00.<small>The 9 to 5, then the design MA in the evening row. Ben holds the other columns.</small></p></div>
+    <div class="step" data-act="11"><p>22:30. The dough goes into the fridge.<small>Grid integrity 100%. On paper.</small></p></div>
+    <div class="step" data-act="12"><p>Tova.<small>She lay down on the card. Grid integrity 90%.</small></p></div>
+    <div class="step" data-act="13"><p>Sofi.<small>She read the rules and ignored them. 78%.</small></p></div>
+    <div class="step" data-act="14"><p>Moffi.<small>Under the baseline. 70%.</small></p></div>
+    <div class="step" data-act="15"><p>Toffy. 102 pixels wide.<small>Grid integrity 61%. A normal day.</small></p></div>
+    <div class="step" data-act="16"><p>Order can be restored.<small>The cats cannot.</small></p></div>
+    <div class="step" data-act="17"><p>Hour one. Dough.<small>By weight, not by feel. Poppy seeds, butter, patience.</small></p></div>
+    <div class="step" data-act="18"><p>Hour six. Saint-Honoré.<small>Choux, caramel, cream, in exactly the right order. The most ordered thing I make.</small></p></div>
+    <div class="step" data-act="19"><p>Six minutes.<small>Gone. The seeds stay on everything, including the card.</small></p></div>
+    <div class="step" data-act="20"><p>Friday.<small>Candle lighting in Tel Aviv in <span class="swCount">…</span>, <span id="swLine">live from hebcal.com</span>. The only clock on this page that is right.</small></p></div>
+    <div class="step" data-act="21"><p lang="he" dir="rtl">שבת שלום.<small lang="en" dir="ltr">The card rests. The grid rests. The cats do not.</small></p></div>
+    <div class="step" data-act="22"><p>Saturday night. Havdalah.<small>The candles go out, the card comes back, and the countdown starts again: <span class="swCount">…</span>.</small></p></div>
+    <div class="step" data-act="23"><p>Exhibit A.<small>Ask an AI for “a personal designer website” and this is what you get.</small></p></div>
+    <div class="step" data-act="24"><p>It looks like order. <b>Nobody decided anything.</b></p></div>
+    <div class="step" data-act="25"><p>The grid is the plan. The cats are what actually happens.<small>This page is the space between them.</small></p></div>
   </div>
 </section>
 
@@ -275,7 +329,7 @@
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
   </aside>
   <div class="colophon">
-    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, in sixteen steps</p></div>
+    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, in twenty-five steps</p></div>
     <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
     <div><p lang="he" dir="rtl" style="text-align:left">שבת שלום</p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
   </div>
@@ -284,7 +338,9 @@
 <script>
   const $ = s => document.querySelector(s);
   const stage = $('#stage');
-  const integ = { 7: '100%', 8: '90%', 9: '78%', 10: '70%', 11: '61%. A normal day', 12: '100%, for a moment', 13: '100%', 14: '100%', 15: '100%', 16: '61%. A normal day' };
+  const integ = { 7: '100%', 8: '100%', 9: '100%', 10: '100%', 11: '100%. On paper', 12: '90%', 13: '78%', 14: '70%', 15: '61%. A normal day', 16: '100%, for a moment', 17: '100%', 18: '100%', 19: '100%, with seeds', 20: '100%', 21: 'resting', 22: '100%', 23: '100%', 24: '100%', 25: '61%. A normal day' };
+  // poppy seeds, scattered once, shown in act 19
+  const seeds = $('#seeds'); for (let i = 0; i < 70; i++) { const d = document.createElement('i'); d.style.cssText = `left:${22 + Math.random() * 56}%;top:${18 + Math.random() * 64}%;rotate:${Math.random() * 180}deg;--d:${(Math.random() * .5).toFixed(2)}s`; seeds.appendChild(d); }
 
   // ---- the act: cumulative classes a1..aN, plus the exact photo and stamp ----
   let act = -1;
@@ -298,7 +354,7 @@
     document.querySelectorAll('.stamp').forEach(s => s.classList.toggle('on', +s.dataset.stamp === n || (n >= 6 && +s.dataset.stamp === 6 && n < 7)));
     document.querySelectorAll('.tally i').forEach((t, i) => t.classList.toggle('on', n >= 6 ? true : i < n));
     $('#cap').textContent = n === 0 ? 'Photo. Natural ratio. Six tries.' : n <= 5 ? `Attempt ${n} of 6.` : 'Attempt 6. Accepted. Natural ratio.';
-    const g = integ[Math.min(n, 16)]; if (g) $('#integrity').querySelector('b').textContent = `Grid integrity ${g}.`;
+    const g = integ[Math.min(n, 25)]; if (g) $('#integrity').querySelector('b').textContent = `Grid integrity ${g}.`;
     document.querySelectorAll('.step').forEach(s => s.classList.toggle('on', +s.dataset.act === n));
   }
   window.setAct = setAct;
@@ -316,6 +372,9 @@
   addEventListener('resize', update);
   window.__update = update;
   update();
+  // on short screens the card is scaled to fit, so every step stays on one screen
+  const fit = () => { const c = $('#card'); c.style.setProperty('--fit', 1); const h = c.offsetHeight, max = innerHeight * .86; c.style.setProperty('--fit', h > max ? (max / h).toFixed(3) : 1); };
+  fit(); addEventListener('resize', fit); addEventListener('load', fit);
 
   // ---- word count ----
   $('#wc').textContent = `${$('#posText').textContent.trim().split(/\s+/).length} words`;
@@ -347,11 +406,11 @@
       const dd = Math.floor(ms / 864e5); ms -= dd * 864e5;
       const hh = Math.floor(ms / 36e5); ms -= hh * 36e5;
       const mm = Math.floor(ms / 6e4), ss = Math.floor(ms % 6e4 / 1000);
-      $('#swCount').textContent = `${dd} days ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
+      document.querySelectorAll('.swCount').forEach(el => el.textContent = `${dd} days ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`);
       $('#swLine').textContent = on ? 'it is Shabbat right now, that is the time to havdalah' : 'live from hebcal.com';
     };
     tickClock(); setInterval(tickClock, 1000);
-  }).catch(() => { failed('#shabbatDd'); $('#swCount').textContent = 'a while'; $('#swLine').textContent = 'hebcal.com is not answering'; });
+  }).catch(() => { failed('#shabbatDd'); document.querySelectorAll('.swCount').forEach(el => el.textContent = 'a while'); $('#swLine').textContent = 'hebcal.com is not answering'; });
 
   getJSON(`https://api.github.com/repos/${REPO}/commits?per_page=30`).then(arr => {
     const c = arr[0], d = new Date(c.commit.author.date), msg = c.commit.message.split('\n')[0];
