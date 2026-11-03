@@ -4,371 +4,325 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dania Altman, identity card</title>
-<meta name="description" content="Identity card: order and rupture. A design MA homework by Dania Altman. An inventory of one person on a grid of twelve columns and eight rows.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23fff'/%3E%3Crect x='3' y='3' width='10' height='10' fill='none' stroke='%23000'/%3E%3C/svg%3E">
+<meta name="description" content="Identity card: order and rupture. A scroll story in sixteen steps. Design MA, Homework 1, by Dania Altman.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23E3000F'/%3E%3C/svg%3E">
 <style>
-  /* ---------- tokens. two typefaces that were already on every computer. ---------- */
   :root {
     --ink: #000; --paper: #fff; --grey: #777; --line: #d9d9d9; --red: #E3000F; --blue: #1636E8;
-    --serif: 'Times New Roman', Times, 'Noto Serif Hebrew', serif;
-    --sans: Helvetica, Arial, 'Helvetica Neue', sans-serif;
-    --gut: 24px; --mar: 24px; --row: 80px;
+    --sans: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+    --ease: cubic-bezier(.3, 1.4, .4, 1);
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  html, body { margin: 0; overflow-x: clip; }
-  body { font-family: var(--serif); font-size: 17px; line-height: 28px; color: var(--ink); background: var(--paper); }
+  html, body { margin: 0; }
+  body { font-family: var(--sans); font-size: 15px; line-height: 22px; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; overflow-x: clip; }
   img { display: block; max-width: 100%; height: auto; }
   a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-  a:hover { color: var(--blue); }
-  :focus-visible { outline: 1px dotted var(--ink); outline-offset: 3px; }
-  button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+  a:hover { color: var(--red); }
   h1, h2, h3, p, figure, dl, dd, ul { margin: 0; font-weight: 400; }
-  .sans { font-family: var(--sans); font-size: 13px; line-height: 18px; }
-  .small { font-family: var(--sans); font-size: 11px; line-height: 16px; color: var(--grey); }
-  .grey { color: var(--grey); }
-  .mine { color: var(--blue); font-style: italic; }
-  del { color: var(--grey); }
-  ins { text-decoration: none; color: var(--blue); font-style: italic; }
-  [lang="he"] { font-family: var(--serif); }
+  .small { font-size: 11px; line-height: 16px; color: var(--grey); }
+  [lang="he"] { font-family: var(--sans); }
 
-  /* ---------- the page is the grid: twelve columns across the whole screen, rows of 80px ---------- */
-  .g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(var(--row), auto); column-gap: var(--gut); padding: 0 var(--mar); position: relative; }
-  .g > * { min-width: 0; }
-  .gridlines { position: fixed; inset: 0 var(--mar); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gut); pointer-events: none; z-index: 50; opacity: 0; transition: opacity .3s; }
-  .gridlines i { border-left: 1px solid var(--red); border-right: 1px solid var(--red); opacity: .3; }
-  body.grid-on .gridlines { opacity: 1; }
-  body.grid-on { background-image: repeating-linear-gradient(to bottom, transparent 0 calc(var(--row) - 1px), rgba(227, 0, 15, .18) calc(var(--row) - 1px) var(--row)); }
-  .at { display: none; font-family: var(--sans); font-size: 9px; line-height: 11px; color: var(--red); }
-  body.grid-on .at { display: block; }
+  /* ---------- top ---------- */
+  .top { position: fixed; inset: 0 auto auto 0; width: 100%; display: flex; justify-content: space-between; padding: 18px 24px; font-size: 12px; line-height: 16px; z-index: 20; pointer-events: none; }
+  .top span { color: var(--grey); }
 
-  /* ---------- things pinned to the screen ---------- */
-  .pin { position: fixed; z-index: 40; font-family: var(--sans); font-size: 11px; line-height: 14px; }
-  .pin.tl { left: var(--mar); top: 20px; }
-  .pin.tr { right: var(--mar); top: 20px; width: 64px; text-align: right; }
-  .pin.tr img { width: 64px; margin-left: auto; }
-  .pin.bl { left: var(--mar); bottom: 20px; display: flex; align-items: flex-end; gap: 12px; }
-  .pin.bl svg { width: 40px; height: 50px; flex: none; }
-  .pin.bl .count { color: var(--grey); white-space: nowrap; }
-  .pin.r { right: 6px; top: 50%; translate: 0 -50%; writing-mode: vertical-rl; font-family: var(--serif); font-size: 14px; letter-spacing: .04em; color: var(--grey); }
-  .pin.br { right: var(--mar); bottom: 20px; width: 70px; }
-  .pin.br img { width: 70px; }
-  .pin.br figcaption { text-align: right; }
+  /* ---------- the story: a sticky stage, steps scroll over it ---------- */
+  .story { position: relative; }
+  .stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; }
+  .steps { position: relative; margin-top: -100vh; margin-top: -100dvh; z-index: 5; pointer-events: none; }
+  .step { height: 85vh; display: flex; align-items: flex-end; padding: 0 24px 11vh; }
+  .step:first-child { height: 100vh; }
+  .step p { max-width: 560px; text-shadow: 0 0 12px #fff, 0 0 24px #fff; font-size: clamp(22px, 3vw, 36px); line-height: 1.2; letter-spacing: -.01em; opacity: 0; translate: 0 12px; transition: opacity .4s, translate .4s; }
+  .step.on p { opacity: 1; translate: 0; }
+  .step p b { font-weight: 400; color: var(--red); }
+  .step p small { display: block; font-size: 13px; line-height: 18px; color: var(--grey); margin-top: 10px; letter-spacing: 0; }
+  .step:nth-child(even) { justify-content: flex-end; }
+  .step:nth-child(even) p { text-align: right; }
 
-  /* ---------- the first screen ---------- */
-  .stage { min-height: 100vh; padding-top: 56px; align-content: start; }
-  .me { grid-column: 1 / 6; grid-row: 1 / 9; align-self: end; justify-self: start; height: 88vh; width: auto; max-width: none; margin-left: -9vw; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); }
-  .name { grid-column: 6 / 13; grid-row: 3 / 5; align-self: start; font-size: clamp(72px, 11vw, 168px); line-height: .92; letter-spacing: -.02em; white-space: nowrap; margin-left: -.03em; }
-  .item { position: relative; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; border: 1px solid var(--line); padding: 6px 4px 4px; background: rgba(255,255,255,.6); translate: calc(var(--dx, 0px) * var(--chaos, 1)) calc(var(--dy, 0px) * var(--chaos, 1)); transition: translate .6s cubic-bezier(.3, 1.2, .5, 1), opacity .5s; z-index: 1; min-height: 0; align-self: stretch; }
-  .item img, .item svg { max-height: 100%; width: auto; max-width: 100%; object-fit: contain; min-height: 0; flex: 0 1 auto; }
-  .item .n { position: absolute; top: 5px; right: 6px; font-family: var(--sans); font-size: 11px; line-height: 14px; width: 15px; height: 15px; border: 1px solid var(--ink); border-radius: 50%; text-align: center; background: var(--paper); }
-  .item figcaption { font-family: var(--sans); font-size: 12px; line-height: 15px; margin-top: 4px; white-space: nowrap; flex: none; }
-  .item .at { position: absolute; left: 5px; top: 4px; right: 24px; text-align: left; }
-  .item[hidden] { display: flex; opacity: 0; pointer-events: none; }
-  body.grid-on .item { border-color: var(--red); }
-  .i1 { grid-column: 10 / 12; grid-row: 1 / 3; --dx: 6px; --dy: -4px; }
-  .i2 { grid-column: 7 / 9; grid-row: 5 / 7; --dx: -9px; --dy: 5px; }
-  .i3 { grid-column: 12 / 13; grid-row: 7 / 9; --dx: 4px; --dy: -7px; }
-  .i4 { grid-column: 9 / 10; grid-row: 6 / 9; --dx: -3px; --dy: 2px; }
-  .i5 { grid-column: 6 / 7; grid-row: 8 / 9; --dx: 8px; --dy: 0px; }
-  .i6 { grid-column: 10 / 11; grid-row: 8 / 9; --dx: -5px; --dy: -3px; }
-  .question { grid-column: 6 / 10; grid-row: 9; align-self: center; font-size: 24px; line-height: 32px; }
-  .question a { text-decoration: none; } .question a span { text-decoration: underline; text-underline-offset: 4px; }
-  .credit { grid-column: 1 / 5; grid-row: 10; align-self: end; padding-bottom: 60px; }
+  /* the card, in the middle of the stage */
+  .card { position: absolute; left: 50%; top: 50%; width: min(760px, 92vw); translate: -50% -50%; transition: opacity .5s; }
+  .a14 .card { opacity: .18; } .a16 .card { opacity: 1; }
+  .frame { position: absolute; inset: -24px; border: 1px solid var(--line); opacity: 0; transition: opacity .6s; }
+  .a6 .frame { opacity: 1; }
+  .card .inner { display: grid; grid-template-columns: 180px 1fr; column-gap: 40px; align-items: start; }
+  .photo { position: relative; width: 180px; }
+  .photo img { width: 180px; height: 180px; object-fit: cover; }
+  .photo .pic { position: absolute; inset: 0; opacity: 0; transition: opacity .25s; }
+  .photo .pic.on { opacity: 1; }
+  .photo .base { position: relative; }
+  .stamp { position: absolute; left: -14px; top: 40px; padding: 6px 10px; border: 3px solid var(--red); color: var(--red); font-size: 22px; line-height: 24px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; rotate: -14deg; opacity: 0; scale: 2.2; transition: scale .22s var(--ease), opacity .1s; pointer-events: none; mix-blend-mode: multiply; }
+  .stamp.on { opacity: 1; scale: 1; }
+  .stamp.ok { border-color: var(--ink); color: var(--ink); left: 10px; top: 60px; rotate: -8deg; }
+  .stamp small { display: block; font-size: 10px; line-height: 12px; letter-spacing: .04em; font-weight: 400; }
+  .tally { display: flex; gap: 4px; margin-top: 10px; height: 16px; }
+  .tally i { width: 30px; height: 14px; border: 1.5px solid var(--red); opacity: 0; scale: 1.6; transition: scale .2s var(--ease), opacity .1s; }
+  .tally i.on { opacity: 1; scale: 1; }
+  .photo figcaption { margin-top: 8px; font-size: 11px; line-height: 16px; color: var(--grey); }
+  .name { font-size: clamp(40px, 6vw, 72px); line-height: .95; letter-spacing: -.03em; font-weight: 700; opacity: 0; translate: 0 10px; transition: opacity .5s, translate .5s; }
+  .a7 .name { opacity: 1; translate: 0; }
+  .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; row-gap: 20px; margin-top: 28px; }
+  .fields > div { border-top: 1px solid var(--ink); padding-top: 6px; opacity: 0; translate: 0 16px; transition: opacity .5s, translate .5s, rotate .6s var(--ease); transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s; rotate: calc(var(--k) * var(--chaos, 0) * .8deg); }
+  .a7 .fields > div { opacity: 1; translate: calc(var(--k2) * var(--chaos, 0) * 4px) calc(var(--k) * var(--chaos, 0) * 3px); transition-delay: calc(var(--i) * 70ms), 0s, 0s; }
+  .fields dt { font-size: 11px; line-height: 16px; color: var(--grey); }
+  .fields dd { font-size: 15px; line-height: 20px; }
+  .fields dd small { display: block; font-size: 11px; line-height: 14px; color: var(--grey); margin-top: 2px; }
+  .integrity { margin-top: 28px; font-size: 11px; line-height: 16px; color: var(--grey); opacity: 0; transition: opacity .5s .4s; }
+  .a7 .integrity { opacity: 1; }
+  .integrity b { font-weight: 400; color: var(--ink); }
+  .a8 .card { --chaos: .3; } .a9 .card { --chaos: .55; } .a10 .card { --chaos: .8; } .a11 .card { --chaos: 1; } .a12 .card { --chaos: 0; } .a16 .card { --chaos: 1; }
 
-  /* ---------- entries ---------- */
-  .entry { padding-top: calc(var(--row) * 2); }
-  .n { display: inline-block; font-family: var(--sans); font-size: 11px; line-height: 15px; width: 17px; height: 17px; border: 1px solid var(--ink); border-radius: 50%; text-align: center; vertical-align: 2px; margin-right: 8px; }
-  h2 { font-size: 24px; line-height: 32px; }
-  .lede { font-size: 22px; line-height: 32px; }
+  /* the grid draws itself */
+  .gridlines { position: absolute; inset: 0 24px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; pointer-events: none; }
+  .gridlines i { border-left: 1px solid var(--red); border-right: 1px solid var(--red); opacity: .35; transform: scaleY(0); transform-origin: top; transition: transform .9s cubic-bezier(.2, .8, .2, 1); transition-delay: calc(var(--i) * 45ms); }
+  .a7 .gridlines i { transform: scaleY(1); }
+  .a14 .gridlines { opacity: .3; } .a16 .gridlines { opacity: 1; }
 
-  /* exhibit A: the list on the left, the template tiny in the far corner */
-  #exhibit h2 { grid-column: 2 / 6; grid-row: 1; }
-  #exhibit .lede { grid-column: 2 / 7; grid-row: 2 / 4; }
-  .tpl { grid-column: 11 / 13; grid-row: 1 / 3; align-self: start; width: 150px; justify-self: end; padding: 10px; border-radius: 8px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; text-align: center; font-family: Inter, var(--sans); filter: grayscale(1) opacity(.5); position: relative; }
-  .tpl b { display: block; font-size: 10px; margin: 4px 0 2px; font-weight: 700; }
-  .tpl p { font-size: 6px; line-height: 8px; }
-  .tpl span { display: inline-block; font-size: 5px; padding: 1px 5px; border-radius: 999px; background: rgba(255,255,255,.25); }
-  .tpl .btns { margin-top: 5px; display: flex; gap: 3px; justify-content: center; }
-  .tpl .btns i { font-style: normal; font-size: 5px; padding: 3px 5px; border-radius: 3px; background: #fff; color: #333; }
+  /* the cats arrive */
+  .cat { position: absolute; opacity: 0; transition: transform .75s var(--ease), opacity .3s; pointer-events: none; }
+  .cat img { width: 100%; }
+  .cat figcaption { font-size: 11px; line-height: 16px; color: var(--grey); margin-top: 6px; white-space: nowrap; }
+  .tova { width: min(260px, 32vw); left: calc(50% + 110px); top: calc(50% - 300px); transform: translateY(-120vh) rotate(-30deg); }
+  .a8 .tova { opacity: 1; transform: translateY(0) rotate(3deg); }
+  .sofi { width: min(170px, 22vw); right: calc(50% - 470px); top: calc(50% + 40px); transform: translateX(70vw); }
+  .a9 .sofi { opacity: 1; transform: translateX(0) rotate(-2deg); }
+  .moffi { width: min(150px, 20vw); left: calc(50% - 480px); bottom: calc(50% - 300px); transform: translateY(70vh); }
+  .a10 .moffi { opacity: 1; transform: translateY(0) rotate(2deg); }
+  .toffy { width: 102px; left: calc(50% - 300px); top: calc(50% - 312px); rotate: 4deg; transition: none; }
+  .a11 .toffy { opacity: 1; animation: flicker .8s steps(3, end) 1; }
+  @keyframes flicker { 0% { opacity: 0; } 30% { opacity: 1; } 50% { opacity: 0; } 70% { opacity: 1; } 100% { opacity: 1; } }
+
+  /* friday */
+  .candles { position: absolute; left: calc(50% - 480px); top: calc(50% - 320px); width: 110px; opacity: 0; translate: 0 20px; transition: opacity .5s, translate .5s; }
+  .a13 .candles { opacity: 1; translate: 0; }
+  .candles svg { width: 110px; height: 138px; }
+  .flame { opacity: 0; transform-origin: 50% 100%; transition: opacity .3s .4s; }
+  .a13 .flame { opacity: 1; animation: flicker2 .5s ease-in-out infinite alternate; }
+  .a13 .flame:nth-of-type(2) { animation-duration: .65s; }
+  @keyframes flicker2 { from { transform: scale(1, 1) rotate(-3deg); } to { transform: scale(.9, 1.08) rotate(3deg); } }
+  .candles figcaption { font-size: 11px; line-height: 16px; color: var(--grey); margin-top: 6px; }
+
+  /* exhibit A */
+  .tpl { position: absolute; left: 50%; top: 50%; width: min(420px, 86vw); translate: -50% -50%; opacity: 0; scale: .96; transition: opacity .5s, scale .5s; padding: 28px 24px; border-radius: 16px; background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; text-align: center; font-family: Inter, var(--sans); }
+  .a14 .tpl { opacity: 1; scale: 1; } .a16 .tpl { opacity: 0; }
+  .tpl b { display: block; font-size: 24px; margin: 10px 0 6px; font-weight: 700; }
+  .tpl p { font-size: 13px; line-height: 18px; opacity: .9; }
+  .tpl span { display: inline-block; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: rgba(255,255,255,.25); }
+  .tpl .btns { margin-top: 14px; display: flex; gap: 8px; justify-content: center; }
+  .tpl .btns i { font-style: normal; font-size: 12px; padding: 8px 14px; border-radius: 8px; background: #fff; color: #333; }
   .tpl .btns i + i { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.6); }
-  .tpl .cards { margin-top: 5px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-  .tpl .cards div { background: rgba(255,255,255,.15); border-radius: 4px; padding: 4px 2px; font-size: 5px; line-height: 7px; }
-  .tpl::after { content: ''; position: absolute; left: -6px; right: -6px; top: 50%; height: 1px; background: var(--red); rotate: -12deg; }
-  .diff { grid-column: 7 / 12; grid-row: 4 / 9; align-self: start; font-family: var(--sans); font-size: 13px; line-height: 18px; }
-  .diff div { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; padding: 8px 0 14px; border-top: 1px solid var(--line); }
-  .diff div span:first-child { color: var(--grey); }
-  .diff .cap { border-top: 0; color: var(--grey); padding-top: 0; } .diff .cap span { color: var(--ink); }
+  .tpl .cards { margin-top: 16px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tpl .cards div { background: rgba(255,255,255,.15); border-radius: 12px; padding: 10px 6px; font-size: 10px; line-height: 13px; }
+  .tpl .x { position: absolute; left: -8%; right: -8%; top: 50%; height: 3px; background: var(--red); rotate: -14deg; transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .9, .2, 1); }
+  .a15 .tpl .x { transform: scaleX(1); }
+  .tpl .no { position: absolute; right: -10px; bottom: -22px; font-size: 44px; line-height: 1; color: var(--red); font-weight: 700; rotate: -10deg; opacity: 0; scale: 2; transition: scale .25s var(--ease) .35s, opacity .1s .35s; }
+  .a15 .tpl .no { opacity: 1; scale: 1; }
 
-  /* the card: photo far left, table far right, dial somewhere else */
-  #card h2 { grid-column: 9 / 13; grid-row: 1; }
-  #card .lede { grid-column: 9 / 13; grid-row: 2; }
-  .photo { grid-column: 1 / 3; grid-row: 1 / 4; width: 150px; cursor: pointer; }
-  .photo figcaption { margin-top: 8px; }
-  .fields { grid-column: 7 / 13; grid-row: 3 / 9; align-self: start; font-family: var(--sans); font-size: 13px; line-height: 18px; }
-  .fields > div { display: grid; grid-template-columns: 120px 1fr; column-gap: 24px; padding: 8px 0 12px; border-top: 1px solid var(--line); }
-  .fields dt { color: var(--grey); }
-  .fields dd small { display: block; color: var(--grey); margin-top: 2px; font-size: 11px; line-height: 16px; }
-  .fields .loading dd::after { content: ' ·'; color: var(--red); animation: pulse 1s steps(2, end) infinite; }
-  @keyframes pulse { 50% { opacity: 0; } }
-  .dial { grid-column: 2 / 5; grid-row: 7; align-self: end; display: grid; grid-template-columns: auto 1fr auto; column-gap: 16px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); font-family: var(--sans); font-size: 13px; }
-  .dial input { width: 100%; margin: 0; accent-color: var(--ink); height: 18px; }
-  .rules { grid-column: 2 / 5; grid-row: 8; align-self: start; padding-top: 12px; border-top: 1px solid var(--ink); }
+  /* ---------- after the story ---------- */
+  .after { padding: 20vh 24px 0; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 80px; }
+  .after > * { min-width: 0; }
+  .pos { grid-column: 3 / 8; }
+  .pos h2 { font-size: 32px; line-height: 38px; letter-spacing: -.02em; margin-bottom: 24px; }
+  .pos .lead { font-size: 22px; line-height: 30px; margin-bottom: 24px; }
+  .pos h3 { font-size: 11px; line-height: 16px; color: var(--grey); margin: 28px 0 6px; }
+  .pos p + p { margin-top: 14px; }
+  del { color: var(--grey); } ins { text-decoration: none; color: var(--blue); font-style: italic; }
+  .side { grid-column: 9 / 12; align-self: start; position: sticky; top: 10vh; }
+  .side figcaption { margin-top: 8px; font-size: 11px; line-height: 16px; color: var(--blue); font-style: italic; }
+  .colophon { grid-column: 3 / 12; display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 24px; padding: 20px 0 120px; border-top: 1px solid var(--ink); font-size: 12px; line-height: 17px; }
+  .colophon p + p { margin-top: 6px; }
+  .colophon [lang="he"] { font-size: 22px; line-height: 28px; }
 
-  /* what breaks it: a walk across the page */
-  #breaks h2 { grid-column: 1 / 4; grid-row: 1; }
-  #breaks .lede { grid-column: 4 / 9; grid-row: 1 / 3; }
-  .roll { display: contents; }
-  .roll figure { align-self: end; translate: var(--dx, 0) 0; rotate: var(--r, 0deg); }
-  .roll figure .real { width: auto; max-width: 100%; }
-  .roll figcaption { margin-top: 10px; font-family: var(--sans); font-size: 12px; line-height: 16px; }
-  .b1 { grid-column: 11 / 13; grid-row: 2 / 5; } .b2 { grid-column: 1 / 4; grid-row: 4 / 9; } .b3 { grid-column: 7 / 10; grid-row: 7 / 10; }
-  .b4 { grid-column: 11 / 13; grid-row: 10 / 14; } .b5 { grid-column: 2 / 7; grid-row: 12 / 16; } .b6 { grid-column: 8 / 11; grid-row: 17 / 21; } .b7 { grid-column: 12 / 13; grid-row: 20 / 24; }
+  .replay { position: fixed; right: 24px; bottom: 20px; z-index: 20; font-size: 12px; line-height: 16px; color: var(--grey); text-decoration: none; }
+  .replay:hover { color: var(--red); }
 
-  /* friday: one line in the middle of nowhere */
-  #friday h2 { grid-column: 5 / 8; grid-row: 1; }
-  #friday .lede { grid-column: 5 / 11; grid-row: 2; }
-  #friday .grey { grid-column: 5 / 10; grid-row: 3; }
-  #friday .small { grid-column: 5 / 9; grid-row: 4; }
-
-  /* position: the heading far from its text */
-  #position h2 { grid-column: 9 / 13; grid-row: 1; }
-  .pos { grid-column: 2 / 7; grid-row: 1 / span 14; }
-  .pos h3 { font-family: var(--sans); font-size: 13px; line-height: 18px; color: var(--grey); margin: 36px 0 6px; }
-  .pos p + p { margin-top: 16px; }
-  .pos .lead { font-size: 22px; line-height: 32px; }
-  .side1 { grid-column: 9 / 12; grid-row: 4 / 8; align-self: start; }
-  .side2 { grid-column: 11 / 13; grid-row: 11 / 14; align-self: start; }
-  aside figcaption { margin-top: 8px; font-size: 12px; line-height: 16px; }
-
-  /* index */
-  #index { padding-bottom: calc(var(--row) * 2); }
-  #index h2 { grid-column: 4 / 7; grid-row: 1; }
-  .index { grid-column: 4 / 11; grid-row: 2 / 6; align-self: start; font-family: var(--sans); font-size: 13px; line-height: 18px; list-style: none; padding: 0; }
-  .index li { display: grid; grid-template-columns: 28px 1fr 1fr; column-gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); }
-  .index li span:last-child { color: var(--grey); }
-
-  footer { padding-top: calc(var(--row) * 2); padding-bottom: 120px; }
-  footer .made { grid-column: 7 / 11; grid-row: 1; font-family: var(--sans); font-size: 22px; line-height: 28px; color: var(--grey); }
-  footer .links { grid-column: 1 / 5; grid-row: 2; align-self: end; }
-  footer .links p + p { margin-top: 6px; }
-
-  .flame { opacity: 0; transform-origin: 50% 100%; }
-  .lit .flame { opacity: 1; animation: flicker .5s ease-in-out infinite alternate; }
-  .lit .flame:nth-of-type(2) { animation-duration: .65s; }
-  @keyframes flicker { from { transform: scale(1, 1) rotate(-3deg); } to { transform: scale(.9, 1.08) rotate(3deg); } }
-
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .item { transition: none; } .lit .flame { animation: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .stage *, .step p { transition: none !important; animation: none !important; }
+  }
   @media (max-width: 760px) {
-    :root { --gut: 12px; --mar: 16px; --row: 64px; }
-    body { font-size: 16px; line-height: 26px; }
-    .g, .gridlines { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-    .pin.r, .pin.br { display: none; }
-    .pin.tr { width: 48px; } .pin.tr img { width: 48px; }
-    .stage { min-height: auto; padding-top: 48px; }
-    .me { grid-column: 1 / 5; grid-row: 1 / 7; height: auto; width: 92vw; margin-left: -22vw; }
-    .name { grid-column: 1 / 7; grid-row: 7 / 8; font-size: 15vw; white-space: normal; }
-    .i1 { grid-column: 5 / 7; grid-row: 1 / 3; } .i2 { grid-column: 5 / 7; grid-row: 4 / 6; } .i3 { grid-column: 6 / 7; grid-row: 9 / 11; }
-    .i4 { grid-column: 1 / 2; grid-row: 9 / 12; } .i5 { grid-column: 3 / 4; grid-row: 10 / 11; } .i6 { grid-column: 4 / 5; grid-row: 10 / 11; }
-    .question { grid-column: 1 / 7; grid-row: 12; font-size: 20px; line-height: 28px; }
-    .credit { grid-column: 1 / 7; grid-row: 13; padding-bottom: 20px; }
-    #exhibit h2 { grid-column: 1 / 6; } #exhibit .lede { grid-column: 1 / 7; grid-row: 2 / 4; } .tpl { grid-column: 5 / 7; width: 110px; }
-    .diff { grid-column: 1 / 7; grid-row: 5 / 9; }
-    #card h2, #card .lede { grid-column: 1 / 7; } #card h2 { grid-row: 1; } #card .lede { grid-row: 2; }
-    .photo { grid-column: 1 / 3; grid-row: 3 / 5; width: 120px; } .fields { grid-column: 1 / 7; grid-row: 6 / 12; } .dial { grid-column: 1 / 5; grid-row: 12; } .rules { grid-column: 1 / 7; grid-row: 13; }
-    #breaks h2 { grid-column: 1 / 7; } #breaks .lede { grid-column: 1 / 7; grid-row: 2 / 4; }
-    .b1 { grid-column: 5 / 7; grid-row: 4 / 7; } .b2 { grid-column: 1 / 4; grid-row: 6 / 11; } .b3 { grid-column: 3 / 7; grid-row: 11 / 14; } .b4 { grid-column: 1 / 3; grid-row: 14 / 18; } .b5 { grid-column: 2 / 7; grid-row: 18 / 22; } .b6 { grid-column: 1 / 5; grid-row: 22 / 26; } .b7 { grid-column: 5 / 7; grid-row: 25 / 29; }
-    #friday h2, #friday .lede, #friday .grey, #friday .small { grid-column: 1 / 7; }
-    #position h2 { grid-column: 1 / 7; grid-row: 1; } .pos { grid-column: 1 / 7; grid-row: 2 / span 20; } .side1 { grid-column: 1 / 4; grid-row: 23 / 26; } .side2 { grid-column: 4 / 7; grid-row: 23 / 26; }
-    #index h2 { grid-column: 1 / 7; } .index { grid-column: 1 / 7; } .index li { grid-template-columns: 24px 1fr; } .index li span:last-child { grid-column: 2; }
-    footer .made { grid-column: 1 / 7; } footer .links { grid-column: 1 / 7; }
+    .card { width: 92vw; top: 46%; }
+    .card .inner { grid-template-columns: 1fr; row-gap: 20px; }
+    .photo, .photo img { width: 140px; height: auto; } .photo img { height: 140px; }
+    .fields { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; row-gap: 14px; margin-top: 16px; }
+    .fields dd { font-size: 14px; line-height: 18px; }
+    .name { font-size: 40px; }
+    .frame { inset: -14px; }
+    .tova { width: 140px; left: auto; right: 3vw; top: 5vh; }
+    .sofi { width: 100px; right: 2vw; top: auto; bottom: 3vh; }
+    .moffi { width: 80px; left: -8px; bottom: 1vh; }
+    .toffy { left: auto; right: 5vw; top: 38vh; }
+    .candles { left: 44vw; top: 4vh; width: 54px; } .candles svg { width: 54px; height: 68px; }
+    .card { top: 52%; }
+    .frame { display: none; }
+    .step { padding: 0 16px 9vh; }
+    .step p { font-size: 20px; }
+    .after { padding: 12vh 16px 0; row-gap: 48px; }
+    .pos, .side, .colophon { grid-column: 1 / -1; }
+    .side { position: static; max-width: 260px; }
+    .colophon { grid-template-columns: 1fr; row-gap: 24px; padding-bottom: 80px; }
   }
 </style>
 </head>
 <body>
 
-<div class="gridlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-<button class="pin tl" id="gridbtn" aria-pressed="false">[ show the grid ]</button>
-<figure class="pin tr"><img src="images/me-selfie.jpg" alt="A small blurry selfie at 7am" width="150" height="267"><figcaption>7am</figcaption></figure>
-<div class="pin bl" id="fridayPin">
-  <svg id="candles" viewBox="0 0 96 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-    <path class="flame" d="M28 36 C 22 28, 22 18, 28 12 C 34 18, 34 28, 28 36 Z" fill="#E3000F" stroke="none"/>
-    <path class="flame" d="M68 36 C 62 28, 62 18, 68 12 C 74 18, 74 28, 68 36 Z" fill="#E3000F" stroke="none"/>
-    <path d="M28 38 v6 M68 38 v6"/><rect x="21" y="44" width="14" height="52"/><rect x="61" y="44" width="14" height="52"/>
-    <path d="M12 96 h32 M52 96 h32 M16 96 v8 h24 v-8 M56 96 v8 h24 v-8"/><path d="M8 110 h80"/>
-  </svg>
-  <div><div lang="he" dir="rtl" style="text-align:left" id="swTitle">שבת בעוד <span id="swCount" dir="ltr">…</span></div><div class="count" id="swPinLine">Tel Aviv, live from hebcal.com</div></div>
-</div>
-<p class="pin r" lang="he" dir="rtl">שבת שלום · הסדר הוא החלטה · הבלגן הוא מידע</p>
-<figure class="pin br"><img src="images/cut-tova.png" alt="Tova lying belly up" width="319" height="239"><figcaption>Tova</figcaption></figure>
+<header class="top"><div>Dania Altman</div><span>Identity card No. 001 · scroll ↓</span></header>
+<a class="replay" href="#top">↑ again</a>
 
-<main>
-  <section class="g stage" id="stage" aria-label="Dania, with six things from her life placed around her">
-    <img class="me" src="images/cut-me.png" alt="Dania, cut out of her passport photo, looking at the camera without expression" width="500" height="500">
-    <h1 class="name">Dania Altman.</h1>
-    <figure class="item i1" data-cat="0" data-at="columns 10 to 11, rows 1 to 2"><span class="n">1</span><img src="images/cut-cake.png" alt="A Saint-Honoré cake" width="800" height="1067"><figcaption>Makes</figcaption><span class="at"></span></figure>
-    <figure class="item i2" data-cat="1" data-at="columns 7 to 8, rows 5 to 6"><span class="n">2</span><img src="images/cut-tova.png" alt="Tova the cat lying belly up" width="319" height="239"><figcaption>Rupture</figcaption><span class="at"></span></figure>
-    <figure class="item i3" data-cat="2" data-at="column 12, rows 7 to 8"><span class="n">3</span><img src="images/cut-sofi.png" alt="Sofi the black cat, lounging" width="600" height="797"><figcaption>Order</figcaption><span class="at"></span></figure>
-    <figure class="item i4" data-cat="0" data-at="column 9, rows 6 to 8"><span class="n">4</span><img src="images/cut-kinder.png" alt="Dania holding a giant Kinder egg" width="800" height="1423"><figcaption>For the kids</figcaption><span class="at"></span></figure>
-    <figure class="item i5" data-cat="0" data-at="column 6, row 8"><span class="n">5</span><img src="images/bake-dough.jpg" alt="Poppy seed dough" width="800" height="600"><figcaption>Everywhere</figcaption><span class="at"></span></figure>
-    <figure class="item i6" data-cat="0" data-at="column 10, row 8"><span class="n">6</span>
-      <svg class="candles-s" viewBox="0 0 96 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+<section class="story" id="top" aria-label="Identity card: order and rupture, a scroll story">
+  <div class="stage" id="stage">
+    <div class="gridlines" aria-hidden="true"><i style="--i:0"></i><i style="--i:1"></i><i style="--i:2"></i><i style="--i:3"></i><i style="--i:4"></i><i style="--i:5"></i><i style="--i:6"></i><i style="--i:7"></i><i style="--i:8"></i><i style="--i:9"></i><i style="--i:10"></i><i style="--i:11"></i></div>
+
+    <div class="card" id="card">
+      <div class="frame" aria-hidden="true"></div>
+      <div class="inner">
+        <figure class="photo" id="photo">
+          <img class="base" src="images/me-deadpan.jpg" alt="Passport-style photo of me, deadpan" width="500" height="500">
+          <img class="pic" data-pic="1" src="images/me-laugh.jpg" alt="Me laughing with my eyes shut" width="800" height="1062">
+          <img class="pic" data-pic="2" src="images/me-sleep.jpg" alt="Me asleep, face in my hands" width="800" height="1062">
+          <img class="pic" data-pic="3" src="images/me-selfie.jpg" alt="A small blurry selfie at 7am" width="150" height="267">
+          <img class="pic" data-pic="4" src="images/me-side.jpg" alt="Me looking to the side" width="900" height="1195">
+          <img class="pic" data-pic="5" src="images/me-kinder.jpg" alt="Me holding a giant Kinder egg" width="800" height="1423">
+          <span class="stamp" data-stamp="1">Rejected<small>smiling</small></span>
+          <span class="stamp" data-stamp="2">Rejected<small>eyes closed</small></span>
+          <span class="stamp" data-stamp="3">Rejected<small>7am</small></span>
+          <span class="stamp" data-stamp="4">Rejected<small>not facing the camera</small></span>
+          <span class="stamp" data-stamp="5">Rejected<small>holding an egg</small></span>
+          <span class="stamp ok" data-stamp="6">Accepted<small>attempt 6</small></span>
+          <div class="tally" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <figcaption id="cap">Photo. Natural ratio. Six tries.</figcaption>
+        </figure>
+        <div>
+          <h1 class="name">Dania<br>Altman.</h1>
+          <dl class="fields" id="fields">
+            <div style="--i:0; --k:-1.1; --k2:.6"><dt>Name</dt><dd>Dania Altman<small lang="he" dir="rtl">דניה אלטמן</small></dd></div>
+            <div style="--i:1; --k:.8; --k2:-1.2"><dt>Age</dt><dd>29</dd></div>
+            <div style="--i:2; --k:-.5; --k2:1.3"><dt>Studies</dt><dd>MA, Design</dd></div>
+            <div style="--i:3; --k:1.4; --k2:.7"><dt>Household</dt><dd>1 Ben, 2 kids, 4 cats</dd></div>
+            <div style="--i:4; --k:-.9; --k2:-.6"><dt>Makes</dt><dd>Saint-Honoré, cats in suits, this page</dd></div>
+            <div style="--i:5; --k:.6; --k2:1"><dt>Believes</dt><dd>Order is a decision. Mess is information.<small lang="he" dir="rtl">שבת שלום</small></dd></div>
+            <div style="--i:6; --k:-.7; --k2:-1.4"><dt>Today</dt><dd id="hdate">…<small>Hebrew date, live from hebcal.com</small></dd></div>
+            <div style="--i:7; --k:1.1; --k2:.3"><dt>Shabbat</dt><dd id="shabbatDd">…<small>Candle lighting in Tel Aviv, live from hebcal.com</small></dd></div>
+            <div style="--i:8; --k:-1.3; --k2:.9"><dt>Last edited</dt><dd id="commitDd">…<small>This page's git history, live from GitHub</small></dd></div>
+          </dl>
+          <p class="integrity" id="integrity">12 columns, 24 gutter, 8 baseline. Helvetica 11, 15, 36, 72. One red. <b>Grid integrity 100%.</b></p>
+        </div>
+      </div>
+    </div>
+
+    <figure class="cat tova"><img src="images/cut-tova.png" alt="Tova the cat lying belly up" width="319" height="239"><figcaption>Tova. She lay down on the card.</figcaption></figure>
+    <figure class="cat sofi"><img src="images/cut-sofi.png" alt="Sofi the black cat, lounging" width="600" height="797"><figcaption>Sofi. Read the rules, ignored them.</figcaption></figure>
+    <figure class="cat moffi"><img src="images/cat-moffi.jpg" alt="Moffi, a fluffy black cat" width="600" height="797"><figcaption>Moffi, under the baseline.</figcaption></figure>
+    <figure class="cat toffy"><img src="images/cat-toffy.jpg" alt="Toffy, a very small photo of a black and white cat" width="102" height="181"><figcaption>Toffy, 102 px. Enough.</figcaption></figure>
+
+    <figure class="candles" id="candles">
+      <svg viewBox="0 0 96 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
         <path class="flame" d="M28 36 C 22 28, 22 18, 28 12 C 34 18, 34 28, 28 36 Z" fill="#E3000F" stroke="none"/>
         <path class="flame" d="M68 36 C 62 28, 62 18, 68 12 C 74 18, 74 28, 68 36 Z" fill="#E3000F" stroke="none"/>
         <path d="M28 38 v6 M68 38 v6"/><rect x="21" y="44" width="14" height="52"/><rect x="61" y="44" width="14" height="52"/>
         <path d="M12 96 h32 M52 96 h32 M16 96 v8 h24 v-8 M56 96 v8 h24 v-8"/><path d="M8 110 h80"/>
       </svg>
-      <figcaption>Friday</figcaption><span class="at"></span></figure>
-    <p class="question">Who is this? <a href="#card">[ <span>Identity card</span> ]</a></p>
-    <p class="credit small">Made in Holon © Dania Altman 2026 / Identity card No. 001 / Homework 1, design MA / Order and rupture</p>
-  </section>
+      <figcaption id="candleCap">Friday, Tel Aviv</figcaption>
+    </figure>
 
-  <section class="g entry" id="exhibit" aria-labelledby="exhibit-h">
-    <h2 id="exhibit-h"><span class="n">A</span>Exhibit A, templatology</h2>
-    <p class="lede">Ask an AI for “a personal designer website” and this is what you get. It looks like order. Nobody decided anything. It is in the corner, small, where it belongs.</p>
-    <div class="tpl" aria-label="A generic AI-generated hero section, shown tiny and in grey">
-      <span>✨ Available for work</span><b>Hi, I'm Dania 👋</b>
+    <div class="tpl" aria-label="A generic AI-generated hero section">
+      <span>✨ Available for work</span>
+      <b>Hi, I'm Dania 👋</b>
       <p>A passionate designer crafting delightful, user-centric experiences that make a difference.</p>
       <div class="btns"><i>Get Started →</i><i>View My Work</i></div>
       <div class="cards"><div>🎨 Creative</div><div>🚀 Innovative</div><div>💡 User-centric</div></div>
+      <i class="x" aria-hidden="true"></i><span class="no" aria-hidden="true">no.</span>
     </div>
-    <div class="diff">
-      <div class="cap"><span>The template did</span><span>I decided</span></div>
-      <div><span>Centered, because that is the default</span><span>Nothing in the middle. Things sit where they sit on twelve columns, and the coordinates are written down.</span></div>
-      <div><span>Inter, because it was already there</span><span>Times and Helvetica, because they were already there too. The two defaults I accept, on purpose.</span></div>
-      <div><span>16px corners on everything</span><span>A one pixel line around each thing, square.</span></div>
-      <div><span>A purple gradient nobody picks</span><span>White. Black. Red for the grid, blue for my own notes.</span></div>
-      <div><span>“Crafting delightful experiences”, which fits anyone</span><span>Six things, numbered. A cake, two cats, an egg, poppy seeds, Friday.</span></div>
-      <div><span>The look of order without the belief</span><span>A grid you can switch on, under everything, and a reason for every placement.</span></div>
-    </div>
-  </section>
+  </div>
 
-  <section class="g entry" id="card" aria-labelledby="card-h">
-    <h2 id="card-h"><span class="n">1</span>Identity card <span lang="he" dir="rtl">תעודת זהות</span></h2>
-    <p class="lede grey">The ordered part. Every field has a reason, three of them are live.</p>
-    <figure class="photo" id="photo" title="Click for the rejected attempts">
-      <img src="images/me-deadpan.jpg" alt="Passport-style photo of me, deadpan" id="idPhoto" width="500" height="500">
-      <figcaption class="small" id="idCap">It took six tries. Click to see the other five.</figcaption>
-    </figure>
-    <dl class="fields">
-      <div><dt>Name</dt><dd>Dania Altman<small lang="he" dir="rtl">דניה אלטמן</small></dd></div>
-      <div><dt>Age</dt><dd>29</dd></div>
-      <div><dt>Studies</dt><dd>MA, Design</dd></div>
-      <div><dt>Household</dt><dd>1 Ben, 2 kids, <span id="catN">4</span> cats</dd></div>
-      <div><dt>Makes</dt><dd>Saint-Honoré, cats in suits, this page</dd></div>
-      <div><dt>Believes</dt><dd>Order is a decision. Mess is information.<small lang="he" dir="rtl">שבת שלום</small></dd></div>
-      <div class="loading"><dt>Today</dt><dd id="hdate">Loading<small>Hebrew date, live from hebcal.com</small></dd></div>
-      <div class="loading"><dt>Shabbat</dt><dd id="shabbatDd">Loading<small>Candle lighting in Tel Aviv, live from hebcal.com</small></dd></div>
-      <div class="loading"><dt>Last edited</dt><dd id="commitDd">Loading<small>This page's git history, live from GitHub</small></dd></div>
-    </dl>
-    <label class="dial"><span class="grey">Cats on the card</span><input type="range" id="catdial" min="0" max="4" value="4" step="1"><output for="catdial" id="catOut">4</output></label>
-    <p class="rules small" id="rules">Twelve columns across the screen, rows of 80. Times for sentences, Helvetica for facts. White, black, red for the grid, blue for me. <span id="integrity">Grid integrity 61%. A normal day.</span></p>
-  </section>
+  <div class="steps" id="steps">
+    <div class="step" data-act="0"><p>Identity card No. 001.<small>It took six tries. Scroll.</small></p></div>
+    <div class="step" data-act="1"><p>Attempt 1. <b>Rejected.</b> Smiling.</p></div>
+    <div class="step" data-act="2"><p>Attempt 2. <b>Rejected.</b> Eyes closed.</p></div>
+    <div class="step" data-act="3"><p>Attempt 3. <b>Rejected.</b> 7am.</p></div>
+    <div class="step" data-act="4"><p>Attempt 4. <b>Rejected.</b> Not facing the camera.</p></div>
+    <div class="step" data-act="5"><p>Attempt 5. <b>Rejected.</b> Holding a Kinder egg. It was for the kids.</p></div>
+    <div class="step" data-act="6"><p>Attempt 6. Accepted.<small>This is the face the state knows.</small></p></div>
+    <div class="step" data-act="7"><p>The order.<small>Twelve columns, a 24px gutter, an 8px baseline, one typeface, one red. Every number chosen, and written in the margin.</small></p></div>
+    <div class="step" data-act="8"><p>Tova.<small>She lay down on the card. Grid integrity 90%.</small></p></div>
+    <div class="step" data-act="9"><p>Sofi.<small>She read the rules and ignored them. 78%.</small></p></div>
+    <div class="step" data-act="10"><p>Moffi.<small>Under the baseline. 70%.</small></p></div>
+    <div class="step" data-act="11"><p>Toffy. 102 pixels wide.<small>Grid integrity 61%. A normal day.</small></p></div>
+    <div class="step" data-act="12"><p>Order can be restored.<small>The cats cannot.</small></p></div>
+    <div class="step" data-act="13"><p>Friday.<small>Candle lighting in Tel Aviv in <span id="swCount">…</span>, <span id="swLine">live from hebcal.com</span>. The only clock on this page that is right.</small></p></div>
+    <div class="step" data-act="14"><p>Exhibit A.<small>Ask an AI for “a personal designer website” and this is what you get.</small></p></div>
+    <div class="step" data-act="15"><p>It looks like order. <b>Nobody decided anything.</b></p></div>
+    <div class="step" data-act="16"><p>The grid is the plan. The cats are what actually happens.<small>This page is the space between them.</small></p></div>
+  </div>
+</section>
 
-  <section class="g entry" id="breaks" aria-labelledby="breaks-h">
-    <h2 id="breaks-h"><span class="n">2</span>What breaks it</h2>
-    <p class="lede grey">Nothing here is cropped and nothing sits exactly on its column. The distance is written under each one. They are spread across the page the way they are spread across a week.</p>
-    <div class="roll">
-      <figure class="b1" style="--dx: 6px; --r: -1.2deg"><img src="images/me-selfie.jpg" class="real" alt="Me at 7am, a small blurry selfie" width="150" height="267" loading="lazy"><figcaption>7am. Shown at its real size, 150 px. <span class="mine">+6 px, −1.2°</span></figcaption></figure>
-      <figure class="b2" style="--dx: -4px; --r: .8deg"><img src="images/me-sleep.jpg" alt="Me asleep, face in my hands" width="800" height="1062" loading="lazy"><figcaption>Asleep. The plan did not survive. <span class="mine">−4 px, +0.8°</span></figcaption></figure>
-      <figure class="b3" style="--dx: 9px; --r: -.6deg"><img src="images/bake-dough.jpg" alt="Poppy seed dough with butter cubes" width="800" height="600" loading="lazy"><figcaption>Poppy seeds. They get into everything. <span class="mine">+9 px, −0.6°</span></figcaption></figure>
-      <figure class="b4" style="--dx: -7px; --r: 1.4deg"><img src="images/bake-cake.jpg" alt="A Saint-Honoré cake" width="800" height="1067" loading="lazy"><figcaption>Saint-Honoré. Six hours, gone in six minutes. <span class="mine">−7 px, +1.4°</span></figcaption></figure>
-      <figure class="b5" style="--dx: 3px; --r: -.9deg"><img src="images/me-dance.jpg" alt="Me dancing at a wedding, black and white" width="900" height="600" loading="lazy"><figcaption>A wedding. Five hours of dancing, no timetable. <span class="mine">+3 px, −0.9°</span></figcaption></figure>
-      <figure class="b6" style="--dx: -5px; --r: .5deg"><img src="images/laundry.jpg" alt="Me in a laundromat" width="900" height="900" loading="lazy"><figcaption>Laundromat. Most likely to fall asleep here. <span class="mine">−5 px, +0.5°</span></figcaption></figure>
-      <figure class="b7" style="--dx: 8px; --r: -1.6deg"><img src="images/me-sandwich.jpg" alt="Me eating a sandwich in Germany, mayonnaise on my chin" width="700" height="1245" loading="lazy"><figcaption>Germany. Mayonnaise on the chin. <span class="mine">+8 px, −1.6°</span></figcaption></figure>
-    </div>
-  </section>
+<section class="after" id="position" aria-labelledby="pos-h">
+  <article class="pos" id="posText">
+    <h2 id="pos-h">Position <span class="small" id="wc"></span></h2>
+    <p class="lead">The grid is the plan. The cats are what actually happens. This page is the space between them.</p>
 
-  <section class="g entry" id="friday" aria-labelledby="friday-h">
-    <h2 id="friday-h"><span class="n">3</span>Friday</h2>
-    <p class="lede" id="swBig" lang="he" dir="rtl" style="text-align:left">שבת בעוד <span id="swCount2" dir="ltr">…</span></p>
-    <p class="grey" id="swLine">Asking hebcal.com when it gets dark in Tel Aviv.</p>
-    <p class="small">The candles in the bottom corner light themselves on Friday at the right minute, Tel Aviv time, and stay with you down the whole page.</p>
-  </section>
+    <h3>What is ordered</h3>
+    <p>My life runs on a grid. Two kids, four cats, Ben, a design master's degree: none of it works without a timetable. School pickup is a column. Feeding time is a row. I bake by <del>feel</del> <ins>weight</ins>, not by guessing, and a Saint-Honoré is six hours of steps in exactly the right order. That part of me is Swiss. So the backbone of this page is Swiss too: twelve columns, a 24px gutter, an 8px baseline, one typeface in four sizes, black, white and one red. I chose every one of those numbers and wrote them in the margin of the card, so you can check me. You watch the grid draw itself before anything lands on it.</p>
 
-  <section class="g entry" id="position" aria-labelledby="pos-h">
-    <h2 id="pos-h"><span class="n">4</span>Position <span class="small" id="wc"></span></h2>
-    <article class="pos" id="posText">
-      <p class="lead">The grid is the plan. The cats are what actually happens. This page is the space between them.</p>
+    <h3>What breaks it</h3>
+    <p>Sofi knocks the plan off the table. Tova sleeps belly up in the middle of the schedule. The Saint-Honoré takes six hours and is gone in six minutes. Poppy seeds get into everything: the dough, the keyboard, this website. The five rejected passport photos, the one at 7am, the one asleep, the one with the egg, are not decoration. They are the parts of my life that no grid has ever held and no model could have guessed. On this page they arrive one at a time, in the order they arrive at home, and each one pulls the card a little further off its columns. The distance is measured: the margin says how much order is left.</p>
 
-      <h3>What is ordered</h3>
-      <p>My life runs on a grid. Two kids, four cats, Ben, a design master's degree: none of it works without a timetable. School pickup is a column. Feeding time is a row. I bake by <del>feel</del> <ins>weight</ins>, not by guessing, and a Saint-Honoré is six hours of steps in exactly the right order. That part of me is Swiss. So the backbone of this page is Swiss too: twelve columns across the whole screen, rows of eighty pixels, and every thing on the page has its coordinates written down. Two typefaces that were already on every computer, Times for sentences and Helvetica for facts: I chose the defaults on purpose, which is not the same as accepting them. White, black, red for the grid, blue for my own hand.</p>
+    <h3>Against templatology</h3>
+    <p>Ask an AI for a personal site and you get Exhibit A: a centered hero, a purple gradient, three rounded cards, Inter, and a sentence about crafting delightful experiences. It looks organised, but nobody made a decision. The radius is 16px because everyone's is. The copy fits every designer, so it describes none. Müller-Brockmann's grid was a belief about clarity and honesty. The template is that belief with the belief taken out. So it gets its own scene near the end, over the dimmed card, and a red line through it. Then the card comes back, with the cats on it.</p>
 
-      <h3>What breaks it</h3>
-      <p>Sofi knocks the plan off the table. Tova sleeps belly up in the middle of the schedule. The Saint-Honoré takes six hours and is gone in six minutes. Poppy seeds get into everything: the dough, the keyboard, this website. The photo of me at 7am and the one of me asleep are not decoration. They are the parts of my life that no grid has ever held and no model could have guessed. They don't sit next to the order. They land on it, in corners, at the edges, a few pixels out of line, because that is how it happens at home. On this page the distance is measured and written down.</p>
-
-      <h3>Against templatology</h3>
-      <p>Ask an AI for a personal site and you get Exhibit A: a centered hero, a purple gradient, three rounded cards, Inter, and a sentence about crafting delightful experiences. It looks organised, but nobody made a decision. The radius is 16px because everyone's is. The copy fits every designer, so it describes none. Müller-Brockmann's grid was a belief about clarity and honesty. The template is that belief with the belief taken out. So I put it on the page, tiny and grey, in a corner, next to the list of what I decided instead. The real order is an inventory: six things, numbered, placed, with a reason each.</p>
-
-      <h3>The encounter</h3>
-      <p>I don't think either side wins. A day where the plan survives untouched is <del>perfect</del> <ins>boring</ins>. A day with no plan is a disaster. My identity is the moment in between, when a thing is a few pixels off its cell and I can still see the cell underneath. That is why the grid can be switched on at any time on this page, and why the cats can be dialled down to zero but the page looks wrong without them. The rupture never erases the order. The order is what makes the rupture readable, and the rupture is what proves a person lives here.</p>
-    </article>
-    <aside class="side1"><figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption class="mine">Sofi, head of order. She drew the grid.</figcaption></figure></aside>
-    <aside class="side2"><figure><img src="images/cat-sofi.jpg" alt="Sofi the black cat lounging" width="600" height="797" loading="lazy"><figcaption class="mine">Sofi, head of rupture. She sat on it.</figcaption></figure></aside>
-  </section>
-
-  <section class="g entry" id="index" aria-labelledby="index-h">
-    <h2 id="index-h"><span class="n">5</span>Index</h2>
-    <ul class="index">
-      <li><span>1</span><span>Saint-Honoré. Makes.</span><span>columns 10 to 11, rows 1 to 2</span></li>
-      <li><span>2</span><span>Tova, belly up. Rupture. Also pinned to the bottom right corner, all the way down.</span><span>columns 7 to 8, rows 5 to 6</span></li>
-      <li><span>3</span><span>Sofi. Order, allegedly.</span><span>column 12, rows 7 to 8</span></li>
-      <li><span>4</span><span>The Kinder egg. For the kids, it was not.</span><span>column 9, rows 6 to 8</span></li>
-      <li><span>5</span><span>Poppy seeds. Everywhere.</span><span>column 6, row 8</span></li>
-      <li><span>6</span><span>Two candles. Friday, live. Also pinned to the bottom left corner.</span><span>column 10, row 8</span></li>
-      <li><span>·</span><span>7am, at its real size, pinned to the top right corner.</span><span>outside the grid</span></li>
-      <li><span>·</span><span>Dania, cut out of her passport photo, cut again by the edge of the screen.</span><span>columns 1 to 5, rows 1 to 8</span></li>
-    </ul>
-  </section>
-</main>
-
-<footer class="g">
-  <p class="made">( Made by hand )</p>
-  <div class="links sans"><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version</a></p><p id="commitFoot" class="grey"></p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
-</footer>
+    <h3>The encounter</h3>
+    <p>I don't think either side wins. A day where the plan survives untouched is <del>perfect</del> <ins>boring</ins>. A day with no plan is a disaster. My identity is the moment in between: the step where the order is restored and the cats stay exactly where they were. The rupture never erases the order. The order is what makes the rupture readable, and the rupture is what proves a person lives here. That is why the story ends with both on the screen, and why you can scroll back up and watch it happen again.</p>
+  </article>
+  <aside class="side">
+    <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
+  </aside>
+  <div class="colophon">
+    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, in sixteen steps</p></div>
+    <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
+    <div><p lang="he" dir="rtl" style="text-align:left">שבת שלום</p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
+  </div>
+</section>
 
 <script>
   const $ = s => document.querySelector(s);
+  const stage = $('#stage');
+  const integ = { 7: '100%', 8: '90%', 9: '78%', 10: '70%', 11: '61%. A normal day', 12: '100%, for a moment', 13: '100%', 14: '100%', 15: '100%', 16: '61%. A normal day' };
 
-  // ---- the grid, on request ----
-  const gridbtn = $('#gridbtn');
-  const setGrid = on => { document.body.classList.toggle('grid-on', on); gridbtn.setAttribute('aria-pressed', on); gridbtn.textContent = on ? '[ hide the grid ]' : '[ show the grid ]'; };
-  gridbtn.addEventListener('click', () => setGrid(!document.body.classList.contains('grid-on')));
-  addEventListener('keydown', e => { if (e.key === 'g' && !e.metaKey && !e.ctrlKey && !e.target.matches('input, textarea')) setGrid(!document.body.classList.contains('grid-on')); });
-  document.querySelectorAll('.item').forEach(f => f.querySelector('.at').textContent = f.dataset.at);
-
-  // ---- the cats: dial them from 4 to 0. at zero everything sits exactly in its cell. ----
-  const notes = ['Grid integrity 100%. Never observed in the wild.', 'Grid integrity 90%. One cat is a lie, there are always more.', 'Grid integrity 78%. The plan is still readable.', 'Grid integrity 70%. The plan is a suggestion.', 'Grid integrity 61%. A normal day.'];
-  const setCats = n => {
-    $('#catN').textContent = n; $('#catOut').textContent = n;
-    $('#stage').style.setProperty('--chaos', (n / 4).toFixed(2));
-    document.querySelectorAll('.item[data-cat]').forEach(c => { const k = +c.dataset.cat; c.hidden = k > 0 && k > n; });
-    $('#integrity').textContent = notes[n];
+  // ---- the act: cumulative classes a1..aN, plus the exact photo and stamp ----
+  let act = -1;
+  function setAct(n) {
+    if (n === act) return; act = n;
+    const cls = ['stage'];
+    for (let i = 1; i <= n; i++) cls.push('a' + i);
+    stage.className = cls.join(' ');
+    const pic = n >= 1 && n <= 5 ? n : 0;
+    document.querySelectorAll('.photo .pic').forEach(p => p.classList.toggle('on', +p.dataset.pic === pic));
+    document.querySelectorAll('.stamp').forEach(s => s.classList.toggle('on', +s.dataset.stamp === n || (n >= 6 && +s.dataset.stamp === 6 && n < 7)));
+    document.querySelectorAll('.tally i').forEach((t, i) => t.classList.toggle('on', n >= 6 ? true : i < n));
+    $('#cap').textContent = n === 0 ? 'Photo. Natural ratio. Six tries.' : n <= 5 ? `Attempt ${n} of 6.` : 'Attempt 6. Accepted. Natural ratio.';
+    const g = integ[Math.min(n, 16)]; if (g) $('#integrity').querySelector('b').textContent = `Grid integrity ${g}.`;
+    document.querySelectorAll('.step').forEach(s => s.classList.toggle('on', +s.dataset.act === n));
+  }
+  window.setAct = setAct;
+  // the act follows the scroll: whichever step holds the middle of the screen
+  const steps = [...document.querySelectorAll('.step')];
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    const ref = scrollY + innerHeight * .5;
+    let n = 0;
+    for (const st of steps) { if (ref >= st.offsetTop) n = +st.dataset.act; }
+    setAct(n);
   };
-  $('#catdial').addEventListener('input', e => setCats(+e.target.value));
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(update); }, { passive: true });
+  addEventListener('resize', update);
+  window.__update = update;
+  update();
 
-  // ---- the passport photo: six tries ----
-  const attempts = [
-    ['me-deadpan', 'It took six tries. Click to see the other five.', 'Passport-style photo of me, deadpan'],
-    ['me-laugh', 'Attempt 1, rejected: smiling.', 'Me laughing with my eyes shut'],
-    ['me-sleep', 'Attempt 2, rejected: eyes closed.', 'Me asleep, face in my hands'],
-    ['me-selfie', 'Attempt 3, rejected: 7am.', 'A small blurry selfie at 7am'],
-    ['me-side', 'Attempt 4, rejected: not facing the camera.', 'Me looking to the side'],
-    ['me-kinder', 'Attempt 5, rejected: holding a Kinder egg.', 'Me holding a giant Kinder egg'],
-  ];
-  let ai = 0;
-  $('#photo').addEventListener('click', () => {
-    ai = (ai + 1) % attempts.length;
-    const [src, cap, alt] = attempts[ai];
-    $('#idPhoto').src = `images/${src}.jpg`; $('#idPhoto').alt = alt; $('#idCap').textContent = cap;
-  });
-
-  // ---- word count, for the brief ----
+  // ---- word count ----
   $('#wc').textContent = `${$('#posText').textContent.trim().split(/\s+/).length} words`;
 
-  // ---- live data: hebcal.com for the Hebrew date and Shabbat, GitHub for this page's history. no keys. ----
+  // ---- live data: hebcal.com and GitHub, no keys ----
   const REPO = 'altmandania-ui/identity-card';
-  const done = (id, html) => { $(id).innerHTML = html; $(id).closest('div').classList.remove('loading'); };
+  const done = (id, html) => { $(id).innerHTML = html; };
   const failed = id => done(id, 'Offline<small>The order holds anyway.</small>');
   const getJSON = async url => { const r = await fetch(url); if (!r.ok) throw new Error(r.status); return r.json(); };
   const now = new Date();
@@ -386,30 +340,24 @@
     if (!c || !h) throw new Error('no shabbat');
     const cT = Date.parse(c.date), hT = Date.parse(h.date), he = p ? p.hebrew : '';
     done('#shabbatDd', `Fri ${hhmm(c.date)} to Sat ${hhmm(h.date)}<small lang="he" dir="rtl">${he}</small>`);
+    $('#candleCap').textContent = `Friday ${hhmm(c.date)}, Tel Aviv`;
     const tickClock = () => {
       const t = Date.now(), on = t >= cT && t <= hT;
       let ms = Math.max(0, (on ? hT : cT) - t);
       const dd = Math.floor(ms / 864e5); ms -= dd * 864e5;
       const hh = Math.floor(ms / 36e5); ms -= hh * 36e5;
       const mm = Math.floor(ms / 6e4), ss = Math.floor(ms % 6e4 / 1000);
-      const txt = `${dd}d ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
-      $('#swCount').textContent = txt; $('#swCount2').textContent = txt;
-      $('#swTitle').firstChild.textContent = on ? 'שבת עכשיו. הבדלה בעוד ' : 'שבת בעוד ';
-      $('#swBig').firstChild.textContent = on ? 'שבת עכשיו. הבדלה בעוד ' : 'שבת בעוד ';
-      $('#swLine').textContent = on
-        ? `It is Shabbat in Tel Aviv. Havdalah at ${hhmm(h.date)}. The page rests, the cats do not.`
-        : `Candle lighting on Friday at ${hhmm(c.date)}, havdalah on Saturday at ${hhmm(h.date)}, Tel Aviv.${he ? ' This week: ' + he + '.' : ''}`;
-      $('#candles').classList.toggle('lit', on);
-      $('.candles-s').classList.toggle('lit', on);
+      $('#swCount').textContent = `${dd} days ${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`;
+      $('#swLine').textContent = on ? 'it is Shabbat right now, that is the time to havdalah' : 'live from hebcal.com';
     };
     tickClock(); setInterval(tickClock, 1000);
-  }).catch(() => { failed('#shabbatDd'); $('#swLine').textContent = 'hebcal.com is not answering. Shabbat will come anyway.'; $('#swCount').textContent = ''; $('#swCount2').textContent = ''; });
+  }).catch(() => { failed('#shabbatDd'); $('#swCount').textContent = 'a while'; $('#swLine').textContent = 'hebcal.com is not answering'; });
 
   getJSON(`https://api.github.com/repos/${REPO}/commits?per_page=30`).then(arr => {
     const c = arr[0], d = new Date(c.commit.author.date), msg = c.commit.message.split('\n')[0];
     const n = arr.length < 30 ? arr.length : '30+';
-    done('#commitDd', `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}<small>Commit ${n}: “${msg.length > 64 ? msg.slice(0, 62) + '…' : msg}”</small>`);
-    $('#commitFoot').textContent = `Edited ${n} times, the cats were present for all of them.`;
+    done('#commitDd', `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}<small>Commit ${n}: “${msg.length > 48 ? msg.slice(0, 46) + '…' : msg}”</small>`);
+    $('#commitFoot').textContent = `Edited ${n} times. The cats were present for all of them.`;
   }).catch(() => { failed('#commitDd'); $('#commitFoot').textContent = 'Git history unavailable right now.'; });
 </script>
 </body>

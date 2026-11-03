@@ -12,15 +12,23 @@ This is the second build of the same homework. The first build lives at https://
 
 **The grid is the plan. The cats are what actually happens. The page is the space between them.**
 
-The reference I gave was a one-screen Carrd site: a cut-out hand on white, five small objects placed on and around it in thin boxes with numbers and one-word labels, a serif question underneath, a credit line, nothing else. This page is built the same way.
+This version tells it as a scroll story in sixteen steps on one white screen. The identity card stays in the middle; what changes is what lands on it. One thing happens per scroll, and nothing else moves.
 
-| Layer | Where | How it is said this time |
+| Step | What happens | Layer |
 |---|---|---|
-| Order | The stage at the top, the identity card, the index | A grid of twelve columns and eight rows under the stage. Every thing on it has coordinates, written in the index at the bottom. Press **[ show the grid ]** (or the `g` key) and the cells and coordinates appear in red. The identity card is a plain table in Helvetica with hairlines. |
-| Rupture | The six things on the stage, Fig. 2 | My cut-out passport photo in the middle, and around it: the Saint-Honoré, Tova belly up, Sofi, the Kinder egg, the 7am selfie, two candles that light themselves on Friday. Each sits a few pixels off its cell, and the dial on the card can take the cats away: at zero cats everything snaps exactly into place and the page admits it has never seen that happen. Fig. 2 lists the photos no grid has held, with their deviation written under each. |
-| Templatology | Exhibit A | The AI's default hero, small and grey, with one red line through it, next to the list of what the template did and what I decided. |
+| 0 | The passport photo, alone. "It took six tries." | — |
+| 1 to 5 | The five rejected attempts, one per scroll: smiling, eyes closed, 7am, not facing the camera, holding a Kinder egg. Each one gets a red REJECTED stamp that slams onto the photo, and a red tally mark. | Rupture (my face, as the state refused it) |
+| 6 | Attempt 6, accepted. A black stamp. The frame of the card appears. | Order (the face the state knows) |
+| 7 | The order: twelve red columns draw themselves top to bottom, the name and the nine fields fade in one by one, the margin says "Grid integrity 100%". | Order |
+| 8 to 11 | The cats arrive one by one. Tova drops from above and lands on the card. Sofi walks in from the right. Moffi climbs up from below. Toffy, 102 pixels wide, flickers in like a bad JPEG. With each cat the fields tilt and slide a little further off the columns, and the margin counts down: 90, 78, 70, 61%. | Rupture |
+| 12 | "Order can be restored. The cats cannot." The fields snap back to the grid. The cats stay exactly where they were. | The encounter |
+| 13 | Friday. Two candles light, with the live countdown to candle lighting in Tel Aviv. | Rupture that keeps time |
+| 14 to 15 | Exhibit A: the AI's default hero fades in over the dimmed card. A red line cuts through it, and a red "no." | Templatology |
+| 16 | The template goes. The card comes back with the cats on it. "The grid is the plan. The cats are what actually happens." | Both |
 
-**How they meet:** the rupture is measured in the order's own units. A cat is a thing with coordinates. The grid can be shown at any time to check. Red belongs to the system (the grid, the live dot), blue belongs to me (the measurements, the corrected words in the position text).
+After the story: the position text, Sofi at her drafting table, and the colophon. Scroll back up and it plays again.
+
+**How the layers meet:** on one stage, in sequence, with a number. Every cat costs the grid a measured amount of integrity, and the margin says how much. The restoration in step 12 is the thesis: the order can always be put back, and it never erases what landed on it.
 
 ---
 
@@ -28,25 +36,24 @@ The reference I gave was a one-screen Carrd site: a cut-out hand on white, five 
 
 | Decision | Value | Why |
 |---|---|---|
-| First screen | The portrait on columns 1 to 5, the name from column 6 off the edge, six things on named cells | The screen itself is the stage. Press [ show the grid ] and the columns, the rows and every thing's coordinates appear in red. |
-| Columns | 12 across the whole screen, 24px gutter, rows of 80px | Nothing is centered. Each thing has a column and a row, and the index says which. Six columns on a phone. |
-| Typefaces | Times for sentences, Helvetica for facts | The two faces that were already on every computer. I chose the defaults on purpose, which is not the same as accepting them. No web fonts, nothing to load. |
-| Sizes | 11 / 13 / 17 / 22 / 24 | Label, data, body, lead, heading. Nothing shouts. |
-| Colour | white, black, grey `#777`, red `#E3000F`, blue `#1636E8` | Red only for the grid and the live dot. Blue only for my own hand. |
-| Lines | 1px, square | A box around each thing, a hairline between fields. No shadows, no corners. |
-| Photos | Natural ratio, never cropped or stretched. Cut-outs for the stage. | The 7am selfie is shown at its real 150px. The five cut-outs were made with Magnific's background removal from my own photos, then shrunk. |
-| Motion | Only in answer to an action | The dial, the grid toggle, the photo click. The candles flicker only during Shabbat. Reduced-motion users get none of it. |
+| Grid | 12 columns, 24px gutter, drawn in red on step 7 | You watch it being built before anything lands on it. It stays under everything after that. |
+| Card | 760px, centered, a 1px frame | One object in the middle of the stage, like a passport on a counter. The only centered thing on the page, by decision. |
+| Typeface | Helvetica, four sizes: 11, 15, 36, 72 | The most ordinary grotesque there is. Nothing to load. |
+| Colour | white, black, grey `#777`, red `#E3000F`, blue `#1636E8` | Red for the grid, the stamps and the "no.". Blue for my own hand in the position text. |
+| Motion | One event per step, 0.2 to 0.9 seconds, spring easing for things that land | Motion only to show what changed. Reduced-motion users get the states without the transitions. |
+| Photos | Natural ratio in the card; cut-outs for the cats that land | The cut-outs were made with Magnific's background removal from my own photos. Toffy stays a 102px JPEG because that is the only photo of him. |
+| Live data | hebcal.com for the Hebrew date and Shabbat times, GitHub for this page's own history | Three fields on the card and the countdown in step 13 are real. No keys. |
 
 ## 3. Templatology vs. conscious modernism
 
 | | Template (Exhibit A) | This page |
 |---|---|---|
-| Alignment | Centered because that's the default | Centered because an inventory surrounds its object; text flush left |
-| Type | Inter (already there) | Times and Helvetica (also already there), chosen on purpose |
+| Alignment | Centered because that's the default | One centered card, like a passport on a counter; everything else flush left |
+| Type | Inter (already there) | Helvetica only, in four sizes |
 | Corners | 16px radius everywhere | Square. A box is a one pixel line |
 | Colour | Gradient `#667eea → #764ba2` | White, black, red for the grid, blue for me |
-| Copy | "Passionate designer crafting delightful experiences" | Six things, numbered, and a table of facts including today's Hebrew date |
-| Ideology | None: the look of order without the belief | Clarity, honesty, a reason for every measurement |
+| Copy | "Passionate designer crafting delightful experiences" | Sixteen captions, one per step, and a table of facts including today's Hebrew date |
+| Ideology | None: the look of order without the belief | Clarity, honesty, a reason for every measurement, and a story about what happens to it |
 
 ---
 
@@ -59,6 +66,7 @@ The reference I gave was a one-screen Carrd site: a cut-out hand on white, five 
 | 3 | I sent a Pinterest pin: a one-screen Carrd site, a cut-out hand on white with five small numbered objects around it, a serif question, a credit line. **"Maybe more like this."** | This page. Times and Helvetica only. My cut-out portrait on a 12 × 8 grid with six numbered things around it in thin boxes, "Who is this? [ Identity card ]" underneath, "Made in Holon ©" as the credit, and the rest of the homework as numbered entries with a lot of white space. The grid is hidden until asked for, and the index at the bottom gives every thing's coordinates. The cut-outs were made with Magnific from my own photos. | this commit |
 | 4 | I kept the live data. | The Hebrew date, this week's candle-lighting and havdalah times for Tel Aviv, and this repository's own git history are fetched when the page loads, from hebcal.com and api.github.com, with no keys. The countdown is one Hebrew line, and the candles, on the stage and in entry 3, light themselves on Friday. | this commit |
 | 5 | **"I don't think there is something interesting. Clean can be interesting as well. Put things in weird places but keep it clean."** | The centered column went. The page is now twelve columns across the whole screen with rows of 80px, and things sit where they sit: the cut-out portrait is cut again by the left edge of the screen, the name runs off the right edge in 168px Times, the cake hangs over the top corner, the cats are far apart, each entry starts from a different column and the position text's heading sits on the opposite side of the page from its text. Four things are pinned to the screen and travel with you: the 7am selfie in the top right corner, the candles with the live countdown in the bottom left, Tova in the bottom right, and a vertical Hebrew line along the right edge. Still white, still Times and Helvetica, still a grid you can switch on, and the index still gives every thing's coordinates. | this commit |
+| 6 | **"Are you normal? This is the most boring thing I saw in my life."** The AI asked which kind of interesting I meant and offered four: interaction, a scroll story, a passport you flip, giant scale. I chose **the scroll story**. | This page. Sixteen steps on one sticky stage, one event each: five rejected passport photos with stamps, the grid drawing itself, four cats landing and pulling the card off the grid with the integrity counting down, order restored with the cats still there, the candles, the template crossed out, and the card back with everything on it. Still white, still one typeface, still one red. The interest is in time, not in decoration. | this commit |
 
 ✍️ **Add here:** which of the two versions you will submit, and why. If the answer is "both", say what each one is for.
 
