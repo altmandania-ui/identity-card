@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dania Altman, identity card</title>
-<meta name="description" content="Identity card: order and rupture. A retrospective in five and a half rooms, with bad doodles and serious labels. Design MA, Homework 1, by Dania Altman.">
+<meta name="description" content="Identity card: order and rupture. A retrospective in eight and a half rooms, with bad doodles and serious labels. Design MA, Homework 1, by Dania Altman.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23E3000F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Shippori+Mincho:wght@500&display=swap" rel="stylesheet">
@@ -131,6 +131,18 @@
     .top { padding: 14px 16px; }
     .top .where { display: none; }
   }
+
+  /* room 5: the world, flattened, with live times */
+  .world { grid-column: 2 / span 10; position: relative; height: 190px; margin: 2vh 0 4vh; }
+  .world svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .world svg path { fill: none; stroke: var(--brown); stroke-width: 1.4; stroke-linecap: round; }
+  .place { position: absolute; translate: -50% 0; text-align: center; white-space: nowrap; font-size: 10px; line-height: 13px; }
+  .place i { position: absolute; left: 50%; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--red); }
+  .place b { display: block; font-family: var(--serif); font-weight: 500; font-size: 13px; line-height: 17px; }
+  .place .t { display: block; font-variant-numeric: tabular-nums; font-size: 18px; line-height: 22px; letter-spacing: -.01em; }
+  .place .g { color: var(--grey); }
+  .place.home i { background: var(--ink); }
+  @media (max-width: 760px) { .world { grid-column: 1 / -1; height: 230px; } .place b { font-size: 11px; } .place .t { font-size: 14px; line-height: 18px; } }
 </style>
 </head>
 <body>
@@ -145,10 +157,23 @@
   <div>
     <h1>Dania Altman</h1>
     <p>Identity card No. 001</p>
-    <p>Five and a half rooms. Scroll slowly, as in a gallery.</p>
+    <p>Eight and a half rooms. Scroll slowly, as in a gallery.</p>
     <p class="hand">(touch nothing. or do.)</p>
   </div>
   <svg id="introInk" aria-hidden="true"></svg>
+</section>
+
+<!-- room 0 -->
+<section class="room">
+  <h2 class="room-title">Room 0<span>Early work</span></h2>
+  <figure class="work" data-d="arrow" data-note="first rupture" style="--c: 3 / span 3; --w: 90%; --mt: 0; --mc: 1 / span 5; --mw: 100%; --mmt: 0">
+    <div class="pic"><img src="images/early-hands.jpg" alt="Me as a small child at the table, hands up, covered in food" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Untitled (Sauce), c. 1999</i>Chromogenic print, a whole plate of something<span class="g">The first recorded rupture. The grid came later.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="already me" style="--c: 9 / span 1; --w: 100%; --mt: 26vh; --mc: 3 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/early-print.jpg" alt="Two old snapshots of me as a toddler, eating" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Two Snapshots, c. 2000</i>Photographs of photographs<span class="g">Courtesy of my mother’s album.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
 </section>
 
 <!-- room 1 -->
@@ -225,25 +250,116 @@
 </section>
 
 <!-- room 3 -->
-<section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 3<span>Six hours, six minutes</span></h2>
-  <figure class="work" data-d="arrow" data-note="hour 1" style="--c: 4 / span 2; --w: 80%; --mt: 0; --mc: 2 / span 4; --mw: 80%; --mmt: 0">
+<section class="room">
+  <h2 class="room-title">Room 3<span>The pastry kitchen<br>Six hours, six minutes, one diploma.</span></h2>
+  <figure class="work" data-d="crown" style="--c: 5 / span 2; --w: 80%; --mt: 0; --mc: 2 / span 3; --mw: 90%; --mmt: 0">
+    <div class="pic"><img src="images/pastry-diploma.jpg" alt="Me in chef whites with the head pastry chef, holding my professional pastry diploma" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Accepted, Again, 2024</i>Professional pastry diploma, chef’s whites, one handshake<span class="g">The second document on this page that says yes.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="halo" data-note="the hat" style="--c: 10 / span 1; --w: 100%; --mt: 30vh; --mc: 5 / span 2; --mw: 100%; --mmt: 10vh">
+    <div class="pic"><img src="images/pastry-hat.jpg" alt="A selfie in a white chef hat, very serious" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Self-Portrait in Whites, 2024</i>Phone camera, toque, a straight face<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="under" data-note="all level" style="--c: 2 / span 2; --w: 80%; --mt: 20vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/pastry-petitfours.jpg" alt="Trays of petits fours in perfect rows" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Petits Fours, Final Exam, 2024</i>Ganache, sablé, a ruler<span class="g">Every row the same height. Measured.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="hour 1" style="--c: 7 / span 2; --w: 70%; --mt: 40vh; --mc: 4 / span 3; --mw: 80%; --mmt: 14vh">
     <div class="pic"><img src="images/bake-dough.jpg" alt="Poppy seed dough with butter cubes"></div>
     <figcaption class="wl"><b>Dania Altman</b><i>Dough, by Weight, 2026</i>Flour, butter, poppy seeds, patience<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
-  <figure class="work" data-d="body" style="--c: 8 / span 1; --w: 100%; --mt: 26vh; --mc: 3 / span 2; --mw: 100%; --mmt: 16vh">
+  <figure class="work" data-d="body" style="--c: 4 / span 1; --w: 100%; --mt: 30vh; --mc: 2 / span 2; --mw: 100%; --mmt: 14vh">
     <div class="pic"><img src="images/cut-cake.png" alt="A Saint-Honoré"></div>
     <figcaption class="wl" style="margin-top:150px"><b>Dania Altman</b><i>Saint-Honoré (Self-Portrait), 2026</i>Choux, caramel, cream<span class="g">Eaten. Documentation only.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
-  <figure class="work" data-d="scribble" data-note="gone" style="--c: 10 / span 1; --w: 60%; --mt: 60vh; --mc: 5 / span 1; --mw: 100%; --mmt: 12vh">
+  <figure class="work" data-d="arrow" data-note="friday" style="--c: 9 / span 2; --w: 60%; --mt: 20vh; --mc: 4 / span 3; --mw: 80%; --mmt: 16vh">
+    <div class="pic"><img src="images/pastry-challah.jpg" alt="A long braided challah with poppy seeds" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Challah, Every Friday, 2020</i>Six strands, poppy seeds<span class="g">For the time, see room 1½.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="still warm" style="--c: 3 / span 2; --w: 70%; --mt: 40vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/pastry-cinnamon.jpg" alt="A tray of cinnamon rolls" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Cinnamon Rolls, 2026</i>Laminated dough, cinnamon, a Sunday<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="it's smiling" style="--c: 8 / span 1; --w: 100%; --mt: 30vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/pastry-pretzel.jpg" alt="A pretzel held up in one hand, it looks like a face" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Pretzel (Face), 2024</i>Lye, salt, pareidolia<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="scribble" data-note="gone" style="--c: 11 / span 1; --w: 60%; --mt: 40vh; --mc: 5 / span 1; --mw: 100%; --mmt: 12vh">
     <div class="pic"><img src="images/cut-cherry.png" alt="A cherry pastry"></div>
     <figcaption class="wl"><b>Unknown</b><i>Cherry, 2026</i>Eaten by someone<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
 </section>
 
-<!-- room 4 -->
+<!-- room 4: pizza -->
+<section class="room">
+  <h2 class="room-title">Room 4<span>Pizza<br>And the rest of the kitchen.</span></h2>
+  <figure class="work" data-d="arrow" data-note="hour one" style="--c: 4 / span 2; --w: 80%; --mt: 0; --mc: 1 / span 4; --mw: 100%; --mmt: 0">
+    <div class="pic"><img src="images/pizza-making.jpg" alt="Me at the kitchen table stretching pizza dough, toppings all around" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Pizza Night, Ongoing</i>Home oven, one table, everyone waiting<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="under" data-note="48 hours" style="--c: 9 / span 1; --w: 100%; --mt: 20vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/pizza-dough.jpg" alt="Pizza dough topped with sauce, cheese and meatballs, before the oven" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Before the Oven, 2021</i>Flour, water, salt, time<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="the best one" style="--c: 2 / span 2; --w: 70%; --mt: 30vh; --mc: 2 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/pizza-burrata.jpg" alt="A wood-fired pizza with rocket and a whole burrata in the middle" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Burrata, 2026</i>Wood fire, rocket, balsamic, one cheese in the middle<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="cross" data-note="yes, corn" style="--c: 7 / span 2; --w: 70%; --mt: 30vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/pizza-corn.jpg" alt="A pizza with tomato, cheese and corn" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Corn, 2026</i>Tomato, cheese, corn<span class="g">Controversial. Not withdrawn.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="halo" data-note="saturday" style="--c: 4 / span 1; --w: 100%; --mt: 40vh; --mc: 1 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/cook-shakshuka.jpg" alt="A Saturday breakfast table with a big pan of shakshuka" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Saturday Morning, 2026</i>Shakshuka, eggs, everyone<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="steam" style="--c: 8 / span 2; --w: 60%; --mt: 20vh; --mc: 3 / span 3; --mw: 90%; --mmt: 16vh">
+    <div class="pic"><img src="images/cook-ramen.jpg" alt="A bowl of ramen with beef, egg and nori" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Ramen, 2026</i>Broth, twelve hours, an egg<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="3" style="--c: 10 / span 1; --w: 100%; --mt: 40vh; --mc: 5 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/cook-hummus.jpg" alt="A bowl of hummus with three falafel" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Hummus with Three Falafel, 2021</i>Chickpeas, tahini, restraint<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+</section>
+
+<!-- room 5: elsewhere -->
+<section class="room">
+  <h2 class="room-title">Room 5<span>Elsewhere<br>The world, flattened. Live times.</span></h2>
+  <div class="world" id="world" aria-label="Places I have been, with the time there now"></div>
+  <figure class="work" data-d="arrow" data-note="here" style="--c: 3 / span 1; --w: 100%; --mt: 14vh; --mc: 1 / span 2; --mw: 100%; --mmt: 10vh">
+    <div class="pic"><img src="images/trip-torii.jpg" alt="Me walking under red torii gates in Tokyo" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Torii, Tokyo, 2024</i>Vermilion, stairs, a borrowed calm<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="where am i" style="--c: 6 / span 2; --w: 70%; --mt: 30vh; --mc: 3 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-teamlab.jpg" alt="Me in a room full of glowing purple lights" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Infinite Room, Tokyo, 2024</i>Light, mirrors, one person<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="halo" data-note="sakura" style="--c: 10 / span 1; --w: 80%; --mt: 10vh; --mc: 5 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-icecream.jpg" alt="My hand holding a pink soft serve in Asakusa" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Asakusa, 2023</i>Soft serve, pink, one hand<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="under" data-note="very straight" style="--c: 2 / span 2; --w: 70%; --mt: 30vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-ginza.jpg" alt="A wide straight street in Ginza on a sunny day" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Ginza, Sunday, 2024</i>A street, a grid that works<span class="g">The only city more ordered than my week.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="loupe" data-note="25 plates" style="--c: 6 / span 1; --w: 100%; --mt: 30vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-sushi.jpg" alt="A sushi ordering touchscreen above a conveyor belt" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Ordering, Tokyo, 2023</i>Touchscreen, conveyor belt, appetite<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="chocolate" style="--c: 9 / span 2; --w: 70%; --mt: 40vh; --mc: 2 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-prague.jpg" alt="Me inside a giant heart made of chocolates, at a museum in Prague" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Heart, Prague</i>Chocolate, a museum, me in the middle<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="cheetos" style="--c: 3 / span 2; --w: 60%; --mt: 30vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/trip-usa.jpg" alt="Me in an American supermarket hugging a giant tub of cheese puffs" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>America, 2019</i>Cheese puffs, family size<span class="g">City unknown. Like the snack.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+</section>
+
+<!-- room 6 -->
 <section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 4<span>What the grid did not plan</span></h2>
+  <h2 class="room-title">Room 6<span>What the grid did not plan</span></h2>
   <figure class="work" data-d="motion" style="--c: 5 / span 3; --w: 90%; --mt: 0; --mc: 1 / span 6; --mw: 100%; --mmt: 0">
     <div class="pic"><img src="images/me-dance.jpg" alt="Me dancing, blurred, black and white"></div>
     <figcaption class="wl"><b>Dania Altman</b><i>The Wedding, Probably, 2023</i>Silver gelatin print, motion<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
@@ -272,7 +388,7 @@
 
 <!-- the visitor's room -->
 <section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 5<span>Your turn</span></h2>
+  <h2 class="room-title">Room 7<span>Your turn</span></h2>
   <div class="yours" id="yours">
     <div class="pad" id="pad"><canvas id="padCanvas"></canvas><div class="hint">draw something. badly.</div></div>
     <div class="row">
@@ -303,7 +419,7 @@
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
   </aside>
   <div class="colophon">
-    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, a retrospective in five and a half rooms</p></div>
+    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, a retrospective in eight and a half rooms</p></div>
     <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
     <div><p lang="he" dir="rtl" style="text-align:left">שבת שלום</p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
   </div>
@@ -330,6 +446,7 @@ function doodle(kind, w, h, r) {
     case 'body': { const cx = w / 2; P.push(seg([cx, h * .98], [cx, h * 1.5], 8, 3), seg([w * .1, h * .55], [-w * .35, h * .05], 8, 4), seg([w * .9, h * .55], [w * 1.35, h * .05], 8, 4), seg([cx, h * 1.5], [cx - w * .32, h * 2.1], 8, 3), seg([cx, h * 1.5], [cx + w * .32, h * 2.1], 8, 3)); break; }
     case 'scribble': { const p = []; for (let i = 0; i < 16; i++) p.push([w * (.1 + .8 * (i % 2)), h * (.15 + i * .045)]); P.push(sh(p)); notes.push({ x: w + 10, y: h * .4, rot: -6 }); break; }
     case 'motion': for (let i = 0; i < 4; i++) P.push(seg([w * .3 - 30 - i * 6, h * (.3 + i * .12)], [w * .3 - 90 - i * 6, h * (.3 + i * .12)], 6, 3)); notes.push({ x: w * .02, y: -34, rot: -4, t: '♪ ♪' }); break;
+    case 'steam': for (let i = 0; i < 3; i++) { const x = w * (.3 + i * .2), p = []; for (let k = 0; k <= 10; k++) p.push([x + Math.sin(k * .9 + i) * 7, -10 - k * 6]); P.push(sh(p)); } notes.push({ x: w * .82, y: -64, rot: -6, t: 'hot' }); break;
     case 'zzz': notes.push({ x: w * .78, y: -h * .05, rot: -10, t: 'z z Z' }); P.push(ell(w * .2, h * .3, w * .06, h * .05)); break;
     case 'moon': { const x = w * 1.15, y = -h * .05; P.push(ell(x, y, 22, 22, .62, -2.1), ell(x + 10, y - 4, 16, 18, .5, -1.7), sh([[x + 60, y - 20], [x + 62, y + 4], [x + 50, y - 8], [x + 74, y - 8], [x + 60, y - 20]])); break; }
   }
@@ -487,11 +604,43 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   document.getElementById('commitFoot').textContent = `Edited ${n} times. The cats were present for all of them.`;
 }).catch(() => { document.getElementById('commitFoot').textContent = 'Git history unavailable right now.'; });
 
+// ---------- room 5: the world, flattened. a line, four places, the time there now ----------
+(() => {
+  const world = document.getElementById('world'); if (!world) return;
+  const places = [
+    { n: 'America', lon: -95, tz: null, note: 'city unknown' },
+    { n: 'Prague', lon: 14.4, tz: 'Europe/Prague' },
+    { n: 'Holon', lon: 34.8, tz: 'Asia/Jerusalem', home: 1, note: 'home' },
+    { n: 'Tokyo', lon: 139.7, tz: 'Asia/Tokyo' },
+  ];
+  const x = lon => 6 + (lon + 110) / 260 * 88;
+  const fmt = tz => new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
+  const off = tz => { const d = new Date(), a = new Date(d.toLocaleString('en-US', { timeZone: tz })), h = new Date(d.toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' })); return Math.round((a - h) / 36e5); };
+  const els = places.map((p, i) => {
+    const el = document.createElement('div'); el.className = 'place' + (p.home ? ' home' : '');
+    const below = i % 2 === 0;
+    el.style.left = x(p.lon) + '%'; el.style[below ? 'top' : 'bottom'] = 'calc(50% + 14px)';
+    el.innerHTML = `<i style="${below ? 'top' : 'bottom'}:-19px"></i><b>${p.n}</b><span class="t">--:--</span><span class="g">${p.note || ''}</span>`;
+    world.appendChild(el); return el;
+  });
+  const tick = () => places.forEach((p, i) => {
+    const t = els[i].querySelector('.t'), g = els[i].querySelector('.g');
+    if (!p.tz) { t.textContent = '??:??'; return; }
+    t.textContent = fmt(p.tz).format(new Date());
+    if (!p.home) { const o = off(p.tz); g.textContent = o === 0 ? 'same as Holon' : `${o > 0 ? '+' : ''}${o} h from Holon`; }
+  });
+  tick(); setInterval(tick, 15000);
+  const draw = () => { const b = world.getBoundingClientRect(), r = rng(77), W = b.width, H = b.height, y = H / 2, p = [];
+    for (let k = 0; k <= 60; k++) p.push(`${k ? 'L' : 'M'}${(k / 60 * W).toFixed(1)},${(y + Math.sin(k * .5) * 3 + r() * 3).toFixed(1)}`);
+    world.querySelector('svg')?.remove(); const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = `<path d="${p.join(' ')}"/>`; world.prepend(svg); };
+  draw(); addEventListener('resize', draw);
+})();
+
 // ---------- doors: every room starts with a doorway, and has its own wall colour ----------
 (() => {
-  const walls = ['#f7f2e8', '#f5e9e1', '#efe8d6', '#f4e3cc', '#ece2da', '#f7f2e8', '#faf7f1'];
+  const walls = ['#f8efe6', '#f7f2e8', '#f5e9e1', '#efe8d6', '#f4e3cc', '#f6e2d6', '#eae6da', '#ece2da', '#f7f2e8', '#faf7f1'];
   const rooms = [...document.querySelectorAll('.room'), document.querySelector('.after')];
-  const hints = ['come in', 'it is later than you think', 'mind the cats', 'it smells like butter', 'no context will be provided', 'bring a pen', 'the words, at last'];
+  const hints = ['come in. it started early', 'smile. no, don\'t', 'it is later than you think', 'mind the cats', 'it smells like butter', 'the oven is very hot', 'bring a passport. not that photo', 'no context will be provided', 'bring a pen', 'the words, at last'];
   const doors = rooms.map((room, i) => {
     const t = room.querySelector('.room-title');
     const num = t ? t.firstChild.textContent.trim() : 'Exit';
