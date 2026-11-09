@@ -7,9 +7,9 @@
 <meta name="description" content="Identity card: order and rupture. A retrospective in five and a half rooms, with bad doodles and serious labels. Design MA, Homework 1, by Dania Altman.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23E3000F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Shippori+Mincho:wght@500&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #111; --paper: #fff; --grey: #8a8a8a; --red: #E3000F; --sans: Helvetica, 'Helvetica Neue', Arial, sans-serif; --hand: 'Reenie Beanie', 'Comic Sans MS', cursive; }
+  :root { --ink: #111; --paper: #f7f2e8; --brown: #8a5a36; --serif: 'Shippori Mincho', 'Hiragino Mincho ProN', Georgia, serif; --grey: #8a8a8a; --red: #E3000F; --sans: Helvetica, 'Helvetica Neue', Arial, sans-serif; --hand: 'Reenie Beanie', 'Comic Sans MS', cursive; }
   * { box-sizing: border-box; }
   html, body { margin: 0; } html { overflow-x: clip; }
   body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 12px; line-height: 16px; -webkit-font-smoothing: antialiased; overflow-x: clip; }
@@ -30,20 +30,23 @@
   .room { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding: 0 24px; }
   .room-title { grid-column: 1 / span 3; font-size: 12px; line-height: 16px; margin: 0; font-weight: 400; }
   .room-title span { display: block; color: var(--grey); }
-  .intro { min-height: 100vh; display: grid; place-items: center; text-align: center; }
+  .intro { position: relative; min-height: 100vh; display: grid; place-items: center; text-align: center; }
+  .intro svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .intro svg path { fill: none; stroke: var(--brown); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .intro svg path.sun { stroke: var(--red); }
   .intro h1 { font-size: 12px; line-height: 16px; font-weight: 700; margin: 0; }
   .intro p { margin: 0; color: var(--grey); }
-  .intro .hand { font-family: var(--hand); font-size: 26px; color: var(--ink); margin-top: 40px; rotate: -3deg; }
+  .intro .hand { font-family: var(--hand); font-size: 26px; color: var(--brown); margin-top: 40px; rotate: -3deg; }
 
   /* a work on the wall */
   .work { position: relative; margin: 0; grid-column: var(--c); width: var(--w); margin-top: var(--mt, 0); justify-self: var(--js, start); align-self: start; }
   .work .pic { position: relative; }
   .work svg.doodle { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-  .work svg.doodle path { fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .note { position: absolute; font-family: var(--hand); font-size: 24px; line-height: 22px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .4s .6s; }
+  .work svg.doodle path { fill: none; stroke: var(--brown); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .note { position: absolute; color: var(--brown); font-family: var(--hand); font-size: 24px; line-height: 22px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .4s .6s; }
   .work.drawn .note { opacity: 1; }
   .wl { margin-top: 14px; width: max(150px, 100%); font-size: 10px; line-height: 13px; }
-  .wl b { display: block; font-weight: 700; }
+  .wl b { display: block; font-family: var(--serif); font-weight: 500; font-size: 12px; line-height: 16px; letter-spacing: .01em; }
   .wl i { display: block; }
   .wl .g { display: block; margin-top: 6px; color: var(--grey); }
   .wl .buy { margin-top: 6px; font-size: 10px; color: var(--grey); border-bottom: 1px solid #ccc; }
@@ -131,6 +134,7 @@
     <p>Five and a half rooms. Scroll slowly, as in a gallery.</p>
     <p class="hand">(touch nothing. or do.)</p>
   </div>
+  <svg id="introInk" aria-hidden="true"></svg>
 </section>
 
 <!-- room 1 -->
@@ -348,6 +352,26 @@ addEventListener('load', layAll); addEventListener('resize', layAll); layAll();
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !e.target.classList.contains('drawn')) { setTimeout(() => draw(e.target), 300); } }), { threshold: .6 });
 works.forEach(w => { io.observe(w); w.querySelector('.pic').addEventListener('mouseenter', () => { if (w.classList.contains('drawn') && !dragging) draw(w, 700); }); });
 
+// ---------- the opening: four stick cats along the bottom, a small red sun ----------
+function introInk() {
+  const svg = document.getElementById('introInk'), b = svg.getBoundingClientRect(), W = b.width, H = b.height, r = rng(21);
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = '';
+  const sh = pts => pts.map(([x, y], i) => (i ? 'L' : 'M') + (x + r() * 2.5).toFixed(1) + ',' + (y + r() * 2.5).toFixed(1)).join(' ');
+  const seg = (a, c, n = 8, bow = 3) => { const p = []; for (let i = 0; i <= n; i++) { const t = i / n; p.push([a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t + Math.sin(t * Math.PI) * bow]); } return sh(p); };
+  const ell = (cx, cy, rx, ry, turns = 1.1, st = -.7) => { const p = []; for (let i = 0; i <= 44 * turns; i++) { const t = st + i / 44 * Math.PI * 2; p.push([cx + rx * Math.cos(t) * (1 + r() * .1), cy + ry * Math.sin(t) * (1 + r() * .1)]); } return sh(p); };
+  const cat = (x, y, k) => [ell(x, y, 13 * k, 11 * k), sh([[x - 11 * k, y - 6 * k], [x - 8 * k, y - 22 * k], [x - 2 * k, y - 10 * k]]), sh([[x + 3 * k, y - 10 * k], [x + 9 * k, y - 22 * k], [x + 11 * k, y - 6 * k]]), seg([x + 10 * k, y + 6 * k], [x + 70 * k, y + 8 * k], 8, 3 * k), seg([x + 20 * k, y + 8 * k], [x + 18 * k, y + 30 * k], 4, 1), seg([x + 60 * k, y + 8 * k], [x + 62 * k, y + 30 * k], 4, 1), sh([[x + 70 * k, y + 8 * k], [x + 88 * k, y - 12 * k], [x + 96 * k, y - 4 * k]])];
+  const k = Math.max(.62, Math.min(1, W / 900)), y = H - 70 * k - 30, x0 = W / 2 - 230 * k;
+  const paths = [...cat(x0, y, .9 * k), ...cat(x0 + 150 * k, y + 8 * k, .65 * k), ...cat(x0 + 250 * k, y - 4 * k, 1 * k), ...cat(x0 + 400 * k, y + 10 * k, .5 * k)].map(d => [d, '']);
+  const sx = W - Math.max(70, W * .09), sy = Math.max(90, H * .14), sr = 20 * Math.max(.8, k);
+  paths.push([ell(sx, sy, sr, sr, 1.05, 0), 'sun']);
+  for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; paths.push([seg([sx + Math.cos(a) * sr * 1.5, sy + Math.sin(a) * sr * 1.5], [sx + Math.cos(a) * sr * 2.3, sy + Math.sin(a) * sr * 2.3], 3, 1), 'sun']); }
+  let delay = 300;
+  paths.forEach(([d, cls]) => { const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); if (cls) p.setAttribute('class', cls); svg.appendChild(p); const L = p.getTotalLength(); p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.style.transition = `stroke-dashoffset ${Math.max(.25, Math.min(.9, L / 300))}s ease ${delay}ms`; delay += 110; });
+  requestAnimationFrame(() => requestAnimationFrame(() => svg.querySelectorAll('path').forEach(p => p.style.strokeDashoffset = 0)));
+}
+introInk();
+let introW = innerWidth; addEventListener('resize', () => { if (Math.abs(innerWidth - introW) > 40) { introW = innerWidth; introInk(); } });
+
 // ---------- red dots: acquire a work ----------
 let sold = 0;
 document.querySelectorAll('.buy:not(#clearPad)').forEach(b => b.addEventListener('click', () => {
@@ -369,7 +393,7 @@ document.querySelectorAll('.drag').forEach(w => {
 // ---------- pens ----------
 function pen(canvas, onStroke) {
   const ctx = canvas.getContext('2d'); let last = null, r = rng(5);
-  const fit = () => { const dpr = devicePixelRatio || 1, b = canvas.getBoundingClientRect(); const img = canvas.width && canvas.height ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null; canvas.width = b.width * dpr; canvas.height = b.height * dpr; ctx.scale(dpr, dpr); if (img) ctx.putImageData(img, 0, 0); ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#111'; ctx.lineWidth = 1.8; };
+  const fit = () => { const dpr = devicePixelRatio || 1, b = canvas.getBoundingClientRect(); const img = canvas.width && canvas.height ? ctx.getImageData(0, 0, canvas.width, canvas.height) : null; canvas.width = b.width * dpr; canvas.height = b.height * dpr; ctx.scale(dpr, dpr); if (img) ctx.putImageData(img, 0, 0); ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#8a5a36'; ctx.lineWidth = 1.8; };
   const at = e => { const b = canvas.getBoundingClientRect(); return [e.clientX - b.left + r() * 1.6, e.clientY - b.top + r() * 1.6]; };
   canvas.addEventListener('pointerdown', e => { last = at(e); canvas.setPointerCapture(e.pointerId); e.preventDefault(); });
   canvas.addEventListener('pointermove', e => { if (!last) return; const p = at(e); ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke(); last = p; onStroke && onStroke(); });
