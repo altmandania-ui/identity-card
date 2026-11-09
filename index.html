@@ -208,6 +208,94 @@
   .plan-intro.fold .wrap { translate: 46vw 0; scale: .12; opacity: 0; }
   .plan-intro .skip { position: absolute; right: 24px; bottom: 20px; font-size: 11px; color: var(--grey); }
   @media (max-width: 760px) { .map-tab { padding: 12px 5px; font-size: 10px; } }
+
+  /* ---------- the radio: stations of my life ---------- */
+  .radio { position: fixed; left: 18px; bottom: 16px; z-index: 30; display: flex; align-items: flex-end; gap: 12px; padding: 10px 14px 10px 10px; background: #fffdf8; border: 1px solid var(--brown); box-shadow: 3px 4px 0 rgba(138, 90, 54, .18); }
+  .radio-body { width: 92px; padding: 0; background: none; border: 0; cursor: pointer; transform-origin: 50% 100%; }
+  .radio:not(.on) .radio-body { animation: nudge 5s ease-in-out 3s infinite; }
+  @keyframes nudge { 0%, 88%, 100% { rotate: 0deg; } 91% { rotate: -6deg; } 94% { rotate: 5deg; } 97% { rotate: -3deg; } }
+  .radio-body svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .radio-body path, .radio-body line { fill: none; stroke: var(--brown); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .radio-body line { stroke: var(--red); stroke-width: 1.6; transition: transform .35s cubic-bezier(.3, 1.6, .4, 1); }
+  .radio-body .waves path { opacity: 0; }
+  .radio.on .radio-body .waves path { animation: wave 1.2s ease-out infinite; }
+  .radio.on .radio-body .waves path + path { animation-delay: .3s; }
+  @keyframes wave { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; translate: -4px 0; } }
+  .radio.on .radio-body .spk { transform-box: fill-box; transform-origin: center; animation: thump .5s ease-in-out infinite alternate; }
+  @keyframes thump { to { scale: 1.06; } }
+  .radio-body:hover path { stroke: var(--ink); }
+  .radio-ui { font-size: 11px; line-height: 14px; padding-bottom: 2px; }
+  .radio-ui p { margin: 0; }
+  .radio-name { font-family: var(--hand); font-size: 22px; line-height: 22px; color: var(--brown); white-space: nowrap; }
+  .radio-tune { display: flex; gap: 6px; align-items: center; color: var(--grey); font-variant-numeric: tabular-nums; }
+  .radio-tune button { font-size: 12px; color: var(--brown); padding: 2px 6px; }
+  .radio-tune button:hover { color: var(--red); }
+  @media (max-width: 760px) { .radio { left: 10px; bottom: 10px; padding: 6px 10px 6px 6px; } .radio-body { width: 62px; } .radio-name { font-size: 17px; line-height: 17px; } }
+  @media (prefers-reduced-motion: reduce) { .radio:not(.on) .radio-body, .radio.on .radio-body .spk, .radio.on .radio-body .waves path { animation: none; } }
+
+  /* ---------- room 8: your own identity card ---------- */
+  .yours { grid-column: 3 / span 8; }
+  .vcard { position: relative; background: #fffdf8; border: 1px solid var(--brown); padding: 18px 20px 22px; box-shadow: 3px 4px 0 rgba(138, 90, 54, .18); }
+  .vc-head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--ink); padding-bottom: 8px; margin-bottom: 16px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+  .vc-head b { font-weight: 400; letter-spacing: .04em; text-transform: none; font-family: var(--serif); font-size: 13px; }
+  .vc-main { display: grid; grid-template-columns: minmax(150px, 34%) 1fr; gap: 24px; }
+  .vc-photo .pad { position: relative; aspect-ratio: 4 / 5; height: auto !important; border: 1px dashed var(--brown); background: var(--paper); cursor: crosshair; touch-action: none; }
+  .vc-photo canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .vc-photo .hint { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 10px; font-family: var(--hand); font-size: 24px; line-height: 24px; color: #bba58c; pointer-events: none; transition: opacity .3s; }
+  .yours.made .vc-photo .hint { opacity: 0; }
+  .vc-link { margin-top: 6px; font-size: 10px; color: var(--grey); border-bottom: 1px solid #ccc; }
+  .vc-link:hover { color: var(--red); }
+  .vc-fields { margin: 0; display: grid; gap: 12px; align-content: start; }
+  .vc-fields > div { border-top: 1px solid #d8cfc2; padding-top: 4px; }
+  .vc-fields dt { font-size: 10px; line-height: 14px; color: var(--grey); }
+  .vc-fields dd { margin: 0; font-size: 15px; line-height: 22px; min-height: 22px; }
+  .vc-fields input { width: 100%; border: 0; background: none; padding: 0; font: inherit; font-family: var(--serif); color: var(--ink); outline: none; }
+  .vc-fields input::placeholder { font-family: var(--hand); font-size: 20px; color: #bba58c; }
+  .vc-fields input:focus { box-shadow: 0 1px 0 var(--brown); }
+  .vc-stamp { position: absolute; right: 8%; bottom: 14%; margin: 0; padding: 4px 12px; border: 3px solid var(--red); color: var(--red); text-transform: uppercase; font-weight: 700; font-size: 26px; line-height: 28px; letter-spacing: .06em; text-align: center; rotate: -12deg; mix-blend-mode: multiply; opacity: 0; scale: 2.2; pointer-events: none; transition: scale .22s cubic-bezier(.3, 1.4, .4, 1), opacity .1s; }
+  .vc-stamp small { display: block; font-size: 10px; line-height: 12px; font-weight: 400; letter-spacing: .04em; text-transform: none; }
+  .vc-stamp.on { opacity: 1; scale: 1; }
+  .vc-stamp.no { border-color: var(--ink); color: var(--ink); }
+  .vc-actions { display: flex; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+  .vc-btn { font-size: 12px; line-height: 16px; padding: 8px 14px; border: 1px solid var(--ink); color: var(--ink); }
+  .vc-btn:hover { background: var(--ink); color: var(--paper); }
+  .vc-btn.ghost { border-color: var(--brown); color: var(--brown); }
+  .vc-btn:disabled { opacity: .35; pointer-events: none; }
+  /* ---------- the you dot ---------- */
+  .place.you i { background: var(--brown); box-shadow: 0 0 0 4px rgba(138, 90, 54, .18); }
+  .place.you b { font-family: var(--hand); font-size: 22px; line-height: 20px; color: var(--brown); }
+  .place.you em { position: absolute; left: 50%; bottom: -59px; width: 1px; height: 54px; background: var(--brown); opacity: .5; }
+  /* ---------- the ticket ---------- */
+  .side { position: static !important; }
+  .colophon { padding-bottom: 180px !important; }
+  .ticket-wrap { grid-column: 3 / 12; }
+  .ticket-wrap h2 { margin: 0 0 14px; }
+  .ticket { display: grid; grid-template-columns: 1fr 150px; max-width: 760px; position: relative; }
+  .t-ink { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .t-ink path { fill: none; stroke: var(--brown); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .t-ink path.fill { fill: #fffdf8; stroke: none; }
+  .t-ink path.red { stroke: var(--red); }
+  .t-ink path.perf { stroke-dasharray: 5 6; }
+  .t-main, .t-stub { position: relative; }
+  .t-main { padding: 18px 22px; }
+  .t-top { display: flex; justify-content: space-between; margin: 0; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--grey); }
+  .t-admit { margin: 8px 0 14px; font-family: var(--hand); font-size: 52px; line-height: 44px; color: var(--ink); rotate: -2deg; width: fit-content; }
+  .t-rows { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 6px 14px; font-size: 12px; line-height: 16px; }
+  .t-rows dt { color: var(--grey); }
+  .t-rows dd { margin: 0; font-family: var(--hand); font-size: 22px; line-height: 18px; color: #3d2a1c; }
+  .t-rows dd small { color: var(--red); font-family: var(--hand); font-size: 19px; margin-left: 8px; }
+  .t-stub { padding: 18px 14px; display: flex; flex-direction: column; justify-content: space-between; text-align: center; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; position: relative; }
+  .t-stub p { margin: 0; }
+  .t-stub-n { font-family: var(--hand); font-size: 46px; line-height: 40px; letter-spacing: 0; color: var(--red); align-self: center; width: fit-content; }
+  .ticket-wrap .vc-btn { margin-top: 16px; }
+  @media (max-width: 760px) {
+    .yours, .ticket-wrap { grid-column: 1 / -1; }
+    .vc-main { grid-template-columns: 1fr; }
+    .vc-photo { max-width: 220px; }
+    .ticket { grid-template-columns: 1fr; }
+    .t-stub { flex-direction: row; align-items: center; gap: 10px; }
+    .t-rows { grid-template-columns: 1fr; gap: 2px; } .t-rows dt { margin-top: 6px; }
+  }
 </style>
 </head>
 <body>
@@ -517,15 +605,28 @@
   </figure>
 </section>
 
-<!-- the visitor's room -->
-<section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 8<span>Your turn</span></h2>
+<!-- the visitor's room: your own identity card -->
+<section class="room">
+  <h2 class="room-title">Room 8<span>Your turn<br>Make your own identity card.</span></h2>
   <div class="yours" id="yours">
-    <div class="pad" id="pad"><canvas id="padCanvas"></canvas><div class="hint">draw something. badly.</div></div>
-    <div class="row">
-      <p class="wl"><b id="visitor">Visitor No. 1</b><i>Untitled, 2026</i>Mouse on screen<span class="g">Accepted on the first try. Unlike some.</span></p>
-      <button class="wl buy" id="clearPad" type="button" style="width:auto;margin-top:14px">Start over</button>
+    <div class="vcard" id="vcard">
+      <div class="vc-head"><span>Identity card</span><b id="visitor">Visitor No. 1</b></div>
+      <div class="vc-main">
+        <div class="vc-photo">
+          <div class="pad" id="pad"><canvas id="padCanvas"></canvas><div class="hint">draw your face. badly.</div></div>
+          <button class="vc-link" id="clearPad" type="button">Start over</button>
+        </div>
+        <dl class="vc-fields">
+          <div><dt><label for="vcName">Name</label></dt><dd><input id="vcName" maxlength="28" autocomplete="off" placeholder="your name"></dd></div>
+          <div><dt><label for="vcProud">Your Saint-Honoré</label></dt><dd><input id="vcProud" maxlength="42" autocomplete="off" placeholder="the thing you are proud of"></dd></div>
+          <div><dt><label for="vcCat">Your cat</label></dt><dd><input id="vcCat" maxlength="42" autocomplete="off" placeholder="what breaks your plans"></dd></div>
+          <div><dt>From</dt><dd id="vcFrom">somewhere</dd></div>
+          <div><dt>Issued</dt><dd id="vcDate"></dd></div>
+        </dl>
+      </div>
+      <p class="vc-stamp" id="vcStamp" aria-live="polite"><span>Accepted</span><small></small></p>
     </div>
+    <div class="vc-actions"><button class="vc-btn" id="vcSubmit" type="button">Submit for approval</button><button class="vc-btn ghost" id="vcSave" type="button" disabled>Download your card</button></div>
   </div>
 </section>
 
@@ -549,6 +650,19 @@
   <aside class="side">
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
   </aside>
+  <section class="ticket-wrap" aria-labelledby="ticket-h">
+    <h2 class="small" id="ticket-h">Your ticket. It filled itself in while you walked.</h2>
+    <div class="ticket" id="ticket">
+      <svg class="t-ink" id="tInk" aria-hidden="true"></svg>
+      <div class="t-main">
+        <p class="t-top"><span>Dania Altman · A retrospective</span><span id="tNo">No. 001</span></p>
+        <p class="t-admit">Admit one</p>
+        <dl class="t-rows" id="tRows"></dl>
+      </div>
+      <div class="t-stub"><p>Admit one</p><p class="t-stub-n" id="tStubNo">001</p><p id="tStubDate"></p></div>
+    </div>
+    <button class="vc-btn ghost" id="tSave" type="button">Keep your ticket</button>
+  </section>
   <div class="colophon">
     <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, a retrospective in nine and a half rooms</p></div>
     <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
@@ -667,7 +781,7 @@ const visitorNo = 1 + Math.floor(Math.random() * 900);
 document.getElementById('visitor').textContent = `Visitor No. ${visitorNo}`;
 const pad = pen(document.getElementById('padCanvas'), () => document.getElementById('yours').classList.add('made'));
 pad.fit(); addEventListener('resize', pad.fit);
-document.getElementById('clearPad').addEventListener('click', () => { pad.clear(); document.getElementById('yours').classList.remove('made'); });
+document.getElementById('clearPad').addEventListener('click', () => { pad.clear(); document.getElementById('yours').classList.remove('made'); window.__card && window.__card.reset(); });
 // the pen over the whole show
 const ink = document.getElementById('ink');
 const sizeInk = () => { ink.style.width = '100%'; ink.style.height = document.documentElement.scrollHeight + 'px'; };
@@ -744,21 +858,25 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
     { n: 'Israel', lon: 34.8, tz: 'Asia/Jerusalem', home: 1, note: 'home' },
     { n: 'Tokyo', lon: 139.7, tz: 'Asia/Tokyo' },
   ];
+  // you: wherever your clock says you are
+  const myTz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+  if (myTz === 'Asia/Jerusalem') places[2].note = 'home, and you';
+  else { const offH = -new Date().getTimezoneOffset() / 60; places.push({ n: 'You', lon: Math.max(-105, Math.min(145, offH * 15)), tz: myTz || 'UTC', you: 1, note: (myTz.split('/').pop() || '').replace(/_/g, ' ') }); }
   const x = lon => 6 + (lon + 110) / 260 * 88;
   const fmt = tz => new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' });
   const off = tz => { const d = new Date(), a = new Date(d.toLocaleString('en-US', { timeZone: tz })), h = new Date(d.toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' })); return Math.round((a - h) / 36e5); };
   const els = places.map((p, i) => {
-    const el = document.createElement('div'); el.className = 'place' + (p.home ? ' home' : '');
-    const below = i % 2 === 0;
-    el.style.left = x(p.lon) + '%'; el.style[below ? 'top' : 'bottom'] = 'calc(50% + 14px)';
-    el.innerHTML = `<i style="${below ? 'top' : 'bottom'}:-19px"></i><b>${p.n}</b><span class="t">--:--</span><span class="g">${p.note || ''}</span>`;
+    const el = document.createElement('div'); el.className = 'place' + (p.home ? ' home' : '') + (p.you ? ' you' : '');
+    const below = i % 2 === 0 && !p.you, lift = p.you ? 64 : 14;
+    el.style.left = x(p.lon) + '%'; el.style[below ? 'top' : 'bottom'] = `calc(50% + ${lift}px)`;
+    el.innerHTML = `<i style="${below ? 'top' : 'bottom'}:-${lift + 5}px"></i>${p.you ? '<em></em>' : ''}<b>${p.n}</b><span class="t">--:--</span><span class="g">${p.note || ''}</span>`;
     world.appendChild(el); return el;
   });
   const tick = () => places.forEach((p, i) => {
     const t = els[i].querySelector('.t'), g = els[i].querySelector('.g');
     if (!p.tz) { t.textContent = '??:??'; return; }
     t.textContent = fmt(p.tz).format(new Date());
-    if (!p.home) { const o = off(p.tz); g.textContent = o === 0 ? 'same as Israel' : `${o > 0 ? '+' : ''}${o} h from Israel`; }
+    if (!p.home) { const o = off(p.tz); g.textContent = (p.you && p.note ? p.note + ', ' : '') + (o === 0 ? 'same as Israel' : `${o > 0 ? '+' : ''}${o} h from Israel`); }
   });
   tick(); setInterval(tick, 15000);
   const draw = () => { const b = world.getBoundingClientRect(), r = rng(77), W = b.width, H = b.height, y = H / 2, p = [];
@@ -896,7 +1014,7 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   function meet(t) {
     say.textContent = t.text;
     if (found.has(t.k)) return;
-    found.add(t.k);
+    found.add(t.k); window.__questFound = found.size;
     const li = card.querySelector(`[data-k="${t.k}"]`); li.classList.add('on'); li.querySelector('b').textContent = t.val;
     if (found.size === things.length) { done = true; setTimeout(() => { document.getElementById('qStamp').classList.add('on'); say.textContent = 'ALL 13 FOUND. IDENTITY CARD No. 001: ACCEPTED. ON THE FIRST TRY. UNLIKE SOME.'; }, 900); }
   }
@@ -1022,6 +1140,240 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   setTimeout(fold, 4200);
   intro.addEventListener('click', fold);
   addEventListener('wheel', fold, { once: true, passive: true }); addEventListener('touchmove', fold, { once: true, passive: true }); addEventListener('keydown', fold, { once: true });
+})();
+</script>
+<!-- the radio: stations of my life, every sound made in code -->
+<div class="radio" id="radio">
+  <button class="radio-body" id="radioPower" type="button" aria-pressed="false" aria-label="Radio, press to turn on"><svg id="radioSvg" viewBox="0 0 90 70" aria-hidden="true"></svg></button>
+  <div class="radio-ui">
+    <p class="radio-name" id="radioName">radio. press it.</p>
+    <p class="radio-tune"><button type="button" id="radioPrev" aria-label="Tune down">◀</button><span id="radioFreq">off</span><button type="button" id="radioNext" aria-label="Tune up">▶</button></p>
+  </div>
+</div>
+<script>
+(() => {
+  // ---- the drawing: a little radio, in the same brown pen ----
+  const svg = document.getElementById('radioSvg');
+  let s = 31; const r = () => { s = (s * 9301 + 49297) % 233280; return s / 233280 - .5; };
+  const sh = pts => pts.map(([x, y], i) => (i ? 'L' : 'M') + (x + r() * 1.4).toFixed(1) + ',' + (y + r() * 1.4).toFixed(1)).join(' ');
+  const seg = (a, b, n = 6) => { const p = []; for (let i = 0; i <= n; i++) p.push([a[0] + (b[0] - a[0]) * i / n, a[1] + (b[1] - a[1]) * i / n]); return sh(p); };
+  const circ = (cx, cy, rad, n = 18) => sh(Array.from({ length: n + 1 }, (_, i) => [cx + Math.cos(i / n * 6.3) * rad, cy + Math.sin(i / n * 6.3) * rad]));
+  const parts = [
+    seg([6, 22], [84, 22]) + ' ' + seg([84, 22], [84, 66]) + ' ' + seg([84, 66], [6, 66]) + ' ' + seg([6, 66], [6, 22]),
+    seg([60, 22], [76, 4], 5), circ(76, 4, 1.6, 8),
+    circ(28, 44, 15), circ(28, 44, 9), circ(28, 44, 3, 8),
+    seg([52, 32], [78, 32]) + ' ' + seg([78, 32], [78, 42]) + ' ' + seg([78, 42], [52, 42]) + ' ' + seg([52, 42], [52, 32]),
+    circ(58, 55, 5, 12), circ(73, 55, 5, 12),
+    seg([14, 66], [12, 70], 2), seg([76, 66], [78, 70], 2),
+  ];
+  svg.innerHTML = parts.map((d, i) => `<path ${i === 2 || i === 3 || i === 4 ? 'class="spk"' : ''} d="${d}"/>`).join('') + '<line id="radioNeedle" x1="56" y1="33" x2="56" y2="41"/>' + '<g class="waves"><path d="M-2,36 q-5,8 0,16"/><path d="M-8,32 q-7,12 0,24"/></g>';
+  const needle = document.getElementById('radioNeedle');
+
+  // ---- the stations ----
+  const STATIONS = [
+    { f: '88.1', name: 'Purr FM. Sofi, live.', make: purr },
+    { f: '91.4', name: 'Oven 180°. Timer on.', make: oven },
+    { f: '95.0', name: 'Pizza Night. Everyone is here.', make: pizza },
+    { f: '99.9', name: 'Karaoke. No context.', make: karaoke },
+    { f: '103.7', name: 'Tokyo, 5am. Crosswalk birds.', make: tokyo },
+    { f: '106.2', name: 'Shabbat. The quiet station.', make: shabbat },
+  ];
+  let ctx, out, staticGain, noiseBuf, on = false, st = 0, stop = null, lastHeard = null;
+  function init() {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    // white noise, two seconds, looped wherever it is needed
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    // everything goes through a small speaker: no lows, no highs, a little grit
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 220;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
+    const grit = ctx.createWaveShaper(); const c = new Float32Array(256); for (let i = 0; i < 256; i++) { const x = i / 128 - 1; c[i] = Math.tanh(x * 1.1); } grit.curve = c;
+    const vol = ctx.createGain(); vol.gain.value = .18;
+    out = ctx.createGain(); out.gain.value = 1;
+    out.connect(hp).connect(lp).connect(grit).connect(vol).connect(ctx.destination);
+    // the static that lives under every station, and swells while you tune
+    const n = noise(); const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 900; bp.Q.value = .8;
+    staticGain = ctx.createGain(); staticGain.gain.value = 0; n.connect(bp).connect(staticGain).connect(out);
+  }
+  const noise = () => { const n = ctx.createBufferSource(); n.buffer = noiseBuf; n.loop = true; n.loopStart = Math.random(); n.start(); return n; };
+  const gain = v => { const g = ctx.createGain(); g.gain.value = v; return g; };
+  const filt = (type, f, q = 1) => { const b = ctx.createBiquadFilter(); b.type = type; b.frequency.value = f; b.Q.value = q; return b; };
+  const tone = (type, f) => { const o = ctx.createOscillator(); o.type = type; o.frequency.value = f; o.start(); return o; };
+  // a ping: a sine that rings and dies
+  function ping(f, at, len = 1.2, v = .25, dest) { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = f; g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(v, at + .005); g.gain.exponentialRampToValueAtTime(.0001, at + len); o.connect(g).connect(dest); o.start(at); o.stop(at + len + .05); }
+  function click(at, v, dest, hz = 3000) { const n = ctx.createBufferSource(); n.buffer = noiseBuf; const f = filt('highpass', hz), g = ctx.createGain(); g.gain.setValueAtTime(v, at); g.gain.exponentialRampToValueAtTime(.0001, at + .03); n.connect(f).connect(g).connect(dest); n.start(at, Math.random()); n.stop(at + .05); }
+  // every station is a little machine: it builds itself into a bus and returns how to stop
+  function machine(build) { const bus = gain(0); bus.connect(out); bus.gain.setTargetAtTime(1, ctx.currentTime + .25, .15); const nodes = [], timers = []; build(bus, nodes, timers); return () => { bus.gain.setTargetAtTime(0, ctx.currentTime, .08); timers.forEach(clearInterval); setTimeout(() => { nodes.forEach(n => { try { n.stop(); } catch (e) {} }); bus.disconnect(); }, 400); }; }
+  function purr() { return machine((bus, nodes) => {
+    const n = noise(); nodes.push(n);
+    const lp = filt('lowpass', 300, 1), am = gain(0), body = gain(.55);
+    const flutter = tone('sine', 24); nodes.push(flutter); const depth = gain(.5); flutter.connect(depth).connect(am.gain);
+    const breath = tone('sine', .38); nodes.push(breath); const bd = gain(.45); breath.connect(bd).connect(body.gain);
+    n.connect(lp).connect(am).connect(body).connect(bus);
+  }); }
+  function oven() { return machine((bus, nodes, timers) => {
+    const n = noise(); nodes.push(n); n.connect(filt('lowpass', 140)).connect(gain(.3)).connect(bus);
+    const fan = tone('sine', 118); nodes.push(fan); fan.connect(gain(.025)).connect(bus);
+    let k = 0;
+    timers.push(setInterval(() => { const t = ctx.currentTime + .05; if (k % 2 === 0) click(t, .06, bus, 2500); if (++k % 14 === 0) { ping(1046, t + .2, 1.6, .08, bus); ping(1318, t + .7, 2, .07, bus); } }, 1000));
+  }); }
+  function pizza() { return machine((bus, nodes, timers) => {
+    for (let v = 0; v < 2; v++) {
+      const n = noise(); nodes.push(n); const bp = filt('bandpass', 450, 5), g = gain(0); n.connect(bp).connect(g).connect(bus);
+      timers.push(setInterval(() => { const t = ctx.currentTime; bp.frequency.setTargetAtTime(280 + Math.random() * 900, t, .03); g.gain.setTargetAtTime(Math.random() < .35 ? 0 : .12 + Math.random() * .16, t, .08); }, 160 + v * 53));
+    }
+    timers.push(setInterval(() => { if (Math.random() < .15) { const t = ctx.currentTime + .02; ping(1800 + Math.random() * 500, t, .5, .035, bus); } }, 900));
+  }); }
+  function karaoke() { return machine((bus, nodes, timers) => {
+    // an original tune, eight bars, and a singer who is never quite on the note
+    const M = [64, 67, 69, 67, 64, 62, 60, 62, 64, 64, 67, 69, 72, 69, 67, 0, 69, 69, 67, 64, 65, 64, 62, 0, 60, 62, 64, 67, 64, 62, 60, 0];
+    const B = [48, 48, 45, 45, 41, 41, 43, 43];
+    const hz = m => 440 * Math.pow(2, (m - 69) / 12), beat = 60 / 112 / 2;
+    let i = 0, next = ctx.currentTime + .3;
+    const tick = () => { while (next < ctx.currentTime + .4) {
+      const m = M[i % M.length];
+      if (m) { const o = ctx.createOscillator(), g = ctx.createGain(), f = filt('lowpass', 1400); o.type = 'triangle'; o.frequency.value = hz(m); o.detune.value = (Math.random() - .3) * 30; g.gain.setValueAtTime(.0001, next); g.gain.linearRampToValueAtTime(.09, next + .03); g.gain.setTargetAtTime(.0001, next + beat * .8, .05); o.connect(f).connect(g).connect(bus); o.start(next); o.stop(next + beat + .1); }
+      if (i % 4 === 0) { const b = ctx.createOscillator(), g = ctx.createGain(); b.type = 'triangle'; b.frequency.value = hz(B[(i / 4) % B.length]); g.gain.setValueAtTime(.14, next); g.gain.setTargetAtTime(.0001, next + beat * 3.2, .08); b.connect(g).connect(bus); b.start(next); b.stop(next + beat * 4); }
+      if (i % 4 === 0) click(next, .03, bus, 4000);
+      i++; next += beat;
+    } };
+    tick(); timers.push(setInterval(tick, 100));
+  }); }
+  function tokyo() { return machine((bus, nodes, timers) => {
+    const n = noise(); nodes.push(n); n.connect(filt('lowpass', 220)).connect(gain(.22)).connect(bus);
+    const chirp = at => { const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.setValueAtTime(1900, at); o.frequency.exponentialRampToValueAtTime(2500, at + .08); g.gain.setValueAtTime(.0001, at); g.gain.linearRampToValueAtTime(.05, at + .015); g.gain.exponentialRampToValueAtTime(.0001, at + .09); o.connect(g).connect(bus); o.start(at); o.stop(at + .1); };
+    let k = 0;
+    timers.push(setInterval(() => { const t = ctx.currentTime + .05; if (k++ % 8 < 4) { chirp(t); chirp(t + .18); } }, 1300));
+  }); }
+  function shabbat() { return machine((bus, nodes, timers) => {
+    const a = tone('sine', 110), b = tone('sine', 164.8); nodes.push(a, b);
+    const g = gain(.05); a.connect(g); b.connect(g); g.connect(bus);
+    const lfo = tone('sine', .12); nodes.push(lfo); lfo.connect(gain(.025)).connect(g.gain);
+    timers.push(setInterval(() => { if (Math.random() < .3) click(ctx.currentTime + Math.random() * .2, .015 + Math.random() * .02, bus, 1500); }, 320));
+  }); }
+
+  // ---- tuning: static swells, the needle moves, the next station fades in ----
+  const name = document.getElementById('radioName'), freq = document.getElementById('radioFreq'), power = document.getElementById('radioPower'), radio = document.getElementById('radio');
+  function tuneTo(k) {
+    st = (k + STATIONS.length) % STATIONS.length;
+    const S = STATIONS[st];
+    needle.setAttribute('transform', `translate(${st * 4.4},0)`);
+    freq.textContent = S.f + ' FM'; name.textContent = S.name;
+    if (!on) return;
+    if (stop) stop();
+    const t = ctx.currentTime;
+    staticGain.gain.cancelScheduledValues(t); staticGain.gain.setValueAtTime(staticGain.gain.value, t); staticGain.gain.linearRampToValueAtTime(.08, t + .1); staticGain.gain.setTargetAtTime(.004, t + .35, .1);
+    stop = S.make(); lastHeard = S;
+  }
+  function setPower(v) {
+    on = v; radio.classList.toggle('on', on); power.setAttribute('aria-pressed', on); power.setAttribute('aria-label', on ? 'Radio, on. Press to turn off' : 'Radio, press to turn on');
+    if (on) { if (!ctx) init(); ctx.resume(); tuneTo(st); }
+    else { if (stop) { stop(); stop = null; } if (ctx) { staticGain.gain.setTargetAtTime(0, ctx.currentTime, .05); setTimeout(() => !on && ctx.suspend(), 400); } name.textContent = 'radio. press it.'; freq.textContent = 'off'; }
+  }
+  power.addEventListener('click', () => setPower(!on));
+  document.getElementById('radioNext').addEventListener('click', () => { if (!on) setPower(true); else tuneTo(st + 1); });
+  document.getElementById('radioPrev').addEventListener('click', () => { if (!on) setPower(true); else tuneTo(st - 1); });
+  // the radio goes quiet when you leave the tab
+  document.addEventListener('visibilitychange', () => { if (!ctx || !on) return; document.hidden ? ctx.suspend() : ctx.resume(); });
+  window.__radio = { setPower, tuneTo, get state() { return ctx && ctx.state; }, get station() { return on ? STATIONS[st] : null; }, get last() { return lastHeard; } };
+})();
+</script>
+
+<script>
+(() => {
+  // ---------- your card ----------
+  const $ = id => document.getElementById(id);
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  const place = tz === 'Asia/Jerusalem' ? 'Israel. Same as me.' : (tz.split('/').pop() || 'somewhere').replace(/_/g, ' ');
+  $('vcFrom').textContent = place;
+  const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  $('vcDate').textContent = today;
+  let attempts = 0, accepted = false;
+  const stamp = $('vcStamp');
+  const show = (ok, why) => { stamp.classList.remove('on'); void stamp.offsetWidth; stamp.classList.toggle('no', !ok); stamp.querySelector('span').textContent = ok ? 'Accepted' : 'Rejected'; stamp.querySelector('small').textContent = why; stamp.classList.add('on'); };
+  $('vcSubmit').addEventListener('click', () => {
+    attempts++;
+    const drew = $('yours').classList.contains('made'), name = $('vcName').value.trim();
+    if (!drew) { show(false, `attempt ${attempts}. no face`); return; }
+    if (!name) { show(false, `attempt ${attempts}. no name`); return; }
+    accepted = true; show(true, attempts === 1 ? 'on the first try. unlike some.' : `attempt ${attempts}. welcome.`);
+    $('vcSave').disabled = false;
+  });
+  window.__card = { reset() { accepted = false; stamp.classList.remove('on'); $('vcSave').disabled = true; }, get accepted() { return accepted; }, get attempts() { return attempts; } };
+  ['vcName', 'vcProud', 'vcCat'].forEach(id => $(id).addEventListener('input', () => { if (accepted) window.__card.reset(); }));
+  // draw a canvas version of something and hand it over as a png
+  const save = (cv, file) => { const a = document.createElement('a'); a.href = cv.toDataURL('image/png'); a.download = file; a.click(); };
+  const C = getComputedStyle(document.documentElement), col = n => C.getPropertyValue(n).trim() || '#000';
+  $('vcSave').addEventListener('click', () => {
+    const W = 1000, H = 640, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    g.fillStyle = '#fffdf8'; g.fillRect(0, 0, W, H); g.strokeStyle = col('--brown'); g.lineWidth = 2; g.strokeRect(20, 20, W - 40, H - 40);
+    g.fillStyle = col('--ink'); g.font = '16px Helvetica, Arial, sans-serif'; g.fillText('IDENTITY CARD', 56, 72); g.textAlign = 'right'; g.font = '20px "Shippori Mincho", Georgia, serif'; g.fillText($('visitor').textContent, W - 56, 72); g.textAlign = 'left';
+    g.fillRect(56, 88, W - 112, 1.5);
+    g.fillStyle = '#f7f2e8'; g.fillRect(56, 120, 330, 412); g.drawImage($('padCanvas'), 56, 120, 330, 412); g.setLineDash([6, 5]); g.strokeRect(56, 120, 330, 412); g.setLineDash([]);
+    const rows = [['Name', $('vcName').value || '—'], ['Your Saint-Honoré', $('vcProud').value || '—'], ['Your cat', $('vcCat').value || '—'], ['From', $('vcFrom').textContent], ['Issued', today]];
+    rows.forEach(([k, v], i) => { const y = 140 + i * 78; g.fillStyle = '#d8cfc2'; g.fillRect(420, y - 18, W - 476, 1.5); g.fillStyle = '#8a8a8a'; g.font = '14px Helvetica, Arial, sans-serif'; g.fillText(k, 420, y + 2); g.fillStyle = col('--ink'); g.font = '26px "Shippori Mincho", Georgia, serif'; g.fillText(v, 420, y + 38, W - 476); });
+    g.save(); g.translate(790, 520); g.rotate(-.21); g.strokeStyle = col('--red'); g.fillStyle = col('--red'); g.lineWidth = 5; g.strokeRect(-130, -42, 260, 84); g.font = 'bold 44px Helvetica, Arial, sans-serif'; g.textAlign = 'center'; g.fillText('ACCEPTED', 0, 8); g.font = '15px Helvetica, Arial, sans-serif'; g.fillText(stamp.querySelector('small').textContent, 0, 30); g.restore();
+    g.fillStyle = '#8a8a8a'; g.font = '13px Helvetica, Arial, sans-serif'; g.fillText('Issued at the exit of Dania Altman, a retrospective. altmandania-ui.github.io/identity-card', 56, H - 44);
+    save(cv, 'my-identity-card.png');
+  });
+
+  // ---------- your ticket: it watches you walk ----------
+  const t0 = Date.now(), no = String(typeof visitorNo !== 'undefined' ? visitorNo : 1).padStart(3, '0');
+  $('tNo').textContent = 'No. ' + no; $('tStubNo').textContent = no; $('tStubDate').textContent = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
+  const rowsOf = () => {
+    const ms = Date.now() - t0, m = Math.floor(ms / 6e4), sec = Math.floor(ms % 6e4 / 1000);
+    const doors = [...document.querySelectorAll('.door')], seen = doors.filter(d => d.classList.contains('open'));
+    const owned = [...document.querySelectorAll('.work.owned i')].map(i => i.textContent.split(',')[0]);
+    const q = window.__questFound || 0, rd = window.__radio && (window.__radio.station || window.__radio.last);
+    return [
+      ['Time in the show', `${m} min ${sec} s`, m >= 6 ? 'longer than a Saint-Honoré lasts' : 'not yet a Saint-Honoré'],
+      ['Rooms walked through', `${seen.length} of ${doors.length}`, seen.length === doors.length ? 'all of them' : ''],
+      ['Acquired', owned.length ? owned.slice(0, 3).join(', ') + (owned.length > 3 ? ` and ${owned.length - 3} more` : '') : 'nothing', owned.length ? 'not delivered' : 'wise'],
+      ['Side quest', q ? `${q} of 13 found` : 'not started', q === 13 ? 'accepted' : ''],
+      ['Radio', rd ? `${rd.f} FM, ${rd.name.split('.')[0]}` : 'never touched it', ''],
+      ['Your identity card', window.__card && window.__card.accepted ? `issued, attempt ${window.__card.attempts}` : 'not made yet', ''],
+    ];
+  };
+  const fill = () => { $('tRows').innerHTML = rowsOf().map(([k, v, n]) => `<dt>${k}</dt><dd>${v}${n ? `<small>${n}</small>` : ''}</dd>`).join(''); };
+  fill(); setInterval(fill, 1000);
+  function ink() {
+    const svg = $('tInk'), T = $('ticket'), stub = T.querySelector('.t-stub'), num = $('tStubNo');
+    const W = T.offsetWidth, H = T.offsetHeight; if (!W) return;
+    let k = 17; const r = () => { k = (k * 9301 + 49297) % 233280; return k / 233280 - .5; };
+    const sh = pts => pts.map(([x, y], i) => (i ? 'L' : 'M') + (x + r() * 2.2).toFixed(1) + ',' + (y + r() * 2.2).toFixed(1)).join(' ');
+    const line = (a, b, n) => Array.from({ length: n + 1 }, (_, i) => [a[0] + (b[0] - a[0]) * i / n, a[1] + (b[1] - a[1]) * i / n]);
+    const bite = (cx, cy, rad, from, to) => Array.from({ length: 9 }, (_, i) => { const t = from + (to - from) * i / 8; return [cx + Math.cos(t) * rad, cy + Math.sin(t) * rad]; });
+    const across = stub.offsetTop > 2;  // on a phone the stub sits underneath
+    const R = 11, X = across ? 0 : stub.offsetLeft, Y = across ? stub.offsetTop : 0;
+    let out;
+    if (!across) out = [...line([0, 0], [X - R, 0], 14), ...bite(X, 0, R, Math.PI, 0), ...line([X + R, 0], [W, 0], 4), ...line([W, 0], [W, H], 8), ...line([W, H], [X + R, H], 4), ...bite(X, H, R, 0, -Math.PI), ...line([X - R, H], [0, H], 14), ...line([0, H], [0, 0], 8)];
+    else out = [...line([0, 0], [W, 0], 12), ...line([W, 0], [W, Y - R], 8), ...bite(W, Y, R, -Math.PI / 2, -Math.PI * 1.5), ...line([W, Y + R], [W, H], 3), ...line([W, H], [0, H], 12), ...line([0, H], [0, Y + R], 3), ...bite(0, Y, R, Math.PI / 2, -Math.PI / 2), ...line([0, Y - R], [0, 0], 8)];
+    const perf = across ? sh(line([R + 4, Y], [W - R - 4, Y], 18)) : sh(line([X, R + 4], [X, H - R - 4], 14));
+    const nb = num.getBoundingClientRect(), tb = T.getBoundingClientRect(), cx = nb.left - tb.left + nb.width / 2, cy = nb.top - tb.top + nb.height / 2;
+    const ring = sh(Array.from({ length: 30 }, (_, i) => { const t = -.6 + i / 26 * Math.PI * 2; return [cx + Math.cos(t) * (nb.width / 2 + 16), cy + Math.sin(t) * (nb.height / 2 + 8)]; }));
+    const ad = T.querySelector('.t-admit').getBoundingClientRect(), sx = ad.right - tb.left + 18, sy = ad.top - tb.top + 16;
+    const star = sh([0, 1, 2, 3, 4, 5].map(i => { const t = -Math.PI / 2 + i * Math.PI * 4 / 5; return [sx + Math.cos(t) * 11, sy + Math.sin(t) * 11]; }));
+    const under = sh(line([ad.left - tb.left, ad.bottom - tb.top + 2], [ad.left - tb.left + Math.min(ad.width, 230), ad.bottom - tb.top - 2], 10));
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.innerHTML = `<path class="fill" d="${sh(out)} Z"/><path d="${sh(out)} Z"/><path class="perf" d="${perf}"/><path class="red" d="${ring}"/><path class="red" d="${star}"/><path d="${under}"/>`;
+  }
+  ink(); addEventListener('resize', ink); addEventListener('load', ink); document.fonts && document.fonts.ready.then(ink);
+  $('tSave').addEventListener('click', () => {
+    const W = 1100, H = 440, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d');
+    g.fillStyle = col('--paper'); g.fillRect(0, 0, W, H);
+    let kk = 5; const jr = () => { kk = (kk * 9301 + 49297) % 233280; return kk / 233280 - .5; };
+    const shaky = (pts, close) => { g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo : g.moveTo).call(g, x + jr() * 3, y + jr() * 3)); if (close) g.closePath(); };
+    const seg = (a, b, n) => Array.from({ length: n + 1 }, (_, i) => [a[0] + (b[0] - a[0]) * i / n, a[1] + (b[1] - a[1]) * i / n]);
+    const PX = W - 230, NR = 18, arc = (cx, cy, f, t) => Array.from({ length: 10 }, (_, i) => { const a = f + (t - f) * i / 9; return [cx + Math.cos(a) * NR, cy + Math.sin(a) * NR]; });
+    const outline = [...seg([16, 16], [PX - NR, 16], 20), ...arc(PX, 16, Math.PI, 0), ...seg([PX + NR, 16], [W - 16, 16], 6), ...seg([W - 16, 16], [W - 16, H - 16], 10), ...seg([W - 16, H - 16], [PX + NR, H - 16], 6), ...arc(PX, H - 16, 0, -Math.PI), ...seg([PX - NR, H - 16], [16, H - 16], 20), ...seg([16, H - 16], [16, 16], 10)];
+    shaky(outline, true); g.fillStyle = '#fffdf8'; g.fill(); g.strokeStyle = col('--brown'); g.lineWidth = 2.4; g.lineCap = g.lineJoin = 'round'; g.stroke();
+    g.setLineDash([9, 9]); shaky(seg([PX, 16 + NR + 6], [PX, H - 16 - NR - 6], 16)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#8a8a8a'; g.font = '13px Helvetica, Arial, sans-serif'; g.fillText('DANIA ALTMAN · A RETROSPECTIVE', 44, 52);
+    g.fillStyle = col('--ink'); g.font = '64px "Reenie Beanie", cursive'; g.fillText('Admit one', 44, 112);
+    rowsOf().forEach(([k, v, n], i) => { const y = 162 + i * 42; g.fillStyle = '#8a8a8a'; g.font = '16px Helvetica, Arial, sans-serif'; g.fillText(k, 44, y); g.fillStyle = '#3d2a1c'; g.font = '30px "Reenie Beanie", cursive'; g.fillText(v, 260, y, 520); const vw = Math.min(520, g.measureText(v).width); if (n) { g.fillStyle = col('--red'); g.font = '26px "Reenie Beanie", cursive'; g.fillText(n, 274 + vw, y); } });
+    g.textAlign = 'center'; g.fillStyle = '#8a8a8a'; g.font = '13px Helvetica, Arial, sans-serif'; g.fillText('ADMIT ONE', W - 115, 60); g.fillStyle = col('--red'); g.font = '72px "Reenie Beanie", cursive'; g.fillText(no, W - 115, H / 2 + 18); g.strokeStyle = col('--red'); g.lineWidth = 2; shaky(Array.from({ length: 30 }, (_, i) => { const a = -.6 + i / 26 * Math.PI * 2; return [W - 115 + Math.cos(a) * 70, H / 2 - 4 + Math.sin(a) * 40]; })); g.stroke(); g.fillStyle = '#8a8a8a'; g.font = '14px Helvetica, Arial, sans-serif'; g.fillText($('tStubDate').textContent, W - 115, H - 50);
+    save(cv, 'my-ticket.png');
+  });
 })();
 </script>
 </body>
