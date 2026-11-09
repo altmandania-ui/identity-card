@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dania Altman, identity card</title>
-<meta name="description" content="Identity card: order and rupture. A retrospective in eight and a half rooms, with bad doodles and serious labels. Design MA, Homework 1, by Dania Altman.">
+<meta name="description" content="Identity card: order and rupture. A retrospective in nine and a half rooms, with bad doodles and serious labels. Design MA, Homework 1, by Dania Altman.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23E3000F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Shippori+Mincho:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Shippori+Mincho:wght@500&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root { --ink: #111; --paper: #f7f2e8; --brown: #8a5a36; --serif: 'Shippori Mincho', 'Hiragino Mincho ProN', Georgia, serif; --grey: #8a8a8a; --red: #E3000F; --sans: Helvetica, 'Helvetica Neue', Arial, sans-serif; --hand: 'Reenie Beanie', 'Comic Sans MS', cursive; }
   * { box-sizing: border-box; }
@@ -70,7 +70,7 @@
   body.pen #ink { pointer-events: auto; cursor: crosshair; touch-action: none; }
 
 
-  /* room 1.5: the clock, real time in Holon */
+  /* room 1.5: the clock, real time in Israel */
   .now { grid-column: 4 / span 6; position: relative; aspect-ratio: 1; max-width: 640px; width: 100%; justify-self: center; }
   .now svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
   .now .hand path { fill: var(--paper); stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
@@ -143,13 +143,41 @@
   .place .g { color: var(--grey); }
   .place.home i { background: var(--ink); }
   @media (max-width: 760px) { .world { grid-column: 1 / -1; height: 230px; } .place b { font-size: 11px; } .place .t { font-size: 14px; line-height: 18px; } }
+
+  /* ---------- side quest: one bit, black and white ---------- */
+  .quest { position: fixed; inset: 0; z-index: 50; background: #000; color: #fff; font-family: 'VT323', ui-monospace, Menlo, monospace; font-size: 20px; line-height: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 16px; }
+  .quest[hidden] { display: none; }
+  .quest button { font: inherit; color: #fff; background: none; border: 0; cursor: pointer; }
+  .q-top { width: min(980px, 100%); display: flex; justify-content: space-between; gap: 16px; letter-spacing: .06em; }
+  .q-top button:hover, .q-pad button:hover { background: #fff; color: #000; }
+  .q-body { display: flex; gap: 24px; align-items: flex-start; width: min(980px, 100%); }
+  .q-body canvas { flex: 1 1 auto; min-width: 0; width: 100%; max-width: 768px; aspect-ratio: 3 / 2; image-rendering: pixelated; border: 2px solid #fff; }
+  .q-card { flex: 0 0 190px; list-style: none; margin: 0; padding: 10px 12px; border: 2px solid #fff; font-size: 17px; line-height: 20px; position: relative; }
+  .q-card li { display: flex; justify-content: space-between; gap: 8px; color: #777; }
+  .q-card li.on { color: #fff; }
+  .q-card li b { font-weight: 400; }
+  .q-card .stamp { position: absolute; left: 50%; top: 50%; translate: -50% -50%; rotate: -12deg; border: 3px solid #fff; padding: 2px 10px; font-size: 30px; line-height: 32px; color: #fff; background: #000; opacity: 0; scale: 2; transition: scale .25s cubic-bezier(.3, 1.6, .4, 1), opacity .1s; }
+  .q-card .stamp.on { opacity: 1; scale: 1; }
+  .q-say { width: min(980px, 100%); min-height: 44px; margin: 0; }
+  .q-pad { display: none; grid-template-columns: repeat(3, 52px); grid-template-rows: repeat(2, 44px); gap: 6px; }
+  .q-pad button { border: 2px solid #fff; font-size: 18px; }
+  .q-pad [data-k="up"] { grid-column: 2; } .q-pad [data-k="left"] { grid-column: 1; grid-row: 2; } .q-pad [data-k="down"] { grid-column: 2; grid-row: 2; } .q-pad [data-k="right"] { grid-column: 3; grid-row: 2; }
+  .quest-btn { border-bottom: 1px solid currentColor; }
+  @media (max-width: 760px), (pointer: coarse) {
+    .q-body { flex-direction: column; gap: 10px; }
+    .q-card { flex: none; width: 100%; columns: 2; column-gap: 14px; font-size: 15px; line-height: 17px; }
+    .q-say { font-size: 17px; line-height: 19px; min-height: 58px; }
+    .q-pad { display: grid; }
+    .q-top { font-size: 15px; line-height: 18px; }
+    .quest { justify-content: flex-start; gap: 10px; }
+  }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div>Dania Altman <span class="g where">· A retrospective, 1997 to Friday</span></div>
-  <div class="tools"><span class="sold" id="sold">Sold <b>0</b></span><button class="pen-btn" id="penBtn" type="button">Pen</button></div>
+  <div class="tools"><span class="sold" id="sold">Sold <b>0</b></span><button class="quest-btn" id="questBtn" type="button">Side quest</button><button class="pen-btn" id="penBtn" type="button">Pen</button></div>
 </header>
 <canvas id="ink"></canvas>
 
@@ -157,7 +185,7 @@
   <div>
     <h1>Dania Altman</h1>
     <p>Identity card No. 001</p>
-    <p>Eight and a half rooms. Scroll slowly, as in a gallery.</p>
+    <p>Nine and a half rooms. Scroll slowly, as in a gallery.</p>
     <p class="hand">(touch nothing. or do.)</p>
   </div>
   <svg id="introInk" aria-hidden="true"></svg>
@@ -207,7 +235,7 @@
 
 <!-- room 1.5: now -->
 <section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 1½<span>Now, in Holon<br>Real time. The clock is right.</span></h2>
+  <h2 class="room-title">Room 1½<span>Now, in Israel<br>Real time. The clock is right.</span></h2>
   <p class="now-title">Today's activity<br>schedule:</p>
   <div class="now" id="now">
     <svg viewBox="0 0 600 600" aria-hidden="true">
@@ -219,7 +247,7 @@
   </div>
   <div class="counters">
     <p>People born since you opened this page<b id="born">0</b><span>World average, about 4.2 a second. None of them have seen this page yet.</span></p>
-    <p>Until candle lighting, Tel Aviv<b id="toShabbat">…</b><span>Live from hebcal.com.</span></p>
+    <p>Until candle lighting, Israel<b id="toShabbat">…</b><span>Live from hebcal.com, Tel Aviv times.</span></p>
     <p>Cats asleep at home right now<b id="asleep">3 of 4</b><span>An estimate. Sofi is never asleep.</span></p>
   </div>
 </section>
@@ -382,13 +410,42 @@
   </figure>
   <figure class="work" data-d="moon" style="--c: 3 / span 1; --w: 100%; --mt: 40vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
     <div class="pic"><img src="images/cut-boots.png" alt="Me standing in the street at night"></div>
-    <figcaption class="wl"><b>Dania Altman</b><i>Holon, at Night, 2026</i>Street, boots, home<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+    <figcaption class="wl"><b>Dania Altman</b><i>Israel, at Night, 2026</i>Street, boots, home<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+</section>
+
+<!-- room 7: studio -->
+<section class="room">
+  <h2 class="room-title">Room 7<span>Studio<br>Drawings. Some on purpose.</span></h2>
+  <figure class="work" data-d="arrow" data-note="the smile" style="--c: 4 / span 3; --w: 80%; --mt: 0; --mc: 1 / span 5; --mw: 100%; --mmt: 0">
+    <div class="pic"><img src="images/studio-line-two.jpg" alt="A line drawing of a smiling man holding a laughing child" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Untitled (Two Smiles), n.d.</i>Black line on white, no fill<span class="g">Everyone in it is happy. Rare, for a drawing.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="under" data-note="one line" style="--c: 10 / span 2; --w: 70%; --mt: 24vh; --mc: 3 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-line-paper.jpg" alt="A fineliner drawing on paper, held open with two fingers" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Study, n.d.</i>Fineliner on paper, two fingers holding it flat<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="halo" data-note="still smiling" style="--c: 2 / span 2; --w: 70%; --mt: 30vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-mona.jpg" alt="A flat vector redraw of the Mona Lisa in Adobe Illustrator, on a laptop screen" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Mona Lisa, Vectorised, 2024</i>Adobe Illustrator, flat colour, one green mark on the nose<span class="g">After Leonardo. Long after.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="angry" style="--c: 6 / span 2; --w: 60%; --mt: 40vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-orange.jpg" alt="An angry orange with a cigarette, drawn in Adobe Illustrator" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Angry Orange, 2024</i>Adobe Illustrator, a cigarette, no explanation<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="me" style="--c: 10 / span 1; --w: 100%; --mt: 20vh; --mc: 1 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-pixel.jpg" alt="A pixel self-portrait on an old computer screen: long brown hair, blue shirt, jeans" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Self-Portrait in Paint, n.d.</i>Pixels, a smile, jeans<span class="g">Early digital period.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="drawing" style="--c: 4 / span 2; --w: 70%; --mt: 40vh; --mc: 3 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-tokyo.jpg" alt="Me bent over a table colouring a drawing with crayons, in Tokyo" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Drawing in Tokyo, 2024</i>Crayon on paper, a museum table, full concentration<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
 </section>
 
 <!-- the visitor's room -->
 <section class="room" style="padding-top: 40vh">
-  <h2 class="room-title">Room 7<span>Your turn</span></h2>
+  <h2 class="room-title">Room 8<span>Your turn</span></h2>
   <div class="yours" id="yours">
     <div class="pad" id="pad"><canvas id="padCanvas"></canvas><div class="hint">draw something. badly.</div></div>
     <div class="row">
@@ -419,7 +476,7 @@
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
   </aside>
   <div class="colophon">
-    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, a retrospective in eight and a half rooms</p></div>
+    <div><p>Dania Altman</p><p>Design MA, Homework 1</p><p>Identity card: order and rupture, a retrospective in nine and a half rooms</p></div>
     <div><p><a href="docs/PROCESS.md">Process documentation</a></p><p><a href="https://altmandania-ui.github.io/hit1/">The loud version of this homework</a></p><p id="commitFoot" class="small"></p></div>
     <div><p lang="he" dir="rtl" style="text-align:left">שבת שלום</p><p class="small">Sofi, Moffi, Toffy and Tova reserve the right to sit on the keyboard.</p></div>
   </div>
@@ -544,7 +601,7 @@ sizeInk(); const inkPen = pen(ink); inkPen.fit();
 addEventListener('load', () => { sizeInk(); inkPen.fit(); }); addEventListener('resize', () => { sizeInk(); inkPen.fit(); });
 document.getElementById('penBtn').addEventListener('click', e => { document.body.classList.toggle('pen'); e.target.textContent = document.body.classList.contains('pen') ? 'Pen (on)' : 'Pen'; });
 
-// ---------- room 1.5: a clock on real Holon time, with the day's red dots ----------
+// ---------- room 1.5: a clock on real Israel time, with the day's red dots ----------
 (() => {
   const now = document.getElementById('now');
   const r = rng(42), J = 1.6;
@@ -610,7 +667,7 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   const places = [
     { n: 'America', lon: -95, tz: null, note: 'city unknown' },
     { n: 'Prague', lon: 14.4, tz: 'Europe/Prague' },
-    { n: 'Holon', lon: 34.8, tz: 'Asia/Jerusalem', home: 1, note: 'home' },
+    { n: 'Israel', lon: 34.8, tz: 'Asia/Jerusalem', home: 1, note: 'home' },
     { n: 'Tokyo', lon: 139.7, tz: 'Asia/Tokyo' },
   ];
   const x = lon => 6 + (lon + 110) / 260 * 88;
@@ -627,7 +684,7 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
     const t = els[i].querySelector('.t'), g = els[i].querySelector('.g');
     if (!p.tz) { t.textContent = '??:??'; return; }
     t.textContent = fmt(p.tz).format(new Date());
-    if (!p.home) { const o = off(p.tz); g.textContent = o === 0 ? 'same as Holon' : `${o > 0 ? '+' : ''}${o} h from Holon`; }
+    if (!p.home) { const o = off(p.tz); g.textContent = o === 0 ? 'same as Israel' : `${o > 0 ? '+' : ''}${o} h from Israel`; }
   });
   tick(); setInterval(tick, 15000);
   const draw = () => { const b = world.getBoundingClientRect(), r = rng(77), W = b.width, H = b.height, y = H / 2, p = [];
@@ -638,9 +695,9 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
 
 // ---------- doors: every room starts with a doorway, and has its own wall colour ----------
 (() => {
-  const walls = ['#f8efe6', '#f7f2e8', '#f5e9e1', '#efe8d6', '#f4e3cc', '#f6e2d6', '#eae6da', '#ece2da', '#f7f2e8', '#faf7f1'];
+  const walls = ['#f8efe6', '#f7f2e8', '#f5e9e1', '#efe8d6', '#f4e3cc', '#f6e2d6', '#eae6da', '#ece2da', '#f1ede4', '#f7f2e8', '#faf7f1'];
   const rooms = [...document.querySelectorAll('.room'), document.querySelector('.after')];
-  const hints = ['come in. it started early', 'smile. no, don\'t', 'it is later than you think', 'mind the cats', 'it smells like butter', 'the oven is very hot', 'bring a passport. not that photo', 'no context will be provided', 'bring a pen', 'the words, at last'];
+  const hints = ['come in. it started early', 'smile. no, don\'t', 'it is later than you think', 'mind the cats', 'it smells like butter', 'the oven is very hot', 'bring a passport. not that photo', 'no context will be provided', 'pencils only', 'bring a pen', 'the words, at last'];
   const doors = rooms.map((room, i) => {
     const t = room.querySelector('.room-title');
     const num = t ? t.firstChild.textContent.trim() : 'Exit';
@@ -677,6 +734,139 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
     where.innerHTML = i < 0 ? '· A retrospective, 1997 to Friday' : (d.querySelector('.above').textContent === 'Exit' ? '· <b>Exit</b>, Wall text' : `· <b>Room ${d.querySelector('.n').textContent}</b>, ${d.querySelector('.name span').textContent}`);
   };
   addEventListener('scroll', follow, { passive: true }); follow();
+})();
+</script>
+<!-- side quest: a one-bit walk through the house -->
+<div class="quest" id="quest" role="dialog" aria-modal="true" aria-label="Side quest: a small black and white game about Dania" hidden>
+  <div class="q-top"><span>SIDE QUEST · FIND ALL 13</span><button type="button" id="qClose">× BACK TO THE GALLERY</button></div>
+  <div class="q-body">
+    <canvas id="qCanvas" width="384" height="256"></canvas>
+    <ol class="q-card" id="qCard" aria-label="Identity card, filling in"></ol>
+  </div>
+  <p class="q-say" id="qSay" aria-live="polite">ARROWS TO WALK. BUMP INTO THINGS.</p>
+  <div class="q-pad" aria-hidden="true"><button data-k="up">▲</button><button data-k="left">◀</button><button data-k="down">▼</button><button data-k="right">▶</button></div>
+</div>
+<script>
+(() => {
+  // the house, 24 by 16. # is a wall
+  const MAP = [
+    '########################',
+    '#.......#......#.......#',
+    '#.......#......#.......#',
+    '#.......#......#.......#',
+    '#..............#.......#',
+    '#.......#..............#',
+    '#.......#......#.......#',
+    '####.#######.#####.#####',
+    '#......................#',
+    '#......................#',
+    '#.........####.........#',
+    '#.........#..#.........#',
+    '#.........#..#.........#',
+    '#......................#',
+    '#......................#',
+    '########################'];
+  const S = s => s.map(r => [...r].map(c => c === '#'));
+  const SPR = {
+    me: S([".....######.....", "...##########...", "..####....####..", "..###......###..", ".###..#..#..###.", ".###........###.", ".###...##...###.", ".####......####.", ".##.###..###.##.", ".##..######..##.", ".#..########..#.", "...##########...", "...#.######.#...", ".....##..##.....", ".....##..##.....", "....###..###...."]),
+    cat: S(["................", "..#.......#.....", "..##.....##.....", "..#.#####.#.....", "..#.......#.....", ".#..##.##..#....", ".#....#....#....", ".#...#.#...#....", "..#.......#.....", "...##...##......", "..#.......#.....", ".#.........#..#.", ".#.........#.#..", "#...#...#...##..", "#...#...#...#...", ".###########...."]),
+    moffi: S(["................", "................", "................", "...#.......#....", "...##.....##....", "..#.#.#.#.#.#...", ".#...........#..", "#..##.....##..#.", ".#.....#......#.", "#.....#.#......#", ".#.............#", "#...............", ".#.............#", "#.#.#.#.#.#.#.#.", "................", "................"]),
+    tiny: S(["#....#..", "##..##..", "######..", "#.##.#..", "######.#", ".####..#", ".#####.#", ".#..#.#."]),
+    cake: S(["....#..#..#.....", "...#..#..#......", "....#..#..#.....", "....#..#..#.....", "..############..", "..#..........#..", "..#.##.##.##.#..", "..############..", ".#............#.", ".#.#.#.#.#.#..#.", ".#............#.", ".##############.", "................", "................", "................", "................"]),
+    oven: S(["################", "#..............#", "#.##.##.##.....#", "#..............#", "################", "#..............#", "#.############.#", "#.#..........#.#", "#.#.########.#.#", "#.#..........#.#", "#.############.#", "#..............#", "#..............#", "################", ".##..........##.", "................"]),
+    pizza: S([".....######.....", "...##......##...", "..#..........#..", ".#..##....#...#.", ".#..##.......#..", "#.........##...#", "#....#....##...#", "#...###........#", "#....#.....#...#", "#..........#...#", ".#...##.......#.", ".#...##...#...#.", "..#..........#..", "...##......##...", ".....######.....", "................"]),
+    case: S(["................", "......####......", ".....#....#.....", ".....#....#.....", "################", "#..............#", "#.####....####.#", "#.#..#....#..#.#", "#.####....####.#", "#..............#", "#....######....#", "#..............#", "################", "..#..........#..", "..#..........#..", "................"]),
+    laptop: S(["................", "..############..", "..#..........#..", "..#.######...#..", "..#..........#..", "..#.####.###.#..", "..#..........#..", "..#.###......#..", "..#..........#..", "..############..", ".##############.", "#.#.#.#.#.#.#.##", "#..............#", "################", "................", "................"]),
+    cap: S(["................", ".......##.......", ".....######.....", "...##########...", ".##############.", "################", ".##############.", "...##########.#.", "...#........#.#.", "...#........#.#.", "...##########.#.", "..............##", ".............###", "..............#.", "................", "................"]),
+    egg: S(["......####......", "....##....##....", "...#........#...", "..#..........#..", "..############..", ".#.#.#.#.#.#.##.", ".##############.", ".#............#.", ".#.##.#..#.##.#.", ".#............#.", ".##############.", "..#..........#..", "...#........#...", "....##....##....", "......####......", "................"]),
+    mic: S([".....######.....", "....#.#.#.##....", "....##.#.#.#....", "....#.#.#.##....", ".....######.....", "......####......", "......#..#......", "......#..#......", "......#..#......", "......####......", ".......##.......", ".......##.......", ".......##.......", ".....######.....", "....########....", "................"]),
+    frame: S(["################", "#..............#", "#..##....##.#..#", "#..##....##.....", "#.####..####.#.#", "#.####..####.#.#", "#.####..####.#.#", "#..#.#..#.#.####", "#..#.#..#.#.#.##", "#..............#", "################", "................", "................", "................", "................", "................"]),
+    catUp: S(["................", "................", "....#..#...#..#.", "....#..#...#..#.", "...##.##..##.##.", ".##############.", "#..............#", "#.#.#..##......#", "#..#...##...##.#", "#...........##.#", ".##############.", ".#.#..........#.", ".#.#...........#", "................", "................", "................"]),
+  };
+  // thirteen things. key, sprite, x, y, what goes on the card, what it says
+  const THINGS = [
+    ['AGE', 'cake', 2, 5, '29', 'Dania Altman. 29 years old. Born 1997, which is where the retrospective starts.'],
+    ['DIPLOMA', 'oven', 2, 1, 'PASTRY, 2024', 'A professional pastry diploma, 2024. A Saint-Honoré takes six hours to make and six minutes to disappear.'],
+    ['PIZZA', 'pizza', 5, 2, 'ONGOING', 'Pizza night. The dough rests for 48 hours. Corn is allowed. Not up for discussion.'],
+    ['STARTUP', 'laptop', 11, 2, 'DEZYCRO', 'My startup: Dezycro. An operations layer for teams building with AI coding agents. Fast code. Zero wasted tokens.'],
+    ['STUDIES', 'cap', 13, 1, 'MA, DESIGN', 'An MA in Design, in the evening row, after the 9 to 5. This page is the homework.'],
+    ['TRAVEL', 'case', 21, 2, '3 PLACES', 'Tokyo, Prague, America. I ate in all three. The suitcase is always half packed.'],
+    ['KARAOKE', 'mic', 18, 5, 'YES', 'Karaoke. No context will be provided.'],
+    ['HOME', 'frame', 1, 9, 'ISRAEL', 'Home is Israel: one Ben, two kids, four cats. They hold the other columns.'],
+    ['FAVOURITE', 'egg', 11, 11, 'KINDER', 'Favourite thing: a Kinder egg. "For the kids." It was not for the kids.'],
+    ['SOFI', 'cat', 6, 9, 'IN CHARGE', 'SOFI. Head of order. Eats first. Has never once been seen asleep.', .45],
+    ['TOVA', 'catUp', 16, 12, 'ASLEEP', 'TOVA. Sleeps belly up in the middle of everything. Does not move for you.', 0],
+    ['MOFFI', 'moffi', 20, 13, 'BELOW', 'MOFFI. Lives under the baseline. Mostly fluff.', .12],
+    ['TOFFY', 'tiny', 3, 13, '102 PX', 'TOFFY. 102 pixels. Enough.', .2],
+  ];
+  const W = 24, H = 16, T = 16;
+  const q = document.getElementById('quest'), cv = document.getElementById('qCanvas'), ctx = cv.getContext('2d');
+  const say = document.getElementById('qSay'), card = document.getElementById('qCard');
+  let things, me, found, open = false, raf = 0, last = 0, done = false;
+  function reset() {
+    things = THINGS.map(([k, spr, x, y, val, text, move]) => ({ k, spr, x, y, val, text, move: move || 0 }));
+    me = { x: 12, y: 8 }; found = new Set(); done = false;
+    card.innerHTML = things.map(t => `<li data-k="${t.k}"><span>${t.k}</span><b>····</b></li>`).join('') + '<li class="stamp" id="qStamp">ACCEPTED</li>';
+    say.textContent = 'ARROWS TO WALK. BUMP INTO THINGS.';
+  }
+  const wall = (x, y) => MAP[y]?.[x] !== '.';
+  const at = (x, y) => things.find(t => t.x === x && t.y === y);
+  function step(dx, dy) {
+    if (done && found.size === things.length && say.dataset.end) return;
+    const nx = me.x + dx, ny = me.y + dy;
+    if (wall(nx, ny)) return;
+    const t = at(nx, ny);
+    if (t) { meet(t); return; }
+    me.x = nx; me.y = ny; draw();
+  }
+  function meet(t) {
+    say.textContent = t.text;
+    if (found.has(t.k)) return;
+    found.add(t.k);
+    const li = card.querySelector(`[data-k="${t.k}"]`); li.classList.add('on'); li.querySelector('b').textContent = t.val;
+    if (found.size === things.length) { done = true; setTimeout(() => { document.getElementById('qStamp').classList.add('on'); say.textContent = 'ALL 13 FOUND. IDENTITY CARD No. 001: ACCEPTED. ON THE FIRST TRY. UNLIKE SOME.'; }, 900); }
+  }
+  // the cats wander. tova does not
+  function wander(now) {
+    things.forEach(t => {
+      if (!t.move || Math.random() > t.move) return;
+      const [dx, dy] = [[1, 0], [-1, 0], [0, 1], [0, -1]][Math.floor(Math.random() * 4)];
+      const nx = t.x + dx, ny = t.y + dy;
+      if (!wall(nx, ny) && !at(nx, ny) && !(nx === me.x && ny === me.y)) { t.x = nx; t.y = ny; }
+    });
+  }
+  function sprite(m, x, y, size = 16) {
+    const o = (T - size) / 2;
+    m.forEach((row, j) => row.forEach((on, i) => { if (on) ctx.fillRect(x * T + o + i, y * T + o + j, 1, 1); }));
+  }
+  function draw() {
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, cv.width, cv.height);
+    ctx.fillStyle = '#fff';
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (wall(x, y)) {
+      // walls: hatched, like a pen going over and over
+      for (let k = 0; k < T; k += 3) ctx.fillRect(x * T + k, y * T + ((k * 5 + x * 3 + y * 7) % T), 1, 2);
+      ctx.fillRect(x * T, y * T, T, 1);
+    }
+    things.forEach(t => sprite(SPR[t.spr], t.x, t.y, SPR[t.spr].length));
+    things.forEach(t => { if (found.has(t.k)) ctx.fillRect(t.x * T + T - 3, t.y * T, 3, 3); });
+    sprite(SPR.me, me.x, me.y, 16);
+  }
+  function loop(now) {
+    if (!open) return;
+    if (now - last > 600) { last = now; wander(now); draw(); }
+    raf = requestAnimationFrame(loop);
+  }
+  const KEYS = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0], w: [0, -1], s: [0, 1], a: [-1, 0], d: [1, 0], up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
+  addEventListener('keydown', e => {
+    if (!open) return;
+    if (e.key === 'Escape') { close(); return; }
+    const k = KEYS[e.key]; if (k) { e.preventDefault(); step(...k); }
+  });
+  q.querySelectorAll('.q-pad button').forEach(b => b.addEventListener('click', () => step(...KEYS[b.dataset.k])));
+  function show() { reset(); q.hidden = false; open = true; document.documentElement.style.overflow = 'hidden'; draw(); raf = requestAnimationFrame(loop); document.getElementById('qClose').focus(); }
+  function close() { q.hidden = true; open = false; cancelAnimationFrame(raf); document.documentElement.style.overflow = ''; document.getElementById('questBtn').focus(); }
+  document.getElementById('questBtn').addEventListener('click', show);
+  document.getElementById('qClose').addEventListener('click', close);
 })();
 </script>
 </body>
