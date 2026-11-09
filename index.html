@@ -41,6 +41,7 @@
   /* a work on the wall */
   .work { position: relative; margin: 0; grid-column: var(--c); width: var(--w); margin-top: var(--mt, 0); justify-self: var(--js, start); align-self: start; }
   .work .pic { position: relative; }
+  .work .pic video { display: block; width: 100%; height: auto; }
   .work svg.doodle { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .work svg.doodle path { fill: none; stroke: var(--brown); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .note { position: absolute; color: var(--brown); font-family: var(--hand); font-size: 24px; line-height: 22px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .4s .6s; }
@@ -465,28 +466,52 @@
 
 <!-- room 7: studio -->
 <section class="room">
-  <h2 class="room-title">Room 7<span>Studio<br>Drawings. Some on purpose.</span></h2>
-  <figure class="work" data-d="arrow" data-note="the smile" style="--c: 4 / span 3; --w: 80%; --mt: 0; --mc: 1 / span 5; --mw: 100%; --mmt: 0">
+  <h2 class="room-title">Room 7<span>Studio<br>Posters, packaging, drawings. Some on purpose.</span></h2>
+  <figure class="work" data-d="crown" style="--c: 5 / span 2; --w: 80%; --mt: 0; --mc: 2 / span 3; --mw: 90%; --mmt: 0">
+    <div class="pic"><img src="images/studio-dontstop.jpg" alt="An orange poster: a huge angry face shouting the words Don't Stop Me Now" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Don’t Stop Me Now, 2024</i>Poster, flat orange, one very loud mouth<span class="g">The angry orange, grown up.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="halo" data-note="still smiling" style="--c: 10 / span 2; --w: 70%; --mt: 26vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-mona-final.jpg" alt="A flat vector redraw of the Mona Lisa in ochre, brown and olive" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Mona Lisa, Vectorised, 2025</i>Vector, five colours, one green mark on the nose<span class="g">After Leonardo. Long after.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="in a bin" style="--c: 2 / span 2; --w: 80%; --mt: 20vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-oldage.jpg" alt="A brown Hebrew poster reading Do not cast me off in old age, with an old man sitting in a rubbish bin" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Do Not Cast Me Off in Old Age, 2025</i>Poster, Hebrew type, a bin<span class="g">אל תשליכני לעת זקנה. Psalm 71, read literally.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="under" data-note="I wish" style="--c: 7 / span 3; --w: 90%; --mt: 30vh; --mc: 1 / span 6; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-poppies.jpg" alt="A postcard: a field of red anemones under a pale sky, two tiny people far away, and a line of Hebrew" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>I Wish It Were Different Here, 2024</i>Postcard, anemones, two small people<span class="g">הלוואי והיה כאן אחרת.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="again" style="--c: 3 / span 2; --w: 60%; --mt: 30vh; --mc: 2 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-bari.jpg" alt="A milk chocolate bar wrapper redesign with big red anemones" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Bari, Milk Chocolate, 2025</i>Packaging study, anemones again<span class="g">Same flowers as the postcard. Sweeter context.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="untitled" style="--c: 9 / span 2; --w: 70%; --mt: 20vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-untitled2.jpg" alt="A bright yellow poster covered in Hebrew type, a bearded man lifting a heavy barbell" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Untitled-2, 2025</i>Poster, yellow, a very strong man<span class="g">Named after the file. It never got another name.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="circle" data-note="smoking" style="--c: 5 / span 2; --w: 60%; --mt: 30vh; --mc: 1 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-alien.jpg" alt="A pencil sketch of an alien smoking a cigarette, in an open sketchbook" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Smoking Alien, 2025</i>Pencil, sketchbook, a cigarette again<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="steam" style="--c: 10 / span 1; --w: 100%; --mt: 30vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
+    <div class="pic"><img src="images/studio-cat-traffic.jpg" alt="A white cat in sunglasses and a headscarf, holding red wine, standing out of a car sunroof in a traffic jam" loading="lazy"></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>Cat in Traffic, 2025</i>Generated image, headscarf, red wine<span class="g">Same series as the cat in the suit.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="she moves" style="--c: 3 / span 2; --w: 60%; --mt: 30vh; --mc: 2 / span 3; --mw: 90%; --mmt: 14vh">
+    <div class="pic"><video src="images/studio-character.mp4" poster="images/studio-character-poster.jpg" autoplay muted loop playsinline aria-label="A short loop of an animated character: a girl with a black bob and a pink top"></video></div>
+    <figcaption class="wl"><b>Dania Altman</b><i>First Character, Moving, 2025</i>Animation, 12 seconds, on a loop<span class="g">My first animated character.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
+  </figure>
+  <figure class="work" data-d="arrow" data-note="the smile" style="--c: 8 / span 3; --w: 80%; --mt: 24vh; --mc: 1 / span 5; --mw: 100%; --mmt: 14vh">
     <div class="pic"><img src="images/studio-line-two.jpg" alt="A line drawing of a smiling man holding a laughing child" loading="lazy"></div>
     <figcaption class="wl"><b>Dania Altman</b><i>Untitled (Two Smiles), n.d.</i>Black line on white, no fill<span class="g">Everyone in it is happy. Rare, for a drawing.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
-  <figure class="work" data-d="under" data-note="one line" style="--c: 10 / span 2; --w: 70%; --mt: 24vh; --mc: 3 / span 3; --mw: 90%; --mmt: 14vh">
-    <div class="pic"><img src="images/studio-line-paper.jpg" alt="A fineliner drawing on paper, held open with two fingers" loading="lazy"></div>
-    <figcaption class="wl"><b>Dania Altman</b><i>Study, n.d.</i>Fineliner on paper, two fingers holding it flat<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
-  </figure>
-  <figure class="work" data-d="halo" data-note="still smiling" style="--c: 2 / span 2; --w: 70%; --mt: 30vh; --mc: 1 / span 3; --mw: 100%; --mmt: 14vh">
-    <div class="pic"><img src="images/studio-mona.jpg" alt="A flat vector redraw of the Mona Lisa in Adobe Illustrator, on a laptop screen" loading="lazy"></div>
-    <figcaption class="wl"><b>Dania Altman</b><i>Mona Lisa, Vectorised, 2024</i>Adobe Illustrator, flat colour, one green mark on the nose<span class="g">After Leonardo. Long after.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
-  </figure>
-  <figure class="work" data-d="circle" data-note="angry" style="--c: 6 / span 2; --w: 60%; --mt: 40vh; --mc: 4 / span 3; --mw: 90%; --mmt: 14vh">
-    <div class="pic"><img src="images/studio-orange.jpg" alt="An angry orange with a cigarette, drawn in Adobe Illustrator" loading="lazy"></div>
-    <figcaption class="wl"><b>Dania Altman</b><i>Angry Orange, 2024</i>Adobe Illustrator, a cigarette, no explanation<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
-  </figure>
-  <figure class="work" data-d="arrow" data-note="me" style="--c: 10 / span 1; --w: 100%; --mt: 20vh; --mc: 1 / span 2; --mw: 100%; --mmt: 14vh">
+  <figure class="work" data-d="arrow" data-note="me" style="--c: 4 / span 1; --w: 100%; --mt: 30vh; --mc: 4 / span 2; --mw: 100%; --mmt: 14vh">
     <div class="pic"><img src="images/studio-pixel.jpg" alt="A pixel self-portrait on an old computer screen: long brown hair, blue shirt, jeans" loading="lazy"></div>
     <figcaption class="wl"><b>Dania Altman</b><i>Self-Portrait in Paint, n.d.</i>Pixels, a smile, jeans<span class="g">Early digital period.</span><button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
-  <figure class="work" data-d="circle" data-note="drawing" style="--c: 4 / span 2; --w: 70%; --mt: 40vh; --mc: 3 / span 3; --mw: 100%; --mmt: 14vh">
+  <figure class="work" data-d="circle" data-note="drawing" style="--c: 8 / span 2; --w: 70%; --mt: 30vh; --mc: 2 / span 3; --mw: 100%; --mmt: 14vh">
     <div class="pic"><img src="images/studio-tokyo.jpg" alt="Me bent over a table colouring a drawing with crayons, in Tokyo" loading="lazy"></div>
     <figcaption class="wl"><b>Dania Altman</b><i>Drawing in Tokyo, 2024</i>Crayon on paper, a museum table, full concentration<button class="buy" type="button"><span class="dot"></span>Acquire</button></figcaption>
   </figure>
@@ -507,19 +532,19 @@
 <section class="after" id="position" aria-labelledby="pos-h">
   <article class="pos" id="posText">
     <h2 id="pos-h">Wall text: position <span class="small" id="wc"></span></h2>
-    <p class="lead">The grid is the plan. The cats are what actually happens. This page is the space between them.</p>
+    <p class="lead">The grid is the plan. The cats are what actually happens. This page is a gallery built in the space between them.</p>
 
     <h3>What is ordered</h3>
-    <p>My life runs on a grid. Two kids, four cats, Ben, a design master's degree: none of it works without a timetable. School pickup is a column. Feeding time is a row. I bake by <del>feel</del> <ins>weight</ins>, not by guessing, and a Saint-Honoré is six hours of steps in exactly the right order. That part of me is Swiss. So the backbone of this page is Swiss too: twelve columns, a 24px gutter, an 8px baseline, one typeface in four sizes, black, white and one red. I chose every one of those numbers and wrote them in the margin of the card, so you can check me. You watch the grid draw itself before anything lands on it.</p>
+    <p>My life runs on a grid. Two kids, four cats, Ben, a startup, a design master's degree: none of it works without a timetable. School pickup is a column. Feeding time is a row. I bake by <del>feel</del> <ins>weight</ins>, and I have a professional pastry diploma that says so: petits fours in rows of the same height, a Saint-Honoré made in six hours of steps in exactly the right order. So this page is built like the most ordered place I know, a museum. There is one way through, with rooms numbered from 0 to 8, a door before each one, and a floor plan at the side so you always know where you are. Every work has a wall label in the same order: name, title, year, material. Names are set in one serif, everything else in Helvetica, on a twelve-column grid. The clock in room 1½ shows the real time and the shape of my day in red dots.</p>
 
     <h3>What breaks it</h3>
-    <p>Sofi knocks the plan off the table. Tova sleeps belly up in the middle of the schedule. The Saint-Honoré takes six hours and is gone in six minutes. Poppy seeds get into everything: the dough, the keyboard, this website. The five rejected passport photos, the one at 7am, the one asleep, the one with the egg, are not decoration. They are the parts of my life that no grid has ever held and no model could have guessed. On this page they arrive one at a time, in the order they arrive at home, and each one pulls the card a little further off its columns. The distance is measured: the margin says how much order is left.</p>
+    <p>Then someone takes a ballpoint pen to the walls. Every work here gets a doodle, and the doodles are bad on purpose: a crooked crown on the accepted passport photo, a stick cat drawn over Tova, a cross through the corn pizza that the label refuses to withdraw. The five rejected passport photos, the one at 7am, the one asleep, the one with the egg, hang beside the accepted one, because they are the parts of my life no grid has ever held. The cats can be dragged off their places, and they only come back halfway. The Acquire button sells you a work and never delivers it. And you get a pen too: the whole show can be drawn on, and room 8 is a blank wall for your own untitled piece.</p>
 
     <h3>Against templatology</h3>
-    <p>Ask an AI for a personal site and you get Exhibit A: a centered hero, a purple gradient, three rounded cards, Inter, and a sentence about crafting delightful experiences. It looks organised, but nobody made a decision. The radius is 16px because everyone's is. The copy fits every designer, so it describes none. Müller-Brockmann's grid was a belief about clarity and honesty. The template is that belief with the belief taken out. So it gets its own scene near the end, over the dimmed card, and a red line through it. Then the card comes back, with the cats on it.</p>
+    <p>Ask an AI for a personal designer website and you get the template: a centred hero, a purple gradient, three rounded cards, Inter, and a sentence about crafting delightful experiences. It looks organised, but nobody made a decision. The copy fits every designer, so it describes none. Müller-Brockmann's grid was a belief about clarity and honesty. The template is that belief with the belief taken out. So I borrowed the most serious template there is, the museum label, and filled it with things no model would guess: Untitled (Sauce), c. 1999. Cat on grid, not for sale. America, 2019, city unknown. The format is borrowed. Every word inside it is a decision.</p>
 
     <h3>The encounter</h3>
-    <p>I don't think either side wins. A day where the plan survives untouched is <del>perfect</del> <ins>boring</ins>. A day with no plan is a disaster. My identity is the moment in between: the step where the order is restored and the cats stay exactly where they were. The rupture never erases the order. The order is what makes the rupture readable, and the rupture is what proves a person lives here. That is why the story ends with both on the screen, and why you can scroll back up and watch it happen again.</p>
+    <p>I don't think either side wins. A day where the plan survives untouched is <del>perfect</del> <ins>boring</ins>. A day with no plan is a disaster. My identity is the moment in between, and on this page it has a shape: a serious label and a bad doodle on the same wall. The label is what makes the doodle readable, and the doodle is what proves a person lives here. Even the side quest ends that way. You walk through my house in black and white pixels, bump into the cats and the oven, and the card is stamped Accepted. On the first try. Unlike some.</p>
   </article>
   <aside class="side">
     <figure><img src="images/cat-sofi-designer.jpg" alt="Sofi as a 1960s Swiss graphic designer in glasses and a black turtleneck, ruling a grid at a drafting table" width="886" height="1100" loading="lazy"><figcaption>Sofi, head of order. She drew the grid.</figcaption></figure>
@@ -563,7 +588,7 @@ function doodle(kind, w, h, r) {
 const works = [...document.querySelectorAll('.work')];
 const NS = 'http://www.w3.org/2000/svg';
 function lay(work, i) {
-  const pic = work.querySelector('.pic'), img = pic.querySelector('img');
+  const pic = work.querySelector('.pic'), img = pic.querySelector('img, video');
   const w = img.offsetWidth, h = img.offsetHeight; if (!w) return;
   pic.querySelectorAll('svg, .note').forEach(n => n.remove());
   const { paths, notes } = doodle(work.dataset.d, w, h, rng(i + 3));
@@ -583,7 +608,7 @@ function draw(work, dur = 1100) {
   work.classList.add('drawn');
 }
 const layAll = () => works.forEach(lay);
-works.forEach(w => { const im = w.querySelector('img'); if (!im.complete) im.addEventListener('load', () => lay(w, works.indexOf(w)), { once: true }); });
+works.forEach(w => { const im = w.querySelector('img, video'); if (im.tagName === 'VIDEO') { im.addEventListener('loadedmetadata', () => lay(w, works.indexOf(w)), { once: true }); return; } if (!im.complete) im.addEventListener('load', () => lay(w, works.indexOf(w)), { once: true }); });
 addEventListener('load', layAll); addEventListener('resize', layAll); layAll();
 // a doodle draws itself the first time its work comes into view, and again when you hover it
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting && !e.target.classList.contains('drawn')) { setTimeout(() => draw(e.target), 300); } }), { threshold: .6 });
