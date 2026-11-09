@@ -171,6 +171,42 @@
     .q-top { font-size: 15px; line-height: 18px; }
     .quest { justify-content: flex-start; gap: 10px; }
   }
+
+  /* ---------- the map: a floor plan in a side tab ---------- */
+  .map-tab { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 31; writing-mode: vertical-rl; padding: 14px 7px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--brown); background: var(--paper); border: 1px solid var(--brown); border-right: 0; cursor: pointer; transition: translate .4s cubic-bezier(.3, 1.4, .4, 1), opacity .4s; }
+  .map-tab:hover { color: var(--ink); }
+  body.intro-plan .map-tab { opacity: 0; translate: 40px -50%; }
+  .map-panel { position: fixed; right: 0; top: 0; bottom: 0; z-index: 32; width: min(360px, 92vw); background: var(--paper); border-left: 1px solid var(--brown); padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 14px; translate: 102% 0; transition: translate .5s cubic-bezier(.2, .8, .2, 1); overflow-y: auto; }
+  body.map-open .map-panel { translate: 0 0; }
+  .map-panel header { display: flex; justify-content: space-between; align-items: baseline; }
+  .map-panel h2 { margin: 0; font-family: var(--serif); font-weight: 500; font-size: 18px; line-height: 22px; }
+  .map-panel .x { font-size: 12px; color: var(--grey); }
+  .map-panel .x:hover { color: var(--red); }
+  .map-panel p { margin: 0; font-size: 11px; line-height: 15px; color: var(--grey); }
+  .plan { width: 100%; height: auto; overflow: visible; }
+  .plan path { fill: none; stroke: var(--brown); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+  .plan path.walk { stroke-dasharray: 2 5; stroke-width: 1.1; }
+  .plan path.secret { stroke-dasharray: 3 3; }
+  .plan .room-hit { fill: transparent; cursor: pointer; }
+  .plan .room-hit:hover { fill: rgba(138, 90, 54, .08); }
+  .plan text { font-family: var(--sans); font-size: 7px; fill: var(--grey); pointer-events: none; }
+  .plan text.num { font-family: var(--serif); font-size: 15px; fill: var(--ink); }
+  .plan text.hand { font-family: var(--hand); font-size: 12px; fill: var(--brown); }
+  .plan .here { fill: var(--red); transition: transform .6s cubic-bezier(.3, 1.4, .4, 1); }
+  .plan .here-ring { fill: none; stroke: var(--red); stroke-width: 1; opacity: .5; transform-box: fill-box; transform-origin: center; animation: ping 1.8s ease-out infinite; }
+  @keyframes ping { from { scale: .6; opacity: .7; } to { scale: 2.2; opacity: 0; } }
+  .plan .now-room path.box { stroke-width: 2; stroke: var(--ink); }
+  /* the opening: the plan draws itself, then folds into the tab */
+  .plan-intro { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--paper); transition: opacity .6s .5s; cursor: pointer; }
+  .plan-intro .wrap { width: min(560px, 86vw); transition: translate 1s cubic-bezier(.6, 0, .3, 1), scale 1s cubic-bezier(.6, 0, .3, 1), opacity .7s .3s; }
+  .plan-intro .cap { text-align: center; font-size: 12px; line-height: 16px; margin-top: 18px; opacity: 0; transition: opacity .8s 1.6s; }
+  .plan-intro .cap b { display: block; font-family: var(--serif); font-weight: 500; font-size: 22px; line-height: 28px; }
+  .plan-intro .cap span { color: var(--grey); }
+  .plan-intro.drawn .cap { opacity: 1; }
+  .plan-intro.fold { opacity: 0; pointer-events: none; }
+  .plan-intro.fold .wrap { translate: 46vw 0; scale: .12; opacity: 0; }
+  .plan-intro .skip { position: absolute; right: 24px; bottom: 20px; font-size: 11px; color: var(--grey); }
+  @media (max-width: 760px) { .map-tab { padding: 12px 5px; font-size: 10px; } }
 </style>
 </head>
 <body>
@@ -180,6 +216,19 @@
   <div class="tools"><span class="sold" id="sold">Sold <b>0</b></span><button class="quest-btn" id="questBtn" type="button">Side quest</button><button class="pen-btn" id="penBtn" type="button">Pen</button></div>
 </header>
 <canvas id="ink"></canvas>
+<button class="map-tab" id="mapTab" type="button" aria-controls="mapPanel" aria-expanded="false">Map</button>
+<aside class="map-panel" id="mapPanel" aria-label="Floor plan of the show">
+  <header><h2>Floor plan</h2><button class="x" id="mapX" type="button">Close ×</button></header>
+  <p>Eight and a half rooms, one way through. The red dot is you. Click a room to walk there.</p>
+  <svg class="plan" id="planPanel" viewBox="0 0 330 270" role="img" aria-label="Floor plan"></svg>
+  <p>The dashed door off room 2 is the side quest.</p>
+</aside>
+<div class="plan-intro" id="planIntro" aria-hidden="true">
+  <div class="wrap"><svg class="plan" id="planIntroSvg" viewBox="0 0 330 270"></svg>
+    <p class="cap"><b>Dania Altman</b><span>A retrospective in eight and a half rooms. This is the plan.</span></p></div>
+  <span class="skip">click to go in</span>
+</div>
+
 
 <section class="intro">
   <div>
@@ -867,6 +916,87 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   function close() { q.hidden = true; open = false; cancelAnimationFrame(raf); document.documentElement.style.overflow = ''; document.getElementById('questBtn').focus(); }
   document.getElementById('questBtn').addEventListener('click', show);
   document.getElementById('qClose').addEventListener('click', close);
+})();
+</script>
+
+<script>
+// ---------- the map: a floor plan, drawn by hand, with a moving "you are here" ----------
+(() => {
+  const NSv = 'http://www.w3.org/2000/svg';
+  // the order you walk in: entrance, then every door on the page
+  const stops = [['', 'Entrance']].concat([...document.querySelectorAll('.door')].map(d => [d.querySelector('.n').textContent.replace('→', ''), d.querySelector('.name span').textContent]));
+  stops[stops.length - 1] = ['', 'Exit, wall text'];
+  // a snake through a 4 by 3 grid: left to right, right to left, left to right
+  const B = 64, G = 12, X0 = 8, Y0 = 16;
+  const cell = i => { const row = Math.floor(i / 4), k = i % 4, col = row % 2 ? 3 - k : k; return [X0 + col * (B + G), Y0 + row * (B + G + 14)]; };
+  const R = seed => { let s = seed * 7919 % 233280 || 1; return () => { s = (s * 9301 + 49297) % 233280; return s / 233280 - .5; }; };
+  const shaky = (pts, r, j = 1.6) => pts.map(([x, y], i) => (i ? 'L' : 'M') + (x + r() * j).toFixed(1) + ',' + (y + r() * j).toFixed(1)).join(' ');
+  const line = (a, b, r, n = 8) => { const p = []; for (let i = 0; i <= n; i++) p.push([a[0] + (b[0] - a[0]) * i / n, a[1] + (b[1] - a[1]) * i / n]); return shaky(p, r); };
+  const box = (x, y, w, h, r) => [line([x, y], [x + w, y], r), line([x + w, y], [x + w, y + h], r), line([x + w, y + h], [x, y + h], r), line([x, y + h], [x, y], r)].join(' ');
+  function build(svg, interactive) {
+    const r = R(9); svg.innerHTML = '';
+    const el = (tag, attrs, parent = svg) => { const e = document.createElementNS(NSv, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+    // the walk: a dotted line through the middle of every room
+    const mids = stops.map((_, i) => { const [x, y] = cell(i); return [x + B / 2, y + B / 2]; });
+    el('path', { class: 'walk', d: mids.map((m, i) => (i ? 'L' : 'M') + m[0] + ',' + m[1]).join(' ') });
+    const groups = stops.map(([n, name], i) => {
+      const [x, y] = cell(i); const g = el('g', { 'data-i': i });
+      el('path', { class: 'box', d: box(x, y, B, B, r) }, g);
+      if (i === 0) el('text', { class: 'hand', x: x + 8, y: y + B - 10 }, g).textContent = 'way in';
+      else if (i === stops.length - 1) { el('text', { class: 'hand', x: x + 8, y: y + B - 10 }, g).textContent = 'way out'; }
+      else el('text', { class: 'num', x: x + 6, y: y + 18 }, g).textContent = n;
+      const words = name.split(' '), lines = []; let cur = '';
+      words.forEach(w => { if ((cur + ' ' + w).trim().length > 13) { lines.push(cur.trim()); cur = w; } else cur += ' ' + w; }); lines.push(cur.trim());
+      lines.slice(0, 2).forEach((t, k) => { el('text', { x: x, y: y + B + 9 + k * 8 }, g).textContent = t; });
+      if (interactive) el('rect', { class: 'room-hit', x, y, width: B, height: B }, g);
+      return g;
+    });
+    // the side quest: a dashed little door off room 2
+    const k2 = stops.findIndex(s => s[0] === '2');
+    if (k2 > 0) { const [x, y] = cell(k2); el('path', { class: 'secret', d: box(x + B + 3, y + 18, 18, 26, r) }); el('text', { class: 'hand', x: x + B + 1, y: y + 56 }).textContent = 'quest'; if (interactive) { const h = el('rect', { class: 'room-hit', x: x + B + 3, y: y + 18, width: 18, height: 26 }); h.addEventListener('click', () => { closeMap(); document.getElementById('questBtn').click(); }); } }
+    return { groups, mids };
+  }
+  // the panel
+  const panel = document.getElementById('planPanel'), tab = document.getElementById('mapTab');
+  const P = build(panel, true);
+  const ring = document.createElementNS(NSv, 'circle'); ring.setAttribute('class', 'here-ring'); ring.setAttribute('r', 5); panel.appendChild(ring);
+  const dot = document.createElementNS(NSv, 'circle'); dot.setAttribute('class', 'here'); dot.setAttribute('r', 4.5); panel.appendChild(dot);
+  const doorEls = [...document.querySelectorAll('.door')];
+  P.groups.forEach((g, i) => { const hit = g.querySelector('.room-hit'); if (!hit) return; hit.addEventListener('click', () => { closeMap(); if (i === 0) scrollTo({ top: 0, behavior: 'smooth' }); else doorEls[i - 1].scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+  let here = -1;
+  const place = () => {
+    let i = 0; doorEls.forEach((d, k) => { if (d.getBoundingClientRect().top < innerHeight * .5) i = k + 1; });
+    if (i === here) return; here = i;
+    const [mx, my] = P.mids[i];
+    [dot, ring].forEach(c => { c.setAttribute('cx', mx); c.setAttribute('cy', my + 14); });
+    P.groups.forEach((g, k) => g.classList.toggle('now-room', k === i));
+  };
+  addEventListener('scroll', place, { passive: true }); place();
+  const openMap = () => { document.body.classList.add('map-open'); tab.setAttribute('aria-expanded', 'true'); };
+  const closeMap = () => { document.body.classList.remove('map-open'); tab.setAttribute('aria-expanded', 'false'); };
+  tab.addEventListener('click', () => document.body.classList.contains('map-open') ? closeMap() : openMap());
+  document.getElementById('mapX').addEventListener('click', closeMap);
+  addEventListener('keydown', e => { if (e.key === 'Escape') closeMap(); });
+  // the opening: the plan draws itself, says what it is, then folds into the tab
+  const intro = document.getElementById('planIntro');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (scrollY > 40 || reduce) { intro.remove(); return; }
+  document.body.classList.add('intro-plan'); document.documentElement.style.overflow = 'hidden';
+  const I = build(document.getElementById('planIntroSvg'), false);
+  const paths = [...intro.querySelectorAll('path')], texts = [...intro.querySelectorAll('text')];
+  texts.forEach(t => { t.style.opacity = 0; t.style.transition = 'opacity .5s'; });
+  paths.forEach(p => { const L = p.getTotalLength(); p.style.strokeDasharray = p.classList.contains('walk') ? '' : L; if (!p.classList.contains('walk')) p.style.strokeDashoffset = L; else p.style.opacity = 0; });
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    let t = 0;
+    paths.forEach(p => { if (p.classList.contains('walk')) { p.style.transition = 'opacity .8s 1.9s'; p.style.opacity = 1; return; } p.style.transition = `stroke-dashoffset .5s ease ${t}ms`; p.style.strokeDashoffset = 0; t += 90; });
+    texts.forEach((x, k) => { x.style.transitionDelay = (400 + k * 40) + 'ms'; x.style.opacity = 1; });
+    intro.classList.add('drawn');
+  }));
+  let gone = false;
+  const fold = () => { if (gone) return; gone = true; intro.classList.add('fold'); document.documentElement.style.overflow = ''; setTimeout(() => { document.body.classList.remove('intro-plan'); intro.remove(); }, 1200); };
+  setTimeout(fold, 4200);
+  intro.addEventListener('click', fold);
+  addEventListener('wheel', fold, { once: true, passive: true }); addEventListener('touchmove', fold, { once: true, passive: true }); addEventListener('keydown', fold, { once: true });
 })();
 </script>
 </body>
