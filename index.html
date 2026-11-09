@@ -107,6 +107,20 @@
   .colophon [lang="he"] { font-size: 22px; line-height: 28px; }
   a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; } a:hover { color: var(--red); }
   @media (max-width: 760px) { .after { padding: 24vh 16px 0; row-gap: 48px; } .pos, .side, .colophon { grid-column: 1 / -1; } .side { position: static; max-width: 260px; } .colophon { grid-template-columns: 1fr; row-gap: 24px; padding-bottom: 80px; } }
+
+  /* ---------- doors: the pass between rooms ---------- */
+  body { transition: background-color 1.4s ease; }
+  .room { padding-top: 6vh !important; }
+  .door { position: relative; height: 120vh; display: grid; place-items: center; }
+  .door .frame { position: relative; width: min(300px, 62vw); aspect-ratio: 3 / 5; display: grid; place-items: center; text-align: center; }
+  .door svg { position: absolute; inset: -6%; width: 112%; height: 112%; overflow: visible; }
+  .door svg path { fill: none; stroke: var(--brown); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .door .n { font-family: var(--serif); font-size: clamp(54px, 9vw, 96px); line-height: 1; letter-spacing: -.02em; opacity: 0; transition: opacity 1s .6s; }
+  .door .name { margin-top: 14px; font-size: 12px; line-height: 16px; opacity: 0; transition: opacity 1s 1s; }
+  .door .name span { display: block; color: var(--grey); } .door .name.above { margin: 0 0 10px; letter-spacing: .2em; text-transform: uppercase; font-size: 10px; }
+  .door .hint { position: absolute; bottom: -78px; left: 50%; translate: -50% 0; font-family: var(--hand); font-size: 22px; color: var(--brown); white-space: nowrap; rotate: -3deg; opacity: 0; transition: opacity 1s 1.6s; }
+  .door.open .n, .door.open .name, .door.open .name.above, .door.open .hint { opacity: 1; }
+  .top .where b { font-weight: 400; color: var(--ink); }
   .foot { padding: 30vh 24px 60px; display: flex; justify-content: space-between; color: var(--grey); }
 
   @media (max-width: 760px) {
@@ -472,6 +486,49 @@ fetch('https://api.github.com/repos/altmandania-ui/identity-card/commits?per_pag
   const n = arr.length < 30 ? arr.length : '30+';
   document.getElementById('commitFoot').textContent = `Edited ${n} times. The cats were present for all of them.`;
 }).catch(() => { document.getElementById('commitFoot').textContent = 'Git history unavailable right now.'; });
+
+// ---------- doors: every room starts with a doorway, and has its own wall colour ----------
+(() => {
+  const walls = ['#f7f2e8', '#f5e9e1', '#efe8d6', '#f4e3cc', '#ece2da', '#f7f2e8', '#faf7f1'];
+  const rooms = [...document.querySelectorAll('.room'), document.querySelector('.after')];
+  const hints = ['come in', 'it is later than you think', 'mind the cats', 'it smells like butter', 'no context will be provided', 'bring a pen', 'the words, at last'];
+  const doors = rooms.map((room, i) => {
+    const t = room.querySelector('.room-title');
+    const num = t ? t.firstChild.textContent.trim() : 'Exit';
+    const name = t ? t.querySelector('span').innerHTML.split('<br>')[0] : 'Wall text';
+    const d = document.createElement('div'); d.className = 'door'; d.dataset.i = i;
+    d.innerHTML = `<div class="frame"><svg aria-hidden="true"></svg><div><p class="name above">${num === 'Exit' ? 'Exit' : 'Room'}</p><p class="n">${num === 'Exit' ? '→' : num.replace('Room ', '')}</p><p class="name"><span>${name}</span></p></div><p class="hint">${hints[i] || ''}</p></div>`;
+    room.before(d); room.dataset.i = i;
+    return d;
+  });
+  const drawDoor = (d, i) => {
+    const svg = d.querySelector('svg'), b = svg.getBoundingClientRect(), W = b.width, H = b.height, r = rng(60 + i);
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = '';
+    const sh = pts => pts.map(([x, y], k) => (k ? 'L' : 'M') + (x + r() * 3).toFixed(1) + ',' + (y + r() * 3).toFixed(1)).join(' ');
+    const p = [], top = H * .12, l = W * .08, rr = W * .92, bot = H * .97;
+    for (let k = 0; k <= 12; k++) p.push([l, bot - (bot - top - W * .42) * k / 12]);
+    for (let k = 0; k <= 24; k++) { const a = Math.PI + Math.PI * k / 24; p.push([W / 2 + Math.cos(a) * (rr - l) / 2, top + W * .42 + Math.sin(a) * W * .42]); }
+    for (let k = 0; k <= 12; k++) p.push([rr, top + W * .42 + (bot - top - W * .42) * k / 12]);
+    const floor = sh([[-W * .9, bot + 2], [W * 1.9, bot + 6]]);
+    const knob = sh(Array.from({ length: 14 }, (_, k) => [rr - W * .12 + Math.cos(k / 12 * 6.6) * 5, H * .62 + Math.sin(k / 12 * 6.6) * 5]));
+    [sh(p), floor, knob].forEach(dd => { const e = document.createElementNS(NS, 'path'); e.setAttribute('d', dd); svg.appendChild(e); const L = e.getTotalLength(); e.style.strokeDasharray = L; e.style.strokeDashoffset = d.classList.contains('open') ? 0 : L; });
+  };
+  doors.forEach(drawDoor);
+  addEventListener('resize', () => doors.forEach(drawDoor));
+  const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting || e.target.classList.contains('open')) return; const d = e.target; d.classList.add('open'); d.querySelectorAll('svg path').forEach((p, k) => { p.style.transition = `stroke-dashoffset ${k ? .8 : 1.6}s cubic-bezier(.4,.1,.5,1) ${k * .5}s`; p.style.strokeDashoffset = 0; }); }), { threshold: .45 });
+  doors.forEach(d => io.observe(d));
+  // which room you are in: the wall colour and the header follow you
+  const where = document.querySelector('.top .where');
+  let cur = -2;
+  const follow = () => {
+    let i = -1; doors.forEach((d, k) => { if (d.getBoundingClientRect().top < innerHeight * .5) i = k; });
+    if (i === cur) return; cur = i;
+    document.body.style.backgroundColor = i < 0 ? '' : walls[i];
+    const d = doors[i];
+    where.innerHTML = i < 0 ? '· A retrospective, 1997 to Friday' : (d.querySelector('.above').textContent === 'Exit' ? '· <b>Exit</b>, Wall text' : `· <b>Room ${d.querySelector('.n').textContent}</b>, ${d.querySelector('.name span').textContent}`);
+  };
+  addEventListener('scroll', follow, { passive: true }); follow();
+})();
 </script>
 </body>
 </html>
